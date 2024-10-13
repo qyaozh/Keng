@@ -37,13 +37,13 @@ Before using these functions `Keng` gathered, load `Keng` using `library()` func
 library(Keng)
 ```
 
-`cut_r()` give you the cut-off values of Pearson's *r* at the significance levels of *p* = 0.1, 0.05, 0.01, 0.001 When sample size *n* is known. 
+`cut_r()` give you the cut-off values of Pearson's *r* at the significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size *n* is known. 
 
 ```{r cut_r}
 cut_r(193)
 ```
 
-`r` with the absolute value larger than the cut-off value is significant at the corresponding significance level. As the results above suggests, when *n* = 193, |r| > 0.1412906 is significant (e.g., ±0.15).
+`r` with the absolute value larger than the cut-off value is significant at the corresponding significance level. As the results above suggests, when *n* = 193, |r| > 0.1412906 is significant at the significance level of 0.05 (e.g., ±0.15).
 
 ```{r test_r}
 test_r(0.2, 193)
