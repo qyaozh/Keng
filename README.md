@@ -43,3 +43,5 @@ significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size
 
 `test_r()` tests the significance of *r* using *t*-test when *r* and *n*
 is known.
+
+`PRE` computes *PRE* and test it using *F* test.

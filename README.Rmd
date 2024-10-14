@@ -47,4 +47,4 @@ Here is a list of the functions and data gathered in the `Keng` package. Their U
 
 `test_r()` tests the significance of *r* using *t*-test when *r* and *n* is known.
 
-
+`PRE` computes *PRE* and test it using *F* test.
