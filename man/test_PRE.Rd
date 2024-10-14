@@ -17,6 +17,9 @@ A data.frame including \emph{SSEC}, \emph{SSEA}, \emph{PRE}, \emph{F}, \emph{df1
 \description{
 Compute PRE and test it using F test.
 }
+\details{
+Please refer to Judd et al. (2017) for details.
+}
 \examples{
 x <- rnorm(193)
 y <- 0.3 + 0.2*x + rnorm(193)
@@ -24,4 +27,7 @@ dat <- data.frame(y, x)
 fitC <- lm(y ~ 1, dat)
 fitA <- lm(y ~ x, dat)
 test_PRE(fitC, fitA)
+}
+\references{
+Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). \emph{Data analysis: A model comparison approach to regression, ANOVA, and beyond}. Routledge.
 }

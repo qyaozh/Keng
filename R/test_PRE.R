@@ -3,6 +3,9 @@
 #' @param fitc The result of `lm()` of the Compact model (Model C).
 #' @param fitA The result of `lm()` of the Augmented model (Model A).
 #'
+#' @details Please refer to Judd et al. (2017) for details.
+#' @references Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model comparison approach to regression, ANOVA, and beyond*. Routledge.
+#'
 #' @return A data.frame including *SSEC*, *SSEA*, *PRE*, *F*, *df1*, *df2*, and *p*. SSEC  = The sum of squared errors of Model C, SSEA  = The sum of squared errors of Model A, PRE = The proportional reduction in error. The rest is the F test of PRE.
 #' @export
 #'
