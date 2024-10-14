@@ -1,9 +1,9 @@
-#' Test r using t-test when r and n is known
+#' Test *r* using t-test given *r* and *n*.
 #'
-#' @param r Pearson correlation
-#' @param n sample size of r
+#' @param r Pearson correlation.
+#' @param n sample size of *r*.
 #'
-#' @return r, se of r, t, and p.
+#' @return *r*, *se* of *r*, *t*, and *p*.
 #' @export
 #'
 #' @examples test_r(0.2, 193)

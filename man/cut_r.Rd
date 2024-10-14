@@ -2,18 +2,18 @@
 % Please edit documentation in R/cut_r.R
 \name{cut_r}
 \alias{cut_r}
-\title{Cut-off values of r when sample size n is known}
+\title{Cut-off values of \emph{r} given sample size \emph{n}.}
 \usage{
 cut_r(n)
 }
 \arguments{
-\item{n}{Sample size of the r}
+\item{n}{Sample size of the \emph{r}.}
 }
 \value{
-Cut-off values of r at the significance levels of p = 0.1, 0.05, 0.01, 0.001.  r with the absolute value larger than the cut-off value is significant at the corresponding significance level.
+Cut-off values of \emph{r} at the significance levels of \emph{p} = 0.1, 0.05, 0.01, 0.001.  \emph{r} with the absolute value larger than the cut-off value is significant at the corresponding significance level.
 }
 \description{
-Cut-off values of r when sample size n is known
+Cut-off values of \emph{r} given sample size \emph{n}.
 }
 \examples{
 cut_r(193)

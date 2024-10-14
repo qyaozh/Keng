@@ -2,20 +2,20 @@
 % Please edit documentation in R/test_r.R
 \name{test_r}
 \alias{test_r}
-\title{Test r using t-test when r and n is known}
+\title{Test \emph{r} using t-test given \emph{r} and \emph{n}.}
 \usage{
 test_r(r, n)
 }
 \arguments{
-\item{r}{Pearson correlation}
+\item{r}{Pearson correlation.}
 
-\item{n}{sample size of r}
+\item{n}{sample size of \emph{r}.}
 }
 \value{
-r, se of r, t, and p.
+\emph{r}, \emph{se} of \emph{r}, \emph{t}, and \emph{p}.
 }
 \description{
-Test r using t-test when r and n is known
+Test \emph{r} using t-test given \emph{r} and \emph{n}.
 }
 \examples{
 test_r(0.2, 193)
