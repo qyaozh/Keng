@@ -39,7 +39,7 @@ Their Useges are detailed in the documentation.
 
 `cut_r()` give you the cut-off values of Pearson’s *r* at the
 significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size
-*n* is known. \`\`\`
+*n* is known.
 
 `test_r()` tests the significance of *r* using *t*-test when *r* and *n*
 is known.
