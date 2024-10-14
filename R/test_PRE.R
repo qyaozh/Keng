@@ -1,4 +1,4 @@
-#' PRE
+#' Compute PRE and test it using F test.
 #'
 #' @param fitc The result of `lm()` of the Compact model (Model C).
 #' @param fitA The result of `lm()` of the Augmented model (Model A).
@@ -12,8 +12,8 @@
 #' dat <- data.frame(y, x)
 #' fitC <- lm(y ~ 1, dat)
 #' fitA <- lm(y ~ x, dat)
-#' PRE(fitC, fitA)
-PRE <- function(fitc, fitA) {
+#' test_PRE(fitC, fitA)
+test_PRE <- function(fitc, fitA) {
   n = length(fitc$residuals)
   if (n != length(fitA$residuals))
     stop("sample size of Model C does not equal to Model A.")
