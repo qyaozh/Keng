@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_r.R
 \name{test_r}
 \alias{test_r}
-\title{Test \emph{r} using t-test given \emph{r} and \emph{n}.}
+\title{Test \emph{r} using \emph{t}-test given \emph{r} and \emph{n}.}
 \usage{
 test_r(r, n)
 }
@@ -15,7 +15,10 @@ test_r(r, n)
 \emph{r}, \emph{se} of \emph{r}, \emph{t}, and \emph{p}.
 }
 \description{
-Test \emph{r} using t-test given \emph{r} and \emph{n}.
+Test \emph{r} using \emph{t}-test given \emph{r} and \emph{n}.
+}
+\details{
+To test the significance of the \emph{r} using one-sample \emph{t}-test, you could compute the \emph{SE} of the r using the following formula: SE = sqrt((1 - r^2)/(n - 2)).
 }
 \examples{
 test_r(0.2, 193)

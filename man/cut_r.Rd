@@ -15,6 +15,9 @@ Cut-off values of \emph{r} at the significance levels of \emph{p} = 0.1, 0.05, 0
 \description{
 Cut-off values of \emph{r} given sample size \emph{n}.
 }
+\details{
+Given \emph{n} and \emph{p}, \emph{t} and \emph{r} could be determined. The formula used could be found in \code{test_r()}'s documentation.
+}
 \examples{
 cut_r(193)
 }

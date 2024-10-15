@@ -26,7 +26,7 @@ pak::pkg_install("qyaozh/Keng")
 
 ## Load
 
-Before using the `Keng` package, load `Keng` using `library()` function.
+Before using the `Keng` package, load it using the `library()` function.
 
 ``` r
 library(Keng)
@@ -35,7 +35,7 @@ library(Keng)
 ## List of contents
 
 Here is a list of the functions and data gathered in the `Keng` package.
-Their Useges are detailed in the documentation.
+Their usages are detailed in the documentation.
 
 ### Pearson’s *r*
 
@@ -46,7 +46,7 @@ significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size
 `test_r()` tests the significance of *r* using *t*-test when *r* and *n*
 is known.
 
-### PRE of `lm()`
+### PRE of the linear model
 
-`test_PRE()` computes *PRE* of the augmented model compared with the
+`test_PRE()` computes the *PRE* of the augmented model compared with the
 compact model and test it using the *F* test.

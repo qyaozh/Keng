@@ -3,6 +3,9 @@
 #' @param n Sample size of the *r*.
 #'
 #' @return Cut-off values of *r* at the significance levels of *p* = 0.1, 0.05, 0.01, 0.001.  *r* with the absolute value larger than the cut-off value is significant at the corresponding significance level.
+#' @details
+#' Given *n* and *p*, *t* and *r* could be determined. The formula used could be found in `test_r()`'s documentation.
+#'
 #' @export
 #'
 #' @examples cut_r(193)

@@ -1,7 +1,8 @@
-#' Test *r* using t-test given *r* and *n*.
+#' Test *r* using *t*-test given *r* and *n*.
 #'
 #' @param r Pearson correlation.
 #' @param n sample size of *r*.
+#' @details To test the significance of the *r* using one-sample *t*-test, you could compute the *SE* of the r using the following formula: SE = sqrt((1 - r^2)/(n - 2)).
 #'
 #' @return *r*, *se* of *r*, *t*, and *p*.
 #' @export
