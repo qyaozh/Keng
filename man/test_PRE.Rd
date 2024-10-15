@@ -4,12 +4,30 @@
 \alias{test_PRE}
 \title{Compute PRE and test it using F test.}
 \usage{
-test_PRE(fitc, fitA)
+test_PRE(
+  fitc = NULL,
+  fitA = NULL,
+  n = NULL,
+  PC = NULL,
+  PA = NULL,
+  SSEC = NULL,
+  SSEA = NULL
+)
 }
 \arguments{
 \item{fitc}{The result of \code{lm()} of the Compact model (Model C).}
 
 \item{fitA}{The result of \code{lm()} of the Augmented model (Model A).}
+
+\item{n}{Sample size of the Model C or Model A. Model C and Model A must use the same sample, and hence have the same sample size.}
+
+\item{PC}{The number of parameters in Model C.}
+
+\item{PA}{The number of parameters in Model A. PA must be larger than PC.}
+
+\item{SSEC}{The Sum of Squared Errors of Model C.}
+
+\item{SSEA}{The Sum of Squared Errors of Model A.}
 }
 \value{
 A data.frame including \emph{SSEC}, \emph{SSEA}, \emph{PRE}, \emph{F}, \emph{df1}, \emph{df2}, and \emph{p}. SSEC  = The sum of squared errors of Model C, SSEA  = The sum of squared errors of Model A, PRE = The proportional reduction in error. The rest is the F test of PRE.
