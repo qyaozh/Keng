@@ -8,7 +8,7 @@
 #' @param SSEC The Sum of Squared Errors of Model C.
 #' @param SSEA The Sum of Squared Errors of Model A.
 #'
-#' @details Please refer to Judd et al. (2017) for details.
+#' @details `test_PRE()` could test the `PRE` of Model A compared with Model C. There are two ways of using `test_PRE`. The first is giving `test_PRE` fitC and fitA. The second is giving *n*, *PC*, *PA*, *SSEC*, and *SSEA*. The first way is more convenient, and it minimizes precision loss by omitting copying and pasting SSEC and SSEA. Please refer to Judd et al. (2017) for more details about PRE.
 #' @references Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model comparison approach to regression, ANOVA, and beyond*. Routledge.
 #'
 #' @return A data.frame including *SSEC*, *SSEA*, *PRE*, *F*, *df1*, *df2*, and *p*. SSEC  = The sum of squared errors of Model C, SSEA  = The sum of squared errors of Model A, PRE = The proportional reduction in error. The rest is the F test of PRE.
