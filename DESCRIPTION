@@ -1,6 +1,6 @@
 Package: Keng
-Title: Keng's Axe and Firewood
-Version: 2024.10.16
+Title: Knock Errors off Nice Guesses
+Version: 2024.10.17
 Authors@R: 
     person("Qingyao","Zhang",, "qingyaozhang@outlook.com", c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6891-5982"))

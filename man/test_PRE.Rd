@@ -25,12 +25,12 @@ test_PRE(
 
 \item{PA}{The number of parameters in Model A. PA must be larger than PC.}
 
-\item{SSEC}{The Sum of Squared Errors of Model C.}
+\item{SSEC}{The Sum of Squared Errors (SSE) of Model C.}
 
 \item{SSEA}{The Sum of Squared Errors of Model A.}
 }
 \value{
-A data.frame including \emph{SSEC}, \emph{SSEA}, \emph{PRE}, \emph{F}, \emph{df1}, \emph{df2}, and \emph{p}.
+A data.frame including \emph{SSEC}, \emph{SSEA}, \emph{PRE}, \emph{F}, \emph{df1}, \emph{df2}, \emph{p}, and \emph{PRE_adjusted}.
 }
 \description{
 Compute PRE and test it using the F-test.

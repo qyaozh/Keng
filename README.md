@@ -8,8 +8,9 @@
 
 The `Keng` package is named after Loo-Keng Hua, who made great
 achievements in mathematics mainly through self-study. Loo-Keng Hua
-encouraged the novices to show their axe skills at the gate of Ban’s
-house, so the `Keng` package comes.
+encouraged novices to show their axe skills at the gate of Ban’s house,
+so the `Keng` package comes. In addition, `Keng` is the abbreviation of
+“Knock Errors off Nice Guesses.”
 
 The `Keng` package aims to automate the computations Qingyao repeat in
 his psychological research and teaching. Hope the functions and data
