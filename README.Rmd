@@ -51,4 +51,4 @@ Here is a list of the functions and data gathered in the `Keng` package. Their u
 
 ### PRE of the linear model
 
-`test_PRE()` computes the *PRE* of the augmented model compared with the compact model. *PRE* is tested using the *F* test.
+`test_PRE()` computes and tests (*F*-test) the *PRE* of the augmented model compared with the compact model.

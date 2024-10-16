@@ -49,5 +49,5 @@ is known.
 
 ### PRE of the linear model
 
-`test_PRE()` computes the *PRE* of the augmented model compared with the
-compact model. *PRE* is tested using the *F* test.
+`test_PRE()` computes and tests (*F*-test) the *PRE* of the augmented
+model compared with the compact model.
