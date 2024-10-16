@@ -2,23 +2,23 @@
 % Please edit documentation in R/test_r.R
 \name{test_r}
 \alias{test_r}
-\title{Test \emph{r} using \emph{t}-test given \emph{r} and \emph{n}.}
+\title{Test r using the t-test given r and n.}
 \usage{
 test_r(r, n)
 }
 \arguments{
 \item{r}{Pearson correlation.}
 
-\item{n}{sample size of \emph{r}.}
+\item{n}{Sample size of \emph{r}.}
 }
 \value{
-\emph{r}, \emph{se} of \emph{r}, \emph{t}, and \emph{p}.
+A data.frame including \emph{r}, \emph{se} of \emph{r}, \emph{t}, and \emph{p}.
 }
 \description{
-Test \emph{r} using \emph{t}-test given \emph{r} and \emph{n}.
+Test r using the t-test given r and n.
 }
 \details{
-To test the significance of the \emph{r} using one-sample \emph{t}-test, you could compute the \emph{SE} of the r using the following formula: SE = sqrt((1 - r^2)/(n - 2)).
+To test the significance of the \emph{r} using one-sample \emph{t}-test, the \emph{SE} of the r is determined by the following formula: \code{SE = sqrt((1 - r^2)/(n - 2))}.
 }
 \examples{
 test_r(0.2, 193)

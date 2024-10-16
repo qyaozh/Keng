@@ -2,10 +2,10 @@
 % Please edit documentation in R/test_PRE.R
 \name{test_PRE}
 \alias{test_PRE}
-\title{Compute PRE and test it using F test.}
+\title{Compute PRE and test it using the F-test.}
 \usage{
 test_PRE(
-  fitc = NULL,
+  fitC = NULL,
   fitA = NULL,
   n = NULL,
   PC = NULL,
@@ -15,7 +15,7 @@ test_PRE(
 )
 }
 \arguments{
-\item{fitc}{The result of \code{lm()} of the Compact model (Model C).}
+\item{fitC}{The result of \code{lm()} of the Compact model (Model C).}
 
 \item{fitA}{The result of \code{lm()} of the Augmented model (Model A).}
 
@@ -30,13 +30,13 @@ test_PRE(
 \item{SSEA}{The Sum of Squared Errors of Model A.}
 }
 \value{
-A data.frame including \emph{SSEC}, \emph{SSEA}, \emph{PRE}, \emph{F}, \emph{df1}, \emph{df2}, and \emph{p}. SSEC  = The sum of squared errors of Model C, SSEA  = The sum of squared errors of Model A, PRE = The proportional reduction in error. The rest is the F test of PRE.
+A data.frame including \emph{SSEC}, \emph{SSEA}, \emph{PRE}, \emph{F}, \emph{df1}, \emph{df2}, and \emph{p}.
 }
 \description{
-Compute PRE and test it using F test.
+Compute PRE and test it using the F-test.
 }
 \details{
-\code{test_PRE()} could test the \code{PRE} of Model A compared with Model C. There are two ways of using \code{test_PRE}. The first is giving \code{test_PRE} fitC and fitA. The second is giving \emph{n}, \emph{PC}, \emph{PA}, \emph{SSEC}, and \emph{SSEA}. The first way is more convenient, and it minimizes precision loss by omitting copying and pasting SSEC and SSEA. Please refer to Judd et al. (2017) for more details about PRE.
+\code{test_PRE()} tests the \code{PRE} (Proportional Reduction in Error) of Model A compared with Model C. There are two ways of using \code{test_PRE()}. The first is giving \code{test_PRE()} fitC and fitA. The second is giving \emph{n}, \emph{PC}, \emph{PA}, \emph{SSEC}, and \emph{SSEA}. The first way is more convenient, and it minimizes precision loss by omitting copying and pasting SSEC and SSEA. Please refer to Judd et al. (2017) for more details about \emph{PRE}.
 }
 \examples{
 x <- rnorm(193)
