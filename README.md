@@ -1,9 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## Keng (庚)
+# Keng <img src="man/figures/logo.png" align="right" height="139" alt="Keng" />
 
 <!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/Keng)](https://CRAN.R-project.org/package=Keng)
 <!-- badges: end -->
 
 The `Keng` package is named after Loo-Keng Hua, who made great
