@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Keng <img src="man/figures/logo.png" align="right" height="139" alt="Keng" />
+# Keng(庚) <img src="man/figures/logo.png" align="right" height="139" alt="Keng" />
 
 <!-- badges: start -->
 
