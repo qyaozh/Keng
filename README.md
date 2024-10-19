@@ -51,7 +51,6 @@ significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size
 `test_r()` tests the significance of *r* using *t*-test when *r* and *n*
 is known.
 
-### PRE of the linear model
+### The linear model
 
-`test_PRE()` computes and tests (*F*-test) the *PRE* of the augmented
-model compared with the compact model.
+`compare_lm()` compare lm.fit using *PRE* and *R* square.

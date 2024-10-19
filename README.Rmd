@@ -51,6 +51,6 @@ Here is a list of the functions and data gathered in the `Keng` package. Their u
 
 `test_r()` tests the significance of *r* using *t*-test when *r* and *n* is known.
 
-### PRE of the linear model
+### The linear model
 
-`test_PRE()` computes and tests (*F*-test) the *PRE* of the augmented model compared with the compact model.
+`compare_lm()` compare lm.fit using *PRE* and *R* square.
