@@ -44,7 +44,7 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
            SSEC = sum((fitC$residuals)^2)
            SSEA = sum((fitA$residuals)^2)
            # mean model and R_Square
-           SSE_MEAN = sum((fitC[["model"]]$y - mean(fitC[["model"]]$y))^2)
+           SSE_MEAN = sum((fitC[["model"]][,1] - mean(fitC[["model"]][,1]))^2)
            R_Square_C = ifelse(SSE_MEAN >= SSEC, (SSE_MEAN - SSEC)/SSE_MEAN, NA)
            R_Square_adj_C = ifelse(SSE_MEAN >= SSEC, 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1)), NA)
            R_Square_A = ifelse(SSE_MEAN >= SSEA, (SSE_MEAN - SSEA)/SSE_MEAN, NA)
