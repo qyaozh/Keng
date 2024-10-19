@@ -19,14 +19,14 @@
 #' x2 <- rnorm(193)
 #' y <- 0.3 + 0.2*x1 + 0.1*x2 + rnorm(193)
 #' dat <- data.frame(y, x1, x2)
-#' fit0 <- lm(I(y-1) ~ 0, dat)
-#' fit1 <- lm(y ~ 1, dat)
-#' fit2 <- lm(y ~ x1, dat)
-#' fit3 <- lm(y ~ x1 + x2, dat)
-#' compare_lm(fit0, fit1)
+#' fit1 <- lm(I(y - 1) ~ 0, dat)
+#' fit2 <- lm(y ~ 1, dat)
+#' fit3 <- lm(y ~ x1, dat)
+#' fit4 <- lm(y ~ x1 + x2, dat)
 #' compare_lm(fit1, fit2)
 #' compare_lm(fit2, fit3)
-#' compare_lm(fit1, fit3)
+#' compare_lm(fit3, fit4)
+#' compare_lm(fit2, fit4)
 compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL, SSEA=NULL) {
   if (!(
     (sum(sapply(list(fitC, fitA), is.null)) == 0) & (sum(sapply(list(n, PC, PA, SSEC, SSEA), is.null)) == 5) |
