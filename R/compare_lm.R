@@ -34,6 +34,8 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
     ))
     stop("Provide fitc and fitA, or provide n, PC, PA, SSEC, and SSEA instead.")
   else if ((sum(sapply(list(fitC, fitA), is.null)) == 0) & (sum(sapply(list(n, PC, PA, SSEC, SSEA), is.null)) == 5)) {
+
+           # Given fitC and fitA, compute SSEC and SSEA
            n = length(fitC$residuals)
            if (n != length(fitA$residuals))
              stop("sample size of Model C must be equal to Model A.")
@@ -43,6 +45,7 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
              stop("Model C must has less parameters than Model A.")
            SSEC = sum((fitC$residuals)^2)
            SSEA = sum((fitA$residuals)^2)
+
            # mean model and R_Square
            SSE_MEAN = sum((fitC[["model"]][,1] - mean(fitC[["model"]][,1]))^2)
            R_Square_C = ifelse(SSE_MEAN >= SSEC, (SSE_MEAN - SSEC)/SSE_MEAN, NA)
@@ -51,11 +54,14 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
            R_Square_adj_A = ifelse(SSE_MEAN >= SSEA, 1 - (SSEA/(n - PA))/(SSE_MEAN/(n - 1)), NA)
   }
   else {
+    # fitC and fitA are not given, assign NAs to R-Squares
     R_Square_C = NA
     R_Square_adj_C = NA
     R_Square_A = NA
     R_Square_adj_A = NA
   }
+
+  # PRE
   SSR <- SSEC - SSEA
   PRE <- 1 - SSEA/SSEC
   df1 <- PA - PC
@@ -63,6 +69,7 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
   F <- (SSR/df1)/(SSEA/df2)
   p <- stats::pf(F, df1, df2, lower.tail = FALSE)
   PRE_adj <- 1 - (1 - PRE)*((n - PC)/(n - PA))
+
   # Return
   out <- as.data.frame(matrix(
     c(SSEC, NA, NA, NA, NA, NA, NA, R_Square_C, R_Square_adj_C,
