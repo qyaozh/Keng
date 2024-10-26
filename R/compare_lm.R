@@ -1,4 +1,4 @@
-#' Compare lm.fit using PRE and R square.
+#' Compare lm.fit using PRE and R-square.
 #'
 #' @param fitC The result of `lm()` of the Compact model (Model C).
 #' @param fitA The result of `lm()` of the Augmented model (Model A).
