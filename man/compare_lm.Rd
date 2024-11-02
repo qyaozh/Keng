@@ -43,23 +43,23 @@ x1 <- rnorm(193)
 x2 <- rnorm(193)
 y <- 0.3 + 0.2*x1 + 0.1*x2 + rnorm(193)
 dat <- data.frame(y, x1, x2)
-# Fix intercept to constant 1 using I()
+# Fix intercept to constant 1 using I().
 fit1 <- lm(I(y - 1) ~ 0, dat)
-# Free intercept
+# Free intercept.
 fit2 <- lm(y ~ 1, dat)
 compare_lm(fit1, fit2)
-# One predictor
+# One predictor.
 fit3 <- lm(y ~ x1, dat)
 compare_lm(fit2, fit3)
-# Fix intercept to 0.3 using offset()
+# Fix intercept to 0.3 using offset().
 intercept <- rep(0.3, 193)
 fit4 <- lm(y ~ 0 + x1 + offset(intercept), dat)
 compare_lm(fit4, fit3)
-# Two predictors
+# Two predictors.
 fit5 <- lm(y ~ x1 + x2, dat)
 compare_lm(fit2, fit5)
 compare_lm(fit3, fit5)
-# Fix slope of x2 to 0.05 using offset()
+# Fix slope of x2 to 0.05 using offset().
 fit6 <- lm(y ~ x1 + offset(0.05*x2), dat)
 compare_lm(fit6, fit5)
 }
