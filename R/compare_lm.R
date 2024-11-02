@@ -19,14 +19,28 @@
 #' x2 <- rnorm(193)
 #' y <- 0.3 + 0.2*x1 + 0.1*x2 + rnorm(193)
 #' dat <- data.frame(y, x1, x2)
+#' # Fix intercept to constant 1 using `I()`
 #' fit1 <- lm(I(y - 1) ~ 0, dat)
+#' # Free intercept
 #' fit2 <- lm(y ~ 1, dat)
-#' fit3 <- lm(y ~ x1, dat)
-#' fit4 <- lm(y ~ x1 + x2, dat)
 #' compare_lm(fit1, fit2)
+#' # One predictor
+#' fit3 <- lm(y ~ x1, dat)
 #' compare_lm(fit2, fit3)
-#' compare_lm(fit3, fit4)
+#' # Two predictors
+#' fit4 <- lm(y ~ x1 + x2, dat)
 #' compare_lm(fit2, fit4)
+#' compare_lm(fit3, fit4)
+#' # Fix slope of x2 to 0.05
+#' fit5 <- lm(y ~ x1 + offset(0.05*x2), dat)
+#' compare_lm(fit5, fit4)
+#' # Fix intercept to 0.3 using `I()`
+#' fit6 <- lm(I(y - 0.3) ~ 0 + x1, dat)
+#' compare_lm(fit6, fit3)
+#' # Fix intercept to 0.3 using `offset()`
+#' intercept <- rep(0.3, 193)
+#' fit7 <- lm(y ~ 0 + x1 + offset(intercept), dat)
+#' compare_lm(fit7, fit3)
 compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL, SSEA=NULL) {
   if (!(
     (sum(sapply(list(fitC, fitA), is.null)) == 0) & (sum(sapply(list(n, PC, PA, SSEC, SSEA), is.null)) == 5) |
