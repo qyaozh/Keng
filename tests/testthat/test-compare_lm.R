@@ -16,6 +16,6 @@ test_that("compare_lm", {
   expect_equal(compare_lm(fit1, fit2)[,1:7], compare_lm(n = n, PC = PC, PA = PA, SSEC = SSEC, SSEA = SSEA)[,1:7])
 
   fit3 <- lm(y ~ x1 + x2, dat)
-  expect_equal(compare_lm(fit1, fit3)[2,"PRE"], compare_lm(fit1, fit3)[2, "R_Square"])
-  expect_false(compare_lm(fit2, fit3)[2,"PRE"] == compare_lm(fit2, fit3)[2, "R_Square"])
+  expect_equal(compare_lm(fit1, fit3)[2,"PRE"], compare_lm(fit1, fit3)[2, "R_squared"])
+  expect_false(compare_lm(fit2, fit3)[2,"PRE"] == compare_lm(fit2, fit3)[2, "R_squared"])
 })

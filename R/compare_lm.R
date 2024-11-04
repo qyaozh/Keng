@@ -1,4 +1,4 @@
-#' Compare lm.fit using PRE and R-square.
+#' Compare lm.fit using PRE and R-squared.
 #'
 #' @param fitC The result of `lm()` of the Compact model (Model C).
 #' @param fitA The result of `lm()` of the Augmented model (Model A).
@@ -8,10 +8,10 @@
 #' @param SSEC The Sum of Squared Errors (SSE) of Model C.
 #' @param SSEA The Sum of Squared Errors of Model A.
 #'
-#' @details `compare_lm()` compare Model A with Model C using PRE (Proportional Reduction in Error) and R square. There are two ways of using `compare_lm()`. The first is giving `compare_lm()` fitC and fitA. The second is giving *n*, *PC*, *PA*, *SSEC*, and *SSEA*. The first way is more convenient, and it minimizes precision loss by omitting copying and pasting SSEC and SSEA. If fitC and fitA are not inferior to the intercept-only model, R-Square and Adjusted R-Square are also computed. Note that the *F*-tests for *PRE* and R-square change are equivalent. Please refer to Judd et al. (2017) for more details about *PRE*.
+#' @details `compare_lm()` compare Model A with Model C using *PRE* (Proportional Reduction in Error) and R-squared. *PRE* is partial R-squared (called partial Eta-squared in Anova).There are two ways of using `compare_lm()`. The first is giving `compare_lm()` fitC and fitA. The second is giving *n*, *PC*, *PA*, *SSEC*, and *SSEA*. The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared are also computed. Note that the *F*-tests for *PRE* and R-squared change are equivalent. Please refer to Judd et al. (2017) for more details about *PRE*.
 #' @references Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model comparison approach to regression, ANOVA, and beyond*. Routledge.
 #'
-#' @return A data.frame including *SSE*, *PRE*, the *F*-test of *PRE* (*F*, *df1*, *df2*, *p*), and *PRE_adjusted*. If fitC and fitA are not inferior to the intercept-only model, R-Square and Adjusted R-Square will also be computed.
+#' @return A data.frame including *SSE*, *PRE*, the *F*-test of *PRE* (*F*, *df1*, *df2*, *p*), and *PRE_adjusted*. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
 #' @export
 #'
 #' @examples
@@ -58,19 +58,19 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
            SSEC = sum((fitC$residuals)^2)
            SSEA = sum((fitA$residuals)^2)
 
-           # mean model and R_Square
+           # mean model and R-squared
            SSE_MEAN = sum((fitC[["model"]][,1] - mean(fitC[["model"]][,1]))^2)
-           R_Square_C = ifelse(SSE_MEAN >= SSEC, (SSE_MEAN - SSEC)/SSE_MEAN, NA)
-           R_Square_adj_C = ifelse(SSE_MEAN >= SSEC, 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1)), NA)
-           R_Square_A = ifelse(SSE_MEAN >= SSEA, (SSE_MEAN - SSEA)/SSE_MEAN, NA)
-           R_Square_adj_A = ifelse(SSE_MEAN >= SSEA, 1 - (SSEA/(n - PA))/(SSE_MEAN/(n - 1)), NA)
+           R_squared_C = ifelse(SSE_MEAN >= SSEC, (SSE_MEAN - SSEC)/SSE_MEAN, NA)
+           R_squared_adj_C = ifelse(SSE_MEAN >= SSEC, 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1)), NA)
+           R_squared_A = ifelse(SSE_MEAN >= SSEA, (SSE_MEAN - SSEA)/SSE_MEAN, NA)
+           R_squared_adj_A = ifelse(SSE_MEAN >= SSEA, 1 - (SSEA/(n - PA))/(SSE_MEAN/(n - 1)), NA)
   }
   else {
-    # fitC and fitA are not given, assign NAs to R-Squares
-    R_Square_C = NA
-    R_Square_adj_C = NA
-    R_Square_A = NA
-    R_Square_adj_A = NA
+    # fitC and fitA are not given, assign NAs to R-squared
+    R_squared_C = NA
+    R_squared_adj_C = NA
+    R_squared_A = NA
+    R_squared_adj_A = NA
   }
 
   # PRE
@@ -84,12 +84,12 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
 
   # Return
   out <- as.data.frame(matrix(
-    c(SSEC, NA, NA, NA, NA, NA, NA, R_Square_C, R_Square_adj_C,
-      SSEA, PRE, F, df1, df2, p, PRE_adj, R_Square_A, R_Square_adj_A),
+    c(SSEC, NA, NA, NA, NA, NA, NA, R_squared_C, R_squared_adj_C,
+      SSEA, PRE, F, df1, df2, p, PRE_adj, R_squared_A, R_squared_adj_A),
     nrow = 2, ncol = 9, byrow = TRUE,
     dimnames = list(
       c("Model C","Model A"),
-      c("SSE", "PRE", "F", "df1", "df2","p","PRE_adj","R_Square","R_Square_adj")
+      c("SSE", "PRE", "F", "df1", "df2","p","PRE_adj","R_squared","R_squared_adj")
     )))
   return(out)
 }

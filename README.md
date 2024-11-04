@@ -53,4 +53,5 @@ is known.
 
 ### The linear model
 
-`compare_lm()` compare lm.fit using *PRE* and *R* square.
+`compare_lm()` compare `lm()`’s fitted outputs using *PRE* and
+*R*<sup>2</sup>.
