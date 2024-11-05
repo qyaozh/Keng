@@ -2,7 +2,7 @@
 % Please edit documentation in R/compare_lm.R
 \name{compare_lm}
 \alias{compare_lm}
-\title{Compare lm.fit using PRE and R-squared.}
+\title{Compare lm()'s fitted outputs using PRE and R-squared.}
 \usage{
 compare_lm(
   fitC = NULL,
@@ -33,7 +33,7 @@ compare_lm(
 A data.frame including \emph{SSE}, \emph{PRE}, the \emph{F}-test of \emph{PRE} (\emph{F}, \emph{df1}, \emph{df2}, \emph{p}), and \emph{PRE_adjusted}. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
 }
 \description{
-Compare lm.fit using PRE and R-squared.
+Compare lm()'s fitted outputs using PRE and R-squared.
 }
 \details{
 \code{compare_lm()} compare Model A with Model C using \emph{PRE} (Proportional Reduction in Error) and R-squared. \emph{PRE} is partial R-squared (called partial Eta-squared in Anova).There are two ways of using \code{compare_lm()}. The first is giving \code{compare_lm()} fitC and fitA. The second is giving \emph{n}, \emph{PC}, \emph{PA}, \emph{SSEC}, and \emph{SSEA}. The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared are also computed. Note that the \emph{F}-tests for \emph{PRE} and R-squared change are equivalent. Please refer to Judd et al. (2017) for more details about \emph{PRE}.

@@ -42,6 +42,11 @@ library(Keng)
 Here is a list of the functions and data gathered in the `Keng` package.
 Their usages are detailed in the documentation.
 
+### Data
+
+`depress` is a subset of data from a research about depression and
+coping.
+
 ### Pearson’s *r*
 
 `cut_r()` give you the cut-off values of Pearson’s *r* at the
