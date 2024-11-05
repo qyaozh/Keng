@@ -34,14 +34,14 @@ Secondly, examine the unique effect of pm1 using hierarchical regression and *R*
 ```{r}
 anova(fitC, fitA)
 ```
-As shown, the *F* and *p* are 11.217 and 0.001185, respectively. This *F*-test is equivalent to the *t*-test above, hence they both examine the unique effect of pm. In this case, *F* = *t*^2^.
+As shown, the *F* and *p* are 11.217 and 0.001185, respectively. This *F*-test is equivalent to the *t*-test above, hence they both examine the unique effect of pm1. In this case, *F* = *t*^2^.
 
 Thirdly, examine the unique effect of pm1 using *PRE*.
 
 ```{r}
 compare_lm(fitC, fitA)
 ```
-As shown, the *F*-test of *PRE* is equivalent to the *F*-test of *R*^2^ change. 
+As shown, the *F*-test of *PRE* is equivalent to the *F*-test of anova above. 
 
 Fourthly, examine the unique effect of pm1 using residuals. Regress dm1 on em1 and am1, and attain the residuals of dm1, dm_res, which partials out the effect of em1 and am1 on dm1. Regress pm1 on em1 and am1, and attain the residuals of pm1, pm_res, which partials out the effect of em1 and am1 on pm1. Correlate dm_re with pm_res, we attain the partial correlation of dm_res and pm_res.
 
@@ -58,7 +58,7 @@ Regress dm_res on pm_res, and we attain the unique effect of pm1 on dm1.
 summary(lm(dm_res ~ pm_res, data.frame(dm_res, pm_res)))
 ```
 
-As shown, the regression coefficient of pm_res equals the partial regression coefficients of pm1. However, their *t*s, as well as *p*s, are different. Why? Let's exmine the unique effect of pm_res using *PRE*. Note that the *F*-test of *PRE* is equivalent to the *t*-test of the regresssion coefficient.
+As shown, the regression coefficient of pm_res equals the partial regression coefficients of pm1. However, their *t*s, as well as *p*s, are different. Why? Let's examine the unique effect of pm_res using *PRE*. Note that the *F*-test of *PRE* is equivalent to the *t*-test of the regression coefficient.
 
 ```{r}
 fitC2 <- lm(dm_res ~ 1, resDat)
@@ -66,4 +66,4 @@ fitA2 <- lm(dm_res ~ pm_res, resDat)
 compare_lm(fitC2, fitA2)
 ```
 
-Compare the *PRE* of pm_res with the *PRE* of pm1. It's shown that two *PRE*s are equivalent. However, *df2*s of the *F*-test for *PRE*s are different, which make *F*s, as well as *p*s, different. In other words, though the unique effect of pm1 is constant, the compact models used to evaluate its significance are different, which lead to different comparison conclusions.
+Compare the *PRE* of pm_res with the *PRE* of pm1. It's shown that two *PRE*s are equivalent. However, *df2*s of the *F*-test for *PRE*s are different, which make *F*s, as well as *p*s, different. In other words, though the unique effect of pm1 is constant, the compact models and augmented models used to evaluate its significance are different, which lead to different comparison conclusions (i.e., *F*-test and *t*-test results).
