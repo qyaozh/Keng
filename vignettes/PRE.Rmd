@@ -1,0 +1,74 @@
+---
+title: "PRE"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PRE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Keng)
+library(effectsize)
+library(car)
+data("depress")
+```
+
+PRE is called partial R-squared in regression, and partial Eta-squared in anova. This vignette will examine their equivalence using the internal data `depress`.
+
+`depress` collected `depression`, `gender`, and `class` at Time 1. Traditionally, we examine the effect of gender and class using anova. Here it comes. We firstly let R know `gender` and `class` are factors (i.e., categorical variables). Then we conduct anova using `car::Anova()` and compute partial Eta-squared using `effectsize::eta_squared()`.
+
+```{r}
+# factor gender and class
+depress_factor <- depress
+depress_factor$class <- factor(depress_factor$class, labels = c(3,5,9,12))
+depress_factor$gender <- factor(depress_factor$gender, labels = c(0,1))
+
+anova.fit <- lm(dm1 ~ gender + class, depress_facor)
+Anova(anova.fit, type = 3)
+cat("\n\n")
+print(eta_squared(Anova(anova.fit, type = 3), partial = TRUE), digits = 9)
+```
+
+Now we use repression and compute PRE. For `class` with four levels: 3, 5, 9, and 12, we dummy-code it using `ifelse()` with the class12 as the reference group. 
+
+```{r}
+depress$class3 <- ifelse(depress$class == 3,1,0)
+depress$class5 <- ifelse(depress$class == 5,1,0)
+depress$class9 <- ifelse(depress$class == 9,1,0)
+```
+
+We compute the *PRE* of gender:
+
+```{r}
+fitC <- lm(dm1 ~ class3 + class5 + class9, depress)
+fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
+compare_lm(fitC, fitA)
+```
+
+Compare gender's *PRE* and partial Eta-squared. They are equal.
+
+We compute the *PRE* of `class`. Note that in regression, the *PRE* of `class` is the *PRE* of all `class`'s dummy codes: `class3`, `class5`, and `class9`.
+
+```{r}
+fitC <- lm(dm1 ~ gender, depress)
+fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
+compare_lm(fitC, fitA)
+```
+Compare class's *PRE* and partial Eta-squared. They are equal.
+
+We compute the *PRE* of the full model(Model A). The *PRE* (partial R-squared or partial Eta-squared) of the full model is the R-squared or Eta-squared of the full model.
+
+```{r}
+fitC <- lm(dm1 ~ 1, depress)
+fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
+compare_lm(fitC, fitA)
+```
+As shown, the PRE of Model A against Model C is 0.05486913, which is equal to Model A's R_squared. Taken the loss of precision into consideration, Model C's R_squared is zero.

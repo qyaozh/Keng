@@ -19,7 +19,18 @@ library(Keng)
 data(depress)
 ```
 
-Model C regress dm1 on em1 and am1. Model A regress dm1 on pm1, em1 and am1. Firstly, examine the unique effect of pm1 using *t*-test.
+Aiming to help researchers to understand the role of *PRE* in regression, this vignette will present several ways of examining the unique effect of problem-focused coping(`pm1`) on depression(`dm1`) controlling for emotion-focused coping(`em1`) and avoidance coping(`am1`) using the first-wave data subset in internal data `depress`.
+
+Four ways will be present in the following: 
+
+- Multiple regression with *t*-test.
+- Hierarchical regression with *F*-test.
+- The *PRE* of the single parameter, the partial regression coefficient of problem-focused coping.
+- One-predictor regression using the residuals.
+
+## Multiple regression with *t*-test
+
+Firstly, examine the unique effect of pm1 using *t*-test. Model C (Compact model) regress `dm1` on `em1` and `am1`. Model A(Augmented model) regress `dm1` on `pm1`, `em1`, and `am1`. 
 
 ```{r}
 # multiple regression
@@ -29,41 +40,48 @@ summary(fitA)
 ```
 As shown, the partial regression coefficient of pm1 is -0.16705. The *t* and *p* for it are -3.349 and 0.00119, respectively.
 
-Secondly, examine the unique effect of pm1 using hierarchical regression and *R*^2^ change.
+## Hierarchical regression with *F*-test
+
+Secondly, examine the unique effect of *pm1* using hierarchical regression and its *F*-test. In SPSS, this *F*-test is presented as the *F*-test for *R*^2^ change.
 
 ```{r}
 anova(fitC, fitA)
 ```
-As shown, the *F* and *p* are 11.217 and 0.001185, respectively. This *F*-test is equivalent to the *t*-test above, hence they both examine the unique effect of pm1. In this case, *F* = *t*^2^.
+As shown, the *F* and *p* are 11.217 and 0.001185, respectively. This *F*-test is equivalent to the *t*-test above, hence they both examine the unique effect of *pm1*. In the case that the *df* of *F*'s numerator is 1, *F* = *t*^2^, and *t*'s *df* equals to the *df* of *F*'s denominator.
 
-Thirdly, examine the unique effect of pm1 using *PRE*.
+# The *PRE* of the single parameter
+
+Thirdly, examine the unique effect of *pm1* using *PRE*.
 
 ```{r}
 compare_lm(fitC, fitA)
 ```
-As shown, the *F*-test of *PRE* is equivalent to the *F*-test of anova above. 
+As shown, the *F*-test of *PRE* is equivalent to the *F*-test of anova above.
 
-Fourthly, examine the unique effect of pm1 using residuals. Regress dm1 on em1 and am1, and attain the residuals of dm1, dm_res, which partials out the effect of em1 and am1 on dm1. Regress pm1 on em1 and am1, and attain the residuals of pm1, pm_res, which partials out the effect of em1 and am1 on pm1. Correlate dm_re with pm_res, we attain the partial correlation of dm_res and pm_res.
+# One-predictor regression using the residuals
+
+Fourthly, examine the unique effect of `pm1` using residuals. Regress `dm1` on `em1` and `am1`, and attain the residuals of `dm1`, `dm_res`, which partials out the effect of `em1` and `am1` on `dm1`. Regress `pm1` on `em1` and `am1`, and attain the residuals of `pm1`, `pm_res`, which partials out the effect of `em1` and `am1` on `pm1`. Correlate `dm_res` with `pm_res`, we attain the partial correlation of `dm1` and `pm1`.
 
 ```{r}
 dm_res <- lm(dm1 ~ em1 + am1, depress)$residuals
 pm_res <- lm(pm1 ~ em1 + am1, depress)$residuals
 resDat <- data.frame(dm_res, pm_res)
-cor.test(dm_res, pm_res)
+cor(dm_res, pm_res)
 ```
+As shown, the partial correlation of `dm1` and `pm1` is -0.3329009.
 
-Regress dm_res on pm_res, and we attain the unique effect of pm1 on dm1.
+Regress `dm_res` on `pm_res`, and we attain the unique effect of `pm1` on `dm1`.
 
 ```{r}
 summary(lm(dm_res ~ pm_res, data.frame(dm_res, pm_res)))
 ```
 
-As shown, the regression coefficient of pm_res equals the partial regression coefficients of pm1. However, their *t*s, as well as *p*s, are different. Why? Let's examine the unique effect of pm_res using *PRE*. Note that the *F*-test of *PRE* is equivalent to the *t*-test of the regression coefficient.
+As shown, the regression coefficient of `pm_res` equals the partial regression coefficients of `pm1` in `fitA`. However, their *t*s, as well as *p*s, are different. Why? Let's examine the unique effect of `pm_res` using *PRE*. Note that the *F*-test of one parameter's *PRE* is equivalent to the *t*-test of this parameter. In addition, Model A is relative to Model C. With your statistical purpose changing, the referents of Model C and Model A changes.
 
 ```{r}
-fitC2 <- lm(dm_res ~ 1, resDat)
-fitA2 <- lm(dm_res ~ pm_res, resDat)
-compare_lm(fitC2, fitA2)
+fitC <- lm(dm_res ~ 1, resDat)
+fitA <- lm(dm_res ~ pm_res, resDat)
+compare_lm(fitC, fitA)
 ```
 
-Compare the *PRE* of pm_res with the *PRE* of pm1. It's shown that two *PRE*s are equivalent. However, *df2*s of the *F*-test for *PRE*s are different, which make *F*s, as well as *p*s, different. In other words, though the unique effect of pm1 is constant, the compact models and augmented models used to evaluate its significance are different, which lead to different comparison conclusions (i.e., *F*-test and *t*-test results).
+Compare the *PRE* of `pm_res` with the *PRE* of `pm1`. It's shown that two *PRE*s are equivalent. However, *df2*s are different, which make *F*s, as well as *p*s, different. In other words, though the unique effect of `pm1` is constant, the compact models and augmented models used to evaluate its significance are different, which lead to different comparison conclusions (i.e., *F*-test and *t*-test results). Rethinking the *F*-test formula of *PRE*, we reach the following conclusion: With *PRE* being equal, the significance of *PRE* is determined by the *df* of Model C and the df-change of Model A against Model C.
