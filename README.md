@@ -25,8 +25,8 @@ You can install the development version of `Keng` from
 [GitHub](https://github.com/) with:
 
 ``` r
-install.packages("pak")
-pak::pkg_install("qyaozh/Keng")
+install.packages("devtools")
+devtools::install_github("qyaozh/Keng")
 ```
 
 ## Load
