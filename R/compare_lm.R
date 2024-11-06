@@ -84,12 +84,13 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
 
   # Return
   out <- as.data.frame(matrix(
-    c(SSEC, n - PC, NA, NA, NA, NA, R_squared_C, R_squared_adj_C,
-      SSEA, df2, PRE, F, p, PRE_adj, R_squared_A, R_squared_adj_A),
-    nrow = 2, ncol = 8, byrow = TRUE,
+    c(SSEC, n - PC, R_squared_C,               R_squared_adj_C, NA,  NA, NA, NA,
+      SSEA, df2,    R_squared_A,               R_squared_adj_A, NA,  NA, NA, NA,
+      SSR,  df1,    R_squared_A - R_squared_C, NA,              PRE, F,  p,  PRE_adj),
+    nrow = 3, ncol = 8, byrow = TRUE,
     dimnames = list(
-      c("Model C","Model A"),
-      c("SSE", "df", "PRE", "F(PA-PC,n-PA)","p","PRE_adj","R_squared","R_squared_adj")
+      c("Model C", "Model A", "A vs. C"),
+      c("SSE", "df", "R_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj")
     )))
   return(out)
 }
