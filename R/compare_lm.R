@@ -11,7 +11,7 @@
 #' @details `compare_lm()` compare Model A with Model C using *PRE* (Proportional Reduction in Error) and R-squared. *PRE* is partial R-squared (called partial Eta-squared in Anova).There are two ways of using `compare_lm()`. The first is giving `compare_lm()` fitC and fitA. The second is giving *n*, *PC*, *PA*, *SSEC*, and *SSEA*. The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared are also computed. Note that the *F*-tests for *PRE* and R-squared change are equivalent. Please refer to Judd et al. (2017) for more details about *PRE*.
 #' @references Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model comparison approach to regression, ANOVA, and beyond*. Routledge.
 #'
-#' @return A data.frame including *SSE*, *PRE*, *df*, the *F*-test of *PRE* (*F*, *p*), and *PRE_adjusted*. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
+#' @return A data.frame including *SSE*, *df*, *PRE*, the *F*-test of *PRE* (*F*, *p*), and *PRE_adjusted*. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
 #' @export
 #'
 #' @examples
