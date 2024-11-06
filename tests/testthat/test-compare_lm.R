@@ -6,16 +6,16 @@ test_that("compare_lm", {
   fit1 <- lm(y ~ 1, dat)
   fit2 <- lm(y ~ x1, dat)
 
-  expect_equal(anova(fit1, fit2)[2,"F"], compare_lm(fit1, fit2)[2,"F"])
+  expect_equal(anova(fit1, fit2)[2, 5], compare_lm(fit1, fit2)[2, 4])
 
   n = 193
   PC = 1
   PA = 2
   SSEC = sum(fit1$residuals^2)
   SSEA = sum(fit2$residuals^2)
-  expect_equal(compare_lm(fit1, fit2)[,1:7], compare_lm(n = n, PC = PC, PA = PA, SSEC = SSEC, SSEA = SSEA)[,1:7])
+  expect_equal(compare_lm(fit1, fit2)[, 1:6], compare_lm(n = n, PC = PC, PA = PA, SSEC = SSEC, SSEA = SSEA)[, 1:6])
 
   fit3 <- lm(y ~ x1 + x2, dat)
-  expect_equal(compare_lm(fit1, fit3)[2,"PRE"], compare_lm(fit1, fit3)[2, "R_squared"])
-  expect_false(compare_lm(fit2, fit3)[2,"PRE"] == compare_lm(fit2, fit3)[2, "R_squared"])
+  expect_equal(compare_lm(fit1, fit3)[2, 3], compare_lm(fit1, fit3)[2, 7])
+  expect_false(compare_lm(fit2, fit3)[2, 3] == compare_lm(fit2, fit3)[2, 7])
 })

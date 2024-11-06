@@ -11,7 +11,7 @@
 #' @details `compare_lm()` compare Model A with Model C using *PRE* (Proportional Reduction in Error) and R-squared. *PRE* is partial R-squared (called partial Eta-squared in Anova).There are two ways of using `compare_lm()`. The first is giving `compare_lm()` fitC and fitA. The second is giving *n*, *PC*, *PA*, *SSEC*, and *SSEA*. The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared are also computed. Note that the *F*-tests for *PRE* and R-squared change are equivalent. Please refer to Judd et al. (2017) for more details about *PRE*.
 #' @references Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model comparison approach to regression, ANOVA, and beyond*. Routledge.
 #'
-#' @return A data.frame including *SSE*, *PRE*, the *F*-test of *PRE* (*F*, *df1*, *df2*, *p*), and *PRE_adjusted*. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
+#' @return A data.frame including *SSE*, *PRE*, *df*, the *F*-test of *PRE* (*F*, *p*), and *PRE_adjusted*. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
 #' @export
 #'
 #' @examples
@@ -84,12 +84,12 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
 
   # Return
   out <- as.data.frame(matrix(
-    c(SSEC, NA, NA, NA, NA, NA, NA, R_squared_C, R_squared_adj_C,
-      SSEA, PRE, F, df1, df2, p, PRE_adj, R_squared_A, R_squared_adj_A),
-    nrow = 2, ncol = 9, byrow = TRUE,
+    c(SSEC, n - PC, NA, NA, NA, NA, R_squared_C, R_squared_adj_C,
+      SSEA, df2, PRE, F, p, PRE_adj, R_squared_A, R_squared_adj_A),
+    nrow = 2, ncol = 8, byrow = TRUE,
     dimnames = list(
       c("Model C","Model A"),
-      c("SSE", "PRE", "F", "df1", "df2","p","PRE_adj","R_squared","R_squared_adj")
+      c("SSE", "df", "PRE", "F(PA-PC,n-PA)","p","PRE_adj","R_squared","R_squared_adj")
     )))
   return(out)
 }
