@@ -38,7 +38,7 @@ fitC <- lm(dm1 ~ em1 + am1, depress)
 fitA <- lm(dm1 ~ pm1 + em1 + am1, depress)
 summary(fitA)
 ```
-As shown, the partial regression coefficient of pm1 is -0.16705, *t*(90) = -3.349, *p* = 0.00119.
+As shown, the partial regression coefficient of `pm1` is -0.16705, *t*(90) = -3.349, *p* = 0.00119.
 
 ## Hierarchical regression with *F*-test
 
@@ -56,7 +56,7 @@ Thirdly, examine the unique effect of *pm1* using *PRE*.
 ```{r}
 format(compare_lm(fitC, fitA), digits = 3, nsmall = 3)
 ```
-As shown, *F* (1, 90) = 11.21719, *p* = 0.001185173. The *F*-test of *PRE* is equivalent to the *F*-test of anova above.
+As shown, *F* (1, 90) = 11.217, *p* = 0.00119. The *F*-test of *PRE* is equivalent to the *F*-test of anova above.
 
 # One-predictor regression using the residuals
 
