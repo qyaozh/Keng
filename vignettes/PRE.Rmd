@@ -34,7 +34,7 @@ depress_factor$gender <- factor(depress_factor$gender, labels = c(0,1))
 anova.fit <- lm(dm1 ~ gender + class, depress_factor)
 Anova(anova.fit, type = 3)
 cat("\n\n")
-print(eta_squared(Anova(anova.fit, type = 3), partial = TRUE), digits = 9)
+print(eta_squared(Anova(anova.fit, type = 3), partial = TRUE), digits = 6)
 ```
 
 Then we conduct regression analysis and compute *PRE*. For `class` with four levels: 3, 5, 9, and 12, we dummy-code it using `ifelse()` with the class12 as the reference group. 

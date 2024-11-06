@@ -80,7 +80,7 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
   PRE_adj <- 1 - (1 - PRE)*((n - PC)/(n - PA))
 
   # Return
-  out <- as.data.frame(matrix(
+  as.data.frame(matrix(
     c(SSEC,         n - PC,  R_squared_C,               R_squared_adj_C, NA,  NA, NA, NA,
       SSEA,         n - PA,  R_squared_A,               R_squared_adj_A, NA,  NA, NA, NA,
       SSEC - SSEA,  PA - PC, R_squared_A - R_squared_C, NA,              PRE, F,  p,  PRE_adj),
@@ -89,5 +89,4 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
       c("Model C", "Model A", "A vs. C"),
       c("SSE", "df", "R_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj")
     )))
-  return(out)
 }
