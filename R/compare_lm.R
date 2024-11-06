@@ -74,19 +74,16 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
   }
 
   # PRE
-  SSR <- SSEC - SSEA
   PRE <- 1 - SSEA/SSEC
-  df1 <- PA - PC
-  df2 <- n - PA
-  F <- (SSR/df1)/(SSEA/df2)
-  p <- stats::pf(F, df1, df2, lower.tail = FALSE)
+  F <- ((SSEC - SSEA)/(PA - PC))/(SSEA/(n - PA))
+  p <- stats::pf(F, (PA - PC), (n - PA), lower.tail = FALSE)
   PRE_adj <- 1 - (1 - PRE)*((n - PC)/(n - PA))
 
   # Return
   out <- as.data.frame(matrix(
-    c(SSEC, n - PC, R_squared_C,               R_squared_adj_C, NA,  NA, NA, NA,
-      SSEA, df2,    R_squared_A,               R_squared_adj_A, NA,  NA, NA, NA,
-      SSR,  df1,    R_squared_A - R_squared_C, NA,              PRE, F,  p,  PRE_adj),
+    c(SSEC,         n - PC,  R_squared_C,               R_squared_adj_C, NA,  NA, NA, NA,
+      SSEA,         n - PA,  R_squared_A,               R_squared_adj_A, NA,  NA, NA, NA,
+      SSEC - SSEA,  PA - PC, R_squared_A - R_squared_C, NA,              PRE, F,  p,  PRE_adj),
     nrow = 3, ncol = 8, byrow = TRUE,
     dimnames = list(
       c("Model C", "Model A", "A vs. C"),
