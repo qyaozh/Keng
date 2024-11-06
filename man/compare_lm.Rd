@@ -30,7 +30,7 @@ compare_lm(
 \item{SSEA}{The Sum of Squared Errors of Model A.}
 }
 \value{
-A data.frame including \emph{SSE}, \emph{df}, \emph{PRE}, the \emph{F}-test of \emph{PRE} (\emph{F}, \emph{p}), and \emph{PRE_adjusted}. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
+A data.frame with 3 rows and 8 columns. The first row reports information for Model C, the second for Model A, and the third for the change. The data.frame presents \emph{SSE}, \emph{df} of \emph{SSE}, \emph{PRE}, the \emph{F}-test of \emph{PRE} (\emph{F}, \emph{p}), and \emph{PRE_adjusted}. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
 }
 \description{
 Compare lm()'s fitted outputs using PRE and R-squared.

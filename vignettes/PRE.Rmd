@@ -53,7 +53,7 @@ We compute the *PRE* of `gender` though comparing Model A with `gender` against 
 ```{r}
 fitC <- lm(dm1 ~ class3 + class5 + class9, depress)
 fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
-compare_lm(fitC, fitA)
+format(compare_lm(fitC, fitA), digits = 3, nsmall = 3)
 ```
 
 Compare gender's *PRE* and partial Eta-squared. They should be equal.
@@ -63,7 +63,7 @@ We compute the *PRE* of `class`. Note that in regression, the *PRE* of `class` i
 ```{r}
 fitC <- lm(dm1 ~ gender, depress)
 fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
-compare_lm(fitC, fitA)
+format(compare_lm(fitC, fitA), digits = 3, nsmall = 3)
 ```
 Compare class's *PRE* and partial Eta-squared. They should be equal.
 
@@ -72,6 +72,6 @@ We compute the *PRE* of the full model(Model A). The *PRE* (partial R-squared or
 ```{r}
 fitC <- lm(dm1 ~ 1, depress)
 fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
-compare_lm(fitC, fitA)
+format(compare_lm(fitC, fitA), digits = 3, nsmall = 3)
 ```
 As shown, the *PRE* of Model A against Model C is equal to Model A's R_squared. Taken the loss of precision into consideration, Model C's R_squared is zero.
