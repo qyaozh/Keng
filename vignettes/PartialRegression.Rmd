@@ -49,7 +49,7 @@ anova(fitC, fitA)
 ```
 As shown, *F* (1, 90) = 11.217, *p* = 0.001185. This *F*-test is equivalent to the *t*-test above, since they both examine the unique effect of *pm1*. In the case that the *df* of *F*'s numerator is 1, *F* = *t*^2^, and *t*'s *df* equals to the *df* of *F*'s denominator.
 
-# The *PRE* of the single parameter
+## The *PRE* of the single parameter
 
 Thirdly, examine the unique effect of *pm1* using *PRE*.
 
@@ -58,7 +58,7 @@ format(compare_lm(fitC, fitA), digits = 3, nsmall = 3)
 ```
 As shown, *F* (1, 90) = 11.217, *p* = 0.00119. The *F*-test of *PRE* is equivalent to the *F*-test of anova above.
 
-# One-predictor regression using the residuals
+## One-predictor regression using the residuals
 
 Fourthly, examine the unique effect of `pm1` using residuals. Regress `dm1` on `em1` and `am1`, and attain the residuals of `dm1`, `dm_res`, which partials out the effect of `em1` and `am1` on `dm1`. 
 
