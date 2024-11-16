@@ -19,6 +19,6 @@
 #' x <- rnorm(193)
 #' IQ <- std(x, 100, 15)
 std <- function(x, M = 0, SD = 1){
-  stopifnot(is.numeric(x), is.numeric(M), is.numeric(SD))
+  stopifnot(is.numeric(x), is.numeric(M), is.numeric(SD), SD > 0)
   M + (x - mean(x, na.rm = TRUE))/stats::sd(x, na.rm = FALSE)*SD
 }
