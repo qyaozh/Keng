@@ -26,7 +26,7 @@
 #' fit <- lm(y ~ x*w, dat)
 #' coefs <- coef(fit)
 #' # simple slope of x at w = 3
-#' coefs[2] + coefs[4]*3 # 0.7783861
+#' coefs[2] + coefs[4]*3
 #' w_3 <- move_O(w, 3)
 #' dat$w_3 <- w_3
 #' fit <- lm(y ~ x*w_3, dat)
