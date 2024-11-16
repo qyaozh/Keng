@@ -1,6 +1,6 @@
 Package: Keng
 Title: Knock Errors Off Nice Guesses
-Version: 2024.11.06
+Version: 2024.11.16
 Authors@R: 
     person("Qingyao","Zhang",,"qingyaozhang@outlook.com", c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6891-5982"))
