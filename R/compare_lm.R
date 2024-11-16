@@ -48,18 +48,20 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
   else if ((sum(sapply(list(fitC, fitA), is.null)) == 0) & (sum(sapply(list(n, PC, PA, SSEC, SSEA), is.null)) == 5)) {
 
            # Given fitC and fitA, compute SSEC and SSEA
-           n = length(fitC$residuals)
-           if (n != length(fitA$residuals))
+           n = length(stats::resid(fitC))
+           if (n != length(stats::resid(fitA)))
              stop("sample size of Model C must be equal to Model A.")
-           PC = length(fitC$coefficients)
-           PA = length(fitA$coefficients)
+           PC = length(stats::coef(fitC))
+           PA = length(stats::coef(fitA))
            if (PC >= PA)
              stop("Model C must has less parameters than Model A.")
-           SSEC = sum((fitC$residuals)^2)
-           SSEA = sum((fitA$residuals)^2)
+           SSEC = sum(stats::resid(fitC)^2)
+           SSEA = sum(stats::resid(fitA)^2)
 
            # mean model and R-squared
-           SSE_MEAN = sum((fitC[["model"]][,1] - mean(fitC[["model"]][,1]))^2)
+           SSE_MEAN = sum((
+             stats::model.response(stats::model.frame(fitC)) - mean(stats::model.response(stats::model.frame(fitC)))
+           ) ^ 2)
            R_squared_C = ifelse(SSE_MEAN >= SSEC, (SSE_MEAN - SSEC)/SSE_MEAN, NA)
            R_squared_adj_C = ifelse(SSE_MEAN >= SSEC, 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1)), NA)
            R_squared_A = ifelse(SSE_MEAN >= SSEA, (SSE_MEAN - SSEA)/SSE_MEAN, NA)
