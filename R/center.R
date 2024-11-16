@@ -6,4 +6,6 @@
 #' x <- rnorm(193, 100, 15)
 #' center(x)
 
-center <- function(x){x - mean(x, na.rm = TRUE)}
+center <- function(x){
+  x - mean(x, na.rm = TRUE)
+  }
