@@ -28,12 +28,12 @@ If \code{expected_M} = 0 or \code{NULL}, and \code{expected_SD} = \code{NULL}, \
 
 If \code{expected_M} is a non-zero number, and \code{expected_SD} = \code{NULL}, the mean of \code{x} would be transformed to expected_M.
 
-If \code{expected_M} = 0 or \code{NULL}, and \code{expected_SD} is 1, \code{x} would be standardized to be its z-score with mean = 0 and SD = 1.
+If \code{expected_M} = 0 or \code{NULL}, and \code{expected_SD} = 1, \code{x} would be standardized to be its z-score with \emph{M} = 0 and \emph{SD} = 1.
 
 The standardized score is not necessarily the z-score. If neither \code{expected_M} nor \code{expected_SD} is \code{NULL},
 \code{x} would be standardized to be a vector whose mean and standard deviation would be \code{expected_M} and \code{expected_SD}, respectively.
-To standardize x, the mean and standard deviation of x are needed and computed,
-for which the missing values of x are removed if any.
+To standardize \code{x}, the mean and standard deviation of \code{x} are needed and computed,
+for which the missing values of \code{x} are removed if any.
 
 If \code{oadvances} is not \code{NULL},  the origin of \code{x} will advance with the standard deviation being unchanged.
 In this case, \code{Scale()} could be used to pick points in simple slope analysis for moderation models.

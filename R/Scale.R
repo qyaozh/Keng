@@ -14,12 +14,12 @@
 #'
 #' If `expected_M` is a non-zero number, and `expected_SD` = `NULL`, the mean of `x` would be transformed to expected_M.
 #'
-#' If `expected_M` = 0 or `NULL`, and `expected_SD` is 1, `x` would be standardized to be its z-score with mean = 0 and SD = 1.
+#' If `expected_M` = 0 or `NULL`, and `expected_SD` = 1, `x` would be standardized to be its z-score with *M* = 0 and *SD* = 1.
 #'
 #' The standardized score is not necessarily the z-score. If neither `expected_M` nor `expected_SD` is `NULL`,
 #' `x` would be standardized to be a vector whose mean and standard deviation would be `expected_M` and `expected_SD`, respectively.
-#' To standardize x, the mean and standard deviation of x are needed and computed,
-#' for which the missing values of x are removed if any.
+#' To standardize `x`, the mean and standard deviation of `x` are needed and computed,
+#' for which the missing values of `x` are removed if any.
 #'
 #' If `oadvances` is not `NULL`,  the origin of `x` will advance with the standard deviation being unchanged.
 #' In this case, `Scale()` could be used to pick points in simple slope analysis for moderation models.
