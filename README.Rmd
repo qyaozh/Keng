@@ -51,9 +51,7 @@ Here is a list of the functions and data gathered in the `Keng` package. Their u
 
 ### Variable transformation
 
-`move_O()` mean-centers x by default. `move_O()` could move the origin of x forward by `coord` distance is `coord` is specified. `move_O()` could be used to pick points in simple-slope analysis for moderation models.
-
-`std()` transform x into z-scores by default. `std()` could standardize the *M* and *SD* of x into other values than 0 and 1.
+`Scale()` could change the origin of a numeric vector `x` (including mean-centering it), or standardize the mean and standard deviation of `x` (including transforming it to its z-score).
 
 ### Pearson's *r*
 
