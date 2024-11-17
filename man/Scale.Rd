@@ -41,9 +41,14 @@ Note that when \code{oadvances} is not \code{NULL}, \code{expected_M} and \code{
 }
 \examples{
 (x <- rnorm(10, 5, 2))
+# Mean-center x.
 Scale(x)
+# Transform the mean of x to 3.
 Scale(x, expected_M = 3)
+# Transform x to its z-score.
 Scale(x, expected_SD = 1)
+# Standardize x with *M* = 100 and *SD* = 15.
 Scale(x, expected_M = 100, expected_SD = 15)
+# The origin of x advances by 3.
 Scale(x, oadvances = 3)
 }

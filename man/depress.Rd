@@ -16,7 +16,7 @@ A data frame with 94 rows and 237 columns:
 \item{intervene}{0 = Control group, 1 = Intervention group}
 \item{gender}{0 = girl, 1 = boy}
 \item{age}{Age in year}
-\item{cope1i1p}{Cope scale, Time1, Item1, Problem-focused coping, 1 = very seldom, 5 = very ofthen}
+\item{cope1i1p}{Cope scale, Time1, Item1, Problem-focused coping, 1 = very seldom, 5 = very often}
 \item{cope1i3a}{Cope scale, Time1, Item3, Avoidance coping}
 \item{cope1i5e}{cope scale, Time1, Item5, Emotion-focused coping}
 \item{cope2i1p}{Cope scale, Time2, Item1, Problem-focused coping}
