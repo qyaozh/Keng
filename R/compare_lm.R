@@ -63,7 +63,7 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
              stats::model.response(stats::model.frame(fitC)) - mean(stats::model.response(stats::model.frame(fitC)))
            ) ^ 2)
 
-           if (SSE_MEAN >= SSEC) {
+           if (SSE_MEAN > SSEC) {
              R_squared_C <- (SSE_MEAN - SSEC)/SSE_MEAN
              R_squared_adj_C <- 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1))
              f_squared_C <- SSE_MEAN/SSEC - 1
@@ -78,7 +78,7 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
              power_post_C <- NA
            }
 
-           if (SSE_MEAN >= SSEA) {
+           if (SSE_MEAN > SSEA) {
              R_squared_A <- (SSE_MEAN - SSEA)/SSE_MEAN
              R_squared_adj_A <- 1 - (SSEA/(n - PA))/(SSE_MEAN/(n - 1))
              f_squared_A <- SSE_MEAN/SSEA - 1
