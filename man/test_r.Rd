@@ -13,8 +13,8 @@ test_r(r, n)
 }
 \value{
 A list including \emph{r}, \emph{t} -test of \emph{r} (\code{SE_r}, \code{t}, \code{p_r}),
-\emph{CI} of \emph{r} based on \emph{t} -test (\code{LLCI_r_t}, \code{ULCI_r_t}),
-\emph{fz} (Fisher's z)  of \emph{r}, \emph{z} -test of Fisher's z (\code{SE_fz}, \code{z}, \code{p_fz}), and \emph{CI} of \emph{r} derived from \emph{fz}.
+95\% \emph{CI} of \emph{r} based on \emph{t} -test (\code{LLCI_r_t}, \code{ULCI_r_t}),
+\emph{fz} (Fisher's z)  of \emph{r}, \emph{z} -test of Fisher's z (\code{SE_fz}, \code{z}, \code{p_fz}), and 95\% \emph{CI} of \emph{r} derived from \emph{fz}.
 Note that the returned \emph{CI} of \emph{r} may be out of \emph{r}'s valid range [-1, 1].
 This "error" is deliberately left to users, who should correct the CI manually when reporting.
 }
