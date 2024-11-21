@@ -59,24 +59,53 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
            SSEA = sum(stats::resid(fitA)^2)
 
            # mean model and R-squared
-           SSE_MEAN = sum((
+           SSE_MEAN <- sum((
              stats::model.response(stats::model.frame(fitC)) - mean(stats::model.response(stats::model.frame(fitC)))
            ) ^ 2)
-           R_squared_C = ifelse(SSE_MEAN >= SSEC, (SSE_MEAN - SSEC)/SSE_MEAN, NA)
-           R_squared_adj_C = ifelse(SSE_MEAN >= SSEC, 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1)), NA)
-           f_squared_C = ifelse(SSE_MEAN >= SSEC, SSE_MEAN/SSEC - 1, NA)
-           R_squared_A = ifelse(SSE_MEAN >= SSEA, (SSE_MEAN - SSEA)/SSE_MEAN, NA)
-           R_squared_adj_A = ifelse(SSE_MEAN >= SSEA, 1 - (SSEA/(n - PA))/(SSE_MEAN/(n - 1)), NA)
-           f_squared_A = ifelse(SSE_MEAN >= SSEA, SSE_MEAN/SSEA - 1, NA)
+
+           if (SSE_MEAN >= SSEC) {
+             R_squared_C <- (SSE_MEAN - SSEC)/SSE_MEAN
+             R_squared_adj_C <- 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1))
+             f_squared_C <- SSE_MEAN/SSEC - 1
+             lambda_C <- f_squared_C*(n - PC)
+             power_post_C <- stats::pf(stats::qf(0.95, (PC - 1), (n - PC)), (PC - 1), (n - PC), lambda_C, lower.tail = FALSE)
+           }
+           else {
+             R_squared_C <- NA
+             R_squared_adj_C <- NA
+             f_squared_C <- NA
+             lambda_C <- NA
+             power_post_C <- NA
+           }
+
+           if (SSE_MEAN >= SSEA) {
+             R_squared_A <- (SSE_MEAN - SSEA)/SSE_MEAN
+             R_squared_adj_A <- 1 - (SSEA/(n - PA))/(SSE_MEAN/(n - 1))
+             f_squared_A <- SSE_MEAN/SSEA - 1
+             lambda_A <- f_squared_A*(n - PA)
+             power_post_A <- stats::pf(stats::qf(0.95, (PA - 1), (n - PA)), (PA - 1), (n - PA), lambda_A, lower.tail = FALSE)
+           }
+           else {
+             R_squared_A <- NA
+             R_squared_adj_A <- NA
+             f_squared_A <- NA
+             lambda_A <- NA
+             power_post_A <- NA
+           }
   }
   else {
     # fitC and fitA are not given, assign NAs to R-squared
-    R_squared_C = NA
-    R_squared_adj_C = NA
-    f_squared_C = NA
-    R_squared_A = NA
-    R_squared_adj_A = NA
-    f_squared_A = NA
+    R_squared_C <- NA
+    R_squared_adj_C <- NA
+    f_squared_C <- NA
+    lambda_C <- NA
+    power_post_C <- NA
+
+    R_squared_A <- NA
+    R_squared_adj_A <- NA
+    f_squared_A <- NA
+    lambda_A <- NA
+    power_post_A <- NA
   }
 
   # PRE
@@ -85,17 +114,17 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
   lambda <- f_squared*(n - PA)
   F <- ((SSEC - SSEA)/(PA - PC))/(SSEA/(n - PA))
   p <- stats::pf(F, (PA - PC), (n - PA), lower.tail = FALSE)
-  #power_post <- stats::pf(F, (PA - PC), (n - PA), lambda, lower.tail = FALSE)
+  power_post <- stats::pf(stats::qf(0.95, (PA - PC), (n - PA)), (PA - PC), (n - PA), lambda, lower.tail = FALSE)
   PRE_adj <- 1 - (1 - PRE)*((n - PC)/(n - PA))
 
   # Return
   as.data.frame(matrix(
-    c(SSEC,         n - PC,  R_squared_C,               f_squared_C, R_squared_adj_C,  NA, NA, NA,     NA,
-      SSEA,         n - PA,  R_squared_A,               f_squared_A, R_squared_adj_A,  NA, NA, NA,     NA,
-      SSEC - SSEA,  PA - PC, R_squared_A - R_squared_C, f_squared,                NA, PRE,  F,  p, PRE_adj),
-    nrow = 3, ncol = 9, byrow = TRUE,
+    c(SSEC,         n - PC,  R_squared_C,               f_squared_C, R_squared_adj_C,  NA, NA, NA,      NA, power_post_C,
+      SSEA,         n - PA,  R_squared_A,               f_squared_A, R_squared_adj_A,  NA, NA, NA,      NA, power_post_A,
+      SSEC - SSEA,  PA - PC, R_squared_A - R_squared_C, f_squared,                NA, PRE,  F,  p, PRE_adj,   power_post),
+    nrow = 3, ncol = 10, byrow = TRUE,
     dimnames = list(
       c("Model C", "Model A", "A vs. C"),
-      c("SSE", "df", "R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj")
+      c("SSE", "df", "R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj", "power_post")
     )))
 }
