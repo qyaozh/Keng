@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_r.R
 \name{test_r}
 \alias{test_r}
-\title{Test r using the t-test given r and n.}
+\title{Test r using the t-test and fisher's z given r and n.}
 \usage{
 test_r(r, n)
 }
@@ -12,13 +12,22 @@ test_r(r, n)
 \item{n}{Sample size of \emph{r}.}
 }
 \value{
-A data.frame including \emph{r}, \emph{se} of \emph{r}, \emph{t}, and \emph{p}.
+A list including \emph{r}, \emph{t} -test of \emph{r} (\code{SE_r}, \code{t}, \code{p_r}),
+\emph{CI} of \emph{r} based on \emph{t} -test (\code{LLCI_r_t}, \code{ULCI_r_t}),
+\emph{fz} (Fisher's z)  of \emph{r}, \emph{z} -test of Fisher's z (\code{SE_fz}, \code{z}, \code{p_fz}), and \emph{CI} of \emph{r} derived from \emph{fz}.
+Note that the returned \emph{CI} of \emph{r} may be out of \emph{r}'s valid range [-1, 1].
+This "error" is deliberately left to users, who should correct the CI manually when reporting.
 }
 \description{
-Test r using the t-test given r and n.
+Test r using the t-test and fisher's z given r and n.
 }
 \details{
-To test the significance of the \emph{r} using one-sample \emph{t}-test, the \emph{SE} of the r is determined by the following formula: \code{SE = sqrt((1 - r^2)/(n - 2))}.
+To test the significance of the \emph{r} using one-sample \emph{t}-test,
+the \emph{SE} of the \emph{r} is determined by the following formula: \code{SE = sqrt((1 - r^2)/(n - 2))}.
+Another way is transforming \emph{r} to Fisher's Z using the following formula:
+\code{fz = atanh(r)} with the \emph{SE} of \code{fz} being \code{sqrt(n - 3)}.
+Note that Fisher's z is commonly used to compare two Pearson's correlations from independent samples.
+Fisher's transformation is presented here for satisfying the curiosity of users interested in the difference of \emph{t} -test and fisher's transformation.
 }
 \examples{
 test_r(0.2, 193)

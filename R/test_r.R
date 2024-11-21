@@ -12,6 +12,8 @@
 #' @return A list including *r*, *t* -test of *r* (`SE_r`, `t`, `p_r`),
 #' *CI* of *r* based on *t* -test (`LLCI_r_t`, `ULCI_r_t`),
 #' *fz* (Fisher's z)  of *r*, *z* -test of Fisher's z (`SE_fz`, `z`, `p_fz`), and *CI* of *r* derived from *fz*.
+#' Note that the returned *CI* of *r* may be out of *r*'s valid range \[-1, 1\].
+#' This "error" is deliberately left to users, who should correct the CI manually when reporting.
 #'
 #' @export
 #'
