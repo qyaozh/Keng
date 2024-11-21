@@ -1,13 +1,13 @@
 #' Test r using the t-test and Fisher's z given r and n.
 #'
-#' @param r Pearson correlation.
+#' @param r Pearson's correlation.
 #' @param n Sample size of *r*.
 #' @details To test the significance of the *r* using one-sample *t*-test,
 #' the *SE* of the *r* is determined by the following formula: `SE = sqrt((1 - r^2)/(n - 2))`.
-#' Another way is transforming *r* to Fisher's Z using the following formula:
+#' Another way is transforming *r* to Fisher's z using the following formula:
 #' `fz = atanh(r)` with the *SE* of `fz` being `sqrt(n - 3)`.
 #' Note that Fisher's z is commonly used to compare two Pearson's correlations from independent samples.
-#' Fisher's transformation is presented here for satisfying the curiosity of users interested in the difference of *t* -test and fisher's transformation.
+#' Fisher's transformation is presented here only for satisfying the curiosity of users interested in the difference of *t* -test and Fisher's transformation.
 #'
 #' @return A list including *r*, *t* -test of *r* (`SE_r`, `t`, `p_r`),
 #' *CI* of *r* based on *t* -test (`LLCI_r_t`, `ULCI_r_t`),
