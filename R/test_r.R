@@ -18,7 +18,20 @@
 #' @export
 #'
 #' @examples test_r(0.2, 193)
+#'
+#' # compare the p-values of t-test and Fisher's transformation
+#' for (i in seq(30, 200, 10)) {
+#' cat(c(
+#'       "n =", i, ",",
+#'        format(
+#'         abs(test_r(0.2, i)[[1]][4] - test_r(0.2, i)[[2]][4]),
+#'         nsmall = 12, scientific = FALSE)),
+#'     fill = TRUE)
+#' }
+
 test_r <- function(r, n) {
+  stopifnot(n > 2)
+
   # t-test of r
   SE_t <- sqrt((1 - r ^ 2) / (n - 2))
   t <- r / SE_t

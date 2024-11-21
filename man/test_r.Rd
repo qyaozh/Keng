@@ -2,12 +2,12 @@
 % Please edit documentation in R/test_r.R
 \name{test_r}
 \alias{test_r}
-\title{Test r using the t-test and fisher's z given r and n.}
+\title{Test r using the t-test and Fisher's z given r and n.}
 \usage{
 test_r(r, n)
 }
 \arguments{
-\item{r}{Pearson correlation.}
+\item{r}{Pearson's correlation.}
 
 \item{n}{Sample size of \emph{r}.}
 }
@@ -19,16 +19,26 @@ Note that the returned \emph{CI} of \emph{r} may be out of \emph{r}'s valid rang
 This "error" is deliberately left to users, who should correct the CI manually when reporting.
 }
 \description{
-Test r using the t-test and fisher's z given r and n.
+Test r using the t-test and Fisher's z given r and n.
 }
 \details{
 To test the significance of the \emph{r} using one-sample \emph{t}-test,
 the \emph{SE} of the \emph{r} is determined by the following formula: \code{SE = sqrt((1 - r^2)/(n - 2))}.
-Another way is transforming \emph{r} to Fisher's Z using the following formula:
+Another way is transforming \emph{r} to Fisher's z using the following formula:
 \code{fz = atanh(r)} with the \emph{SE} of \code{fz} being \code{sqrt(n - 3)}.
 Note that Fisher's z is commonly used to compare two Pearson's correlations from independent samples.
-Fisher's transformation is presented here for satisfying the curiosity of users interested in the difference of \emph{t} -test and fisher's transformation.
+Fisher's transformation is presented here only for satisfying the curiosity of users interested in the difference of \emph{t} -test and Fisher's transformation.
 }
 \examples{
 test_r(0.2, 193)
+
+# compare the p-values of t-test and Fisher's transformation
+for (i in seq(30, 200, 10)) {
+cat(c(
+      "n =", i, ",",
+       format(
+        abs(test_r(0.2, i)[[1]][4] - test_r(0.2, i)[[2]][4]),
+        nsmall = 12, scientific = FALSE)),
+    fill = TRUE)
+}
 }
