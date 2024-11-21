@@ -15,28 +15,46 @@ compare_lm(
 )
 }
 \arguments{
-\item{fitC}{The result of \code{lm()} of the Compact model (Model C).}
+\item{fitC}{The result of \code{lm()} of the Compact model (model C).}
 
-\item{fitA}{The result of \code{lm()} of the Augmented model (Model A).}
+\item{fitA}{The result of \code{lm()} of the Augmented model (model A).}
 
-\item{n}{Sample size of the Model C or Model A. Model C and Model A must use the same sample, and hence have the same sample size.}
+\item{n}{Sample size of the model C or model A. model C and model A must use the same sample, and hence have the same sample size.}
 
-\item{PC}{The number of parameters in Model C.}
+\item{PC}{The number of parameters in model C.}
 
-\item{PA}{The number of parameters in Model A. PA must be larger than PC.}
+\item{PA}{The number of parameters in model A. PA must be larger than PC.}
 
-\item{SSEC}{The Sum of Squared Errors (SSE) of Model C.}
+\item{SSEC}{The Sum of Squared Errors (SSE) of model C.}
 
-\item{SSEA}{The Sum of Squared Errors of Model A.}
+\item{SSEA}{The Sum of Squared Errors of model A.}
 }
 \value{
-A data.frame with 3 rows and 8 columns. The first row reports information for Model C, the second for Model A, and the third for the change. The data.frame presents \emph{SSE}, \emph{df} of \emph{SSE}, \emph{PRE}, the \emph{F}-test of \emph{PRE} (\emph{F}, \emph{p}), and \emph{PRE_adjusted}. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared will also be computed.
+A matrix with 4 rows and 10 columns.
+The first row reports information for baseline model (intercept-only model).
+the second for model C, the third for model A, and the fourth for the change (model A vs. model C).
+\emph{SSE} (Sum of Squared Errors) and \emph{df} of \emph{SSE} for baseline model, model C,
+model A, and change (model A vs. model C) are reported in column 1 and column 2.
+The information in the fourth row are all for the change; put differently,
+These results quantify the effect of new parameters model A has but model C doesn't.
+If fitC and fitA are not inferior to the intercept-only model,
+\emph{R-squared}, \emph{Adjusted R-squared}, \emph{PRE}, \emph{PRE_adjusted}, and \emph{f_squared} for the full model
+(compared with the baseline model) are reported for model C and model A.
+If model C or model A has at least 1 predictor, \emph{F} -test with \emph{p},
+and post-hoc power would be computed for the corresponding full model.
 }
 \description{
 Compare lm()'s fitted outputs using PRE and R-squared.
 }
 \details{
-\code{compare_lm()} compare Model A with Model C using \emph{PRE} (Proportional Reduction in Error) and R-squared. \emph{PRE} is partial R-squared (called partial Eta-squared in Anova).There are two ways of using \code{compare_lm()}. The first is giving \code{compare_lm()} fitC and fitA. The second is giving \emph{n}, \emph{PC}, \emph{PA}, \emph{SSEC}, and \emph{SSEA}. The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting. If fitC and fitA are not inferior to the intercept-only model, R-squared and Adjusted R-squared are also computed. Note that the \emph{F}-tests for \emph{PRE} and R-squared change are equivalent. Please refer to Judd et al. (2017) for more details about \emph{PRE}.
+\code{compare_lm()} compare model A with model C using \emph{PRE} (Proportional Reduction in Error) , \emph{R-squared}, \emph{f_squared}, and post-hoc power.
+\emph{PRE} is partial R-squared (called partial Eta-squared in Anova).
+There are two ways of using \code{compare_lm()}.
+The first is giving \code{compare_lm()} fitC and fitA.
+The second is giving \emph{n}, \emph{PC}, \emph{PA}, \emph{SSEC}, and \emph{SSEA}.
+The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
+Note that the \emph{F}-tests for \emph{PRE} and R-squared change are equivalent.
+Please refer to Judd et al. (2017) for more details about \emph{PRE}, and refer to Aberson (2019) for more details about \emph{f_squared} and post-hoc power.
 }
 \examples{
 x1 <- rnorm(193)
@@ -64,5 +82,7 @@ fit6 <- lm(y ~ x1 + offset(0.05*x2), dat)
 compare_lm(fit6, fit5)
 }
 \references{
-Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). \emph{Data analysis: A model comparison approach to regression, ANOVA, and beyond}. Routledge.
+Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). \emph{Data analysis: A model Comparison approach to regression, ANOVA, and beyond}. Routledge.
+
+Aberson, C. L. (2019). \emph{Applied power analysis for the behavioral sciences}. Routledge.
 }

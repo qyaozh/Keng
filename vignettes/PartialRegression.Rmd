@@ -54,7 +54,7 @@ As shown, *F* (1, 90) = 11.217, *p* = 0.001185. This *F*-test is equivalent to t
 Thirdly, examine the unique effect of *pm1* using *PRE*.
 
 ```{r}
-format(compare_lm(fitC, fitA), digits = 3, nsmall = 3)
+print(compare_lm(fitC, fitA), digits = 3)
 ```
 As shown, *F* (1, 90) = 11.217, *p* = 0.00119. The *F*-test of *PRE* is equivalent to the *F*-test of anova above.
 
@@ -85,7 +85,7 @@ As shown, the regression coefficient of `pm_res` equals the partial regression c
 ```{r}
 fitC <- lm(dm_res ~ 1, resDat)
 fitA <- lm(dm_res ~ pm_res, resDat)
-format(compare_lm(fitC, fitA), digits = 3, nsmall = 3)
+print(compare_lm(fitC, fitA), digits = 3)
 ```
 
 Compare the *PRE* of `pm_res` with the *PRE* of `pm1`. It's shown that two *PRE*s are equivalent. However, *df2*s are different, which make *F*s, as well as *p*s, different. In other words, though the unique effect of `pm1` is constant, the compact models and augmented models used to evaluate its significance are different, which lead to different comparison conclusions (i.e., *F*-test and *t*-test results). Rethinking the *F*-test formula of *PRE*, we reach the following conclusion: With *PRE* being equal, the significance of *PRE* is determined by the *df* of Model C and the df-change of Model A against Model C. 
