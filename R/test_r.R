@@ -1,4 +1,4 @@
-#' Test r using the t-test and fisher's z given r and n.
+#' Test r using the t-test and Fisher's z given r and n.
 #'
 #' @param r Pearson correlation.
 #' @param n Sample size of *r*.
