@@ -64,31 +64,38 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
            ) ^ 2)
            R_squared_C = ifelse(SSE_MEAN >= SSEC, (SSE_MEAN - SSEC)/SSE_MEAN, NA)
            R_squared_adj_C = ifelse(SSE_MEAN >= SSEC, 1 - (SSEC/(n - PC))/(SSE_MEAN/(n - 1)), NA)
+           f_squared_C = ifelse(SSE_MEAN >= SSEC, SSE_MEAN/SSEC - 1, NA)
            R_squared_A = ifelse(SSE_MEAN >= SSEA, (SSE_MEAN - SSEA)/SSE_MEAN, NA)
            R_squared_adj_A = ifelse(SSE_MEAN >= SSEA, 1 - (SSEA/(n - PA))/(SSE_MEAN/(n - 1)), NA)
+           f_squared_A = ifelse(SSE_MEAN >= SSEA, SSE_MEAN/SSEA - 1, NA)
   }
   else {
     # fitC and fitA are not given, assign NAs to R-squared
     R_squared_C = NA
     R_squared_adj_C = NA
+    f_squared_C = NA
     R_squared_A = NA
     R_squared_adj_A = NA
+    f_squared_A = NA
   }
 
   # PRE
   PRE <- 1 - SSEA/SSEC
+  f_squared <- SSEC/SSEA - 1
+  lambda <- f_squared*(n - PA)
   F <- ((SSEC - SSEA)/(PA - PC))/(SSEA/(n - PA))
   p <- stats::pf(F, (PA - PC), (n - PA), lower.tail = FALSE)
+  #power_post <- stats::pf(F, (PA - PC), (n - PA), lambda, lower.tail = FALSE)
   PRE_adj <- 1 - (1 - PRE)*((n - PC)/(n - PA))
 
   # Return
   as.data.frame(matrix(
-    c(SSEC,         n - PC,  R_squared_C,               R_squared_adj_C, NA,  NA, NA, NA,
-      SSEA,         n - PA,  R_squared_A,               R_squared_adj_A, NA,  NA, NA, NA,
-      SSEC - SSEA,  PA - PC, R_squared_A - R_squared_C, NA,              PRE, F,  p,  PRE_adj),
-    nrow = 3, ncol = 8, byrow = TRUE,
+    c(SSEC,         n - PC,  R_squared_C,               f_squared_C, R_squared_adj_C,  NA, NA, NA,     NA,
+      SSEA,         n - PA,  R_squared_A,               f_squared_A, R_squared_adj_A,  NA, NA, NA,     NA,
+      SSEC - SSEA,  PA - PC, R_squared_A - R_squared_C, f_squared,                NA, PRE,  F,  p, PRE_adj),
+    nrow = 3, ncol = 9, byrow = TRUE,
     dimnames = list(
       c("Model C", "Model A", "A vs. C"),
-      c("SSE", "df", "R_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj")
+      c("SSE", "df", "R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj")
     )))
 }
