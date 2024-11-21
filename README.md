@@ -59,10 +59,10 @@ mean-centering it), or standardize the mean and standard deviation of
 significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size
 *n* is known.
 
-`test_r()` tests the significance of *r* using *t*-test when *r* and *n*
-is known.
+`test_r()` tests the significance of *r* using *t*-test and Fisher’s z
+when *r* and *n* is known.
 
 ### The linear model
 
-`compare_lm()` compares `lm()`’s fitted outputs using *PRE* and
-*R*<sup>2</sup>.
+`compare_lm()` compares `lm()`’s fitted outputs using *PRE*,
+*R*<sup>2</sup>, *f*<sup>2</sup>, and post-hoc power.

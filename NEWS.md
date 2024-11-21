@@ -1,4 +1,4 @@
-# Keng development
+# Keng 2024.11.22
 
 * test_r() added Fisher's z.
 * compare_lm() added *f_squared* and post-hoc power.
