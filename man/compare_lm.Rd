@@ -36,11 +36,11 @@ the second for model C, the third for model A, and the fourth for the change (mo
 \emph{SSE} (Sum of Squared Errors) and \emph{df} of \emph{SSE} for baseline model, model C,
 model A, and change (model A vs. model C) are reported in column 1 and column 2.
 The information in the fourth row are all for the change; put differently,
-These results quantify the effect of new parameters model A has but model C doesn't.
+These results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
 If fitC and fitA are not inferior to the intercept-only model,
 \emph{R-squared}, \emph{Adjusted R-squared}, \emph{PRE}, \emph{PRE_adjusted}, and \emph{f_squared} for the full model
 (compared with the baseline model) are reported for model C and model A.
-If model C or model A has at least 1 predictor, \emph{F} -test with \emph{p},
+If model C or model A has at least one predictor, \emph{F} -test with \emph{p},
 and post-hoc power would be computed for the corresponding full model.
 }
 \description{
@@ -53,7 +53,7 @@ There are two ways of using \code{compare_lm()}.
 The first is giving \code{compare_lm()} fitC and fitA.
 The second is giving \emph{n}, \emph{PC}, \emph{PA}, \emph{SSEC}, and \emph{SSEA}.
 The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
-Note that the \emph{F}-tests for \emph{PRE} and R-squared change are equivalent.
+Note that the \emph{F}-tests for \emph{PRE} and that for R-squared change are equivalent.
 Please refer to Judd et al. (2017) for more details about \emph{PRE}, and refer to Aberson (2019) for more details about \emph{f_squared} and post-hoc power.
 }
 \examples{
@@ -82,7 +82,7 @@ fit6 <- lm(y ~ x1 + offset(0.05*x2), dat)
 compare_lm(fit6, fit5)
 }
 \references{
-Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). \emph{Data analysis: A model Comparison approach to regression, ANOVA, and beyond}. Routledge.
-
 Aberson, C. L. (2019). \emph{Applied power analysis for the behavioral sciences}. Routledge.
+
+Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). \emph{Data analysis: A model Comparison approach to regression, ANOVA, and beyond}. Routledge.
 }
