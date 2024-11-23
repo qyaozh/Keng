@@ -6,7 +6,7 @@ test_that("compare_lm", {
   fit1 <- lm(y ~ 1, dat)
   fit2 <- lm(y ~ x1, dat)
 
-  expect_equal(anova(fit1, fit2)[2, 5], compare_lm(fit1, fit2)[4, 7])
+  expect_equal(anova(fit1, fit2)[2, 5], compare_lm(fit1, fit2)[7, 4])
 
   n = 193
   PC = 1
@@ -14,15 +14,15 @@ test_that("compare_lm", {
   SSEC = sum(residuals(fit1)^2)
   SSEA = sum(residuals(fit2)^2)
 
-  expect_equal(compare_lm(fit1, fit2)[3, 3], compare_lm(fit1, fit2)[3, 6])
-  expect_equal(compare_lm(fit1, fit2)[3, 4], compare_lm(fit1, fit2)[4, 4])
-  expect_equal(compare_lm(fit1, fit2)[3, 6], compare_lm(fit1, fit2)[4, 6])
-  expect_equal(compare_lm(fit1, fit2)[3, 7], compare_lm(fit1, fit2)[4, 7])
-  expect_equal(compare_lm(fit1, fit2)[3, 8], compare_lm(fit1, fit2)[4, 8])
-  expect_equal(compare_lm(fit1, fit2)[3, 9], compare_lm(fit1, fit2)[4, 9])
-  expect_equal(compare_lm(fit1, fit2)[3, 10], compare_lm(fit1, fit2)[4, 10])
-  expect_equal(compare_lm(fit1, fit2)[4, -c(3, 5)], compare_lm(n = n, PC = PC, PA = PA, SSEC = SSEC, SSEA = SSEA)[4, -c(3, 5)])
+  expect_equal(compare_lm(fit1, fit2)[3, 3], compare_lm(fit1, fit2)[6, 3])
+  expect_equal(compare_lm(fit1, fit2)[4, 3], compare_lm(fit1, fit2)[4, 4])
+  expect_equal(compare_lm(fit1, fit2)[6, 3], compare_lm(fit1, fit2)[6, 4])
+  expect_equal(compare_lm(fit1, fit2)[7, 3], compare_lm(fit1, fit2)[7, 4])
+  expect_equal(compare_lm(fit1, fit2)[8, 3], compare_lm(fit1, fit2)[8, 4])
+  expect_equal(compare_lm(fit1, fit2)[9, 3], compare_lm(fit1, fit2)[9, 4])
+  expect_equal(compare_lm(fit1, fit2)[10, 3], compare_lm(fit1, fit2)[10, 4])
+  expect_equal(compare_lm(fit1, fit2)[-c(3, 5), 4], compare_lm(n = n, PC = PC, PA = PA, SSEC = SSEC, SSEA = SSEA)[-c(3, 5), 4])
 
   fit3 <- lm(y ~ x1 + x2, dat)
-  expect_equal(compare_lm(fit1, fit3)[3, 3], compare_lm(fit1, fit3)[4, 6])
+  expect_equal(compare_lm(fit1, fit3)[3, 3], compare_lm(fit1, fit3)[6, 4])
 })

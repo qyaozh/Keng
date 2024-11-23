@@ -209,9 +209,9 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
              SSEC,   df_C,               R_squared_C, f_squared_C, R_squared_adj_C, PRE_C, F_C, p_C, PRE_C_adj, power_post_C,
              SSEA,   df_A,               R_squared_A, f_squared_A, R_squared_adj_A, PRE_A, F_A, p_A, PRE_A_adj, power_post_A,
       SSEC - SSEA, df_A_C, R_squared_A - R_squared_C,   f_squared,              NA,   PRE,   F,   p,   PRE_adj,   power_post),
-    nrow = 4, ncol = 10, byrow = TRUE,
+    ncol = 4,
     dimnames = list(
-      c("Baseline", "C", "A", "A vs. C"),
-      c("SSE", "df", "R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj", "power_post")
+      c("SSE", "df", "R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj", "power_post"),
+      c("Baseline", "C", "A", "A vs. C")
     ))
 }
