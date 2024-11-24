@@ -2,7 +2,7 @@
 #'
 #' @param PRE Proportional Reduction in Error.
 #' *PRE* = The square of partial correlation.
-#' Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of PRE for small,
+#' Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of *PRE* for small,
 #' medium, and large effect sizes, respectively.
 #' @param PC Number of parameters of model C (compact model) without focal predictors of interest.
 #' @param PA Number of parameters of model A (augmented model) with focal predictors of interest.
@@ -10,8 +10,8 @@
 #' @param sig.level Expected significance level for effects of focal predictors.
 #' @param n The current sample size. If *n* is given, the post-hoc power would be computed.
 #'
-#' @return A list with 4 items: (1) `post`, the post-hoc F-test, lambda (non-centrality parameter),
-#' and power for sample size *n*;
+#' @return A list with 4 items: (1) `post`, the post-hoc *F* -test, `lambda` (non-centrality parameter),
+#' and `power` for sample size `n`;
 #' (2)`minimum`, the minimum sample size required for focal predictors to reach the
 #' expected statistical power and significance level;
 #' (3) `prior`, a data.frame including `n_i`, `PC`, `PA`,`df_A_i`, `F_i`, `p_i`, `lambda_i`, `power_i`.

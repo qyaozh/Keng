@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(Keng)
 ```
 
-The significance of the unique effect of one or a set of predictors in the regression model is determined by the PRE (Proportional Reduction in Error, also called partial eta_squared in ANOVA, or partial R_squared in regression), number of parameters in the regression model, and sample size. As a result, given PRE, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). So, `power_lm()` comes.
+The significance of the unique effect of one or a set of predictors in the regression model is determined by the PRE (Proportional Reduction in Error, also called partial *eta_squared* in ANOVA, or partial *R_squared* in regression), number of parameters in the regression model, and sample size. As a result, given *PRE*, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). So, `power_lm()` comes.
 
 ## `power_lm()`
 
@@ -26,7 +26,7 @@ To plan sample size for one or a set of predictors, the following information ar
 
 - `PRE`
 
-  *PRE* is partial R_squared. Partial R_squared is the square of the partial correlation. You could calculate *PRE* from the partial correlation. Other statistical software or R packages often plan sample size for regression model through Cohen's f_squared, or its square root, Cohen's f. `power_lm()` use *PRE* here because *PRE* and its square root, partial correlation, are more meaningful. The partial correlation is the net correlation between the outcome of regression (e.g., depression) and the predictor (e.g., problem-focused coping) or set of predictors (e.g., the dummy codes of class) of interest. Put differently, the partial correlation is the pure correlation between the outcome and the predictor or set of predictors of interest after controlling for all other predictors, no matter how many they are. We should give a nice guess about the partial correlation. For example, we may guess that, after controlling for other predictors, the partial correlation between the outcome depression and the predictor gender is 0.2, then *PRE* = 0.2^2^ = 0.04. You may get the effect size Cohen's f_squared or f of gender predicting depression, and in this case you could convert Cohen's f_squared or f to *PRE*. `Keng` provides a function `calc_PRE()` to help users to convert the partial correlation `r_p`, or `f_squared` or `f` to *PRE*.
+  *PRE* is partial *R_squared*. Partial *R_squared* is the square of the partial correlation. You could calculate *PRE* from the partial correlation. Other statistical software or R packages often plan sample size for regression model through Cohen's *f_squared*, or its square root, Cohen's *f*. `power_lm()` use *PRE* here because *PRE* and its square root, partial correlation, are more meaningful. The partial correlation is the net correlation between the outcome of regression (e.g., depression) and the predictor (e.g., problem-focused coping) or set of predictors (e.g., the dummy codes of class) of interest. Put differently, the partial correlation is the pure correlation between the outcome and the predictor or set of predictors of interest after controlling for all other predictors, no matter how many they are. We should give a nice guess about the partial correlation. For example, we may guess that, after controlling for other predictors, the partial correlation between the outcome depression and the predictor problem-focused coping is 0.2, then *PRE* = 0.2^2^ = 0.04. You may get the effect size Cohen's *f_squared* or *f* of  problem-focused coping predicting depression, and in this case you could convert Cohen's *f_squared* or *f* to *PRE*. `Keng` provides a function `calc_PRE()` to help users to convert the partial correlation `r_p`, or `f_squared` or `f` to *PRE*.
   
 - `PA` and `PC`
   
@@ -44,7 +44,7 @@ To plan sample size for one or a set of predictors, the following information ar
   
 - `n`
 
-  `n` is an optional argument. `n` is the sample size, and should be larger than PA.  If `n` is given, post-hoc power would be computed.
+  `n` is an optional argument. `n` is the sample size, and should be larger than `PA`.  If `n` is given, post-hoc power would be computed.
   
 Note that `power_lm()` follows Aberson's (2019), and the planed sample size is more conservative than other statistical software like G*power. However, the difference is small and negligible.
 
@@ -58,7 +58,7 @@ You may be interested in the power and required sample size of the full regressi
 
 ### A continuous predictor
 
-You may be interested in the power and required sample size of one predictor. Suppose your regression model has m predictors, in this case PA = m + 1, PC = (m + 1) - 1.
+You may be interested in the power and required sample size of one continuous predictor. Suppose your regression model has m predictors, in this case PA = m + 1, PC = (m + 1) - 1.
 
 ### Moderation model
 
@@ -82,7 +82,7 @@ If you are interested in the difference between multiple groups, you may turn to
 
 ### ANOVA concerning repeated measures
 
-If you are interested in the outcome that were repeatably measured, you may turn to repeated-measures-ANOVA. In essence, repeated-measures-ANOVA computes the difference score of interest (contrasts), and then conduct between-factor ANOVA. Similarly, you could compute the difference score of interest, and then conduct regression analysis. Treat the group variable as a multicategorical independent variable, then code it using a coding schema like dummy coding. No matter which coding schema you use, for a multicategorical independent variable with j levels, it should be coded into (j - 1) predictors, which are the set of focal predictors. Suppose your regression model has m predictors, among which there are (j - 1) codes, in this case PA = m + 1, PC = (m + 1) - (j - 1).
+If you are interested in the outcome that were repeatedly measured, you may turn to repeated-measures-ANOVA. In essence, repeated-measures-ANOVA computes the difference score of interest (contrasts), and then conduct between-factor ANOVA. Similarly, you could compute the difference score of interest, and then conduct regression analysis. 
 
 A special case is there is no between-subject factor. Under this circumstance, treat the difference score as the outcome and establish a intercept-only model like one-sample *t* -test.
 

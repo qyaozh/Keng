@@ -24,10 +24,10 @@
 #' @return A matrix with 11 rows and 4 columns.
 #' The first column reports information for baseline model (intercept-only model).
 #' the second for model C, the third for model A, and the fourth for the change (model A vs. model C).
-#' *SSE* (Sum of Squared Errors) and *df* of *SSE* for baseline model, model C,
+#' *SSE* (Sum of Squared Errors), *df* of *SSE*, and the number of parameters for baseline model, model C,
 #' model A, and change (model A vs. model C) are reported in row 1 and row 2.
 #' The information in the fourth column are all for the change; put differently,
-#' These results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
+#' these results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
 #' If fitC and fitA are not inferior to the intercept-only model,
 #' *R-squared*, *Adjusted R-squared*, *PRE*, *PRE_adjusted*, and *f_squared* for the full model
 #' (compared with the baseline model) are reported for model C and model A.

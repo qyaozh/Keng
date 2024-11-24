@@ -1,12 +1,12 @@
 #' Calculate PRE from Cohen's f, f_squared, or partial correlation
 #'
-#' @param f Cohen's f. Cohen (1988) suggested >=0.1, >=0.25, and >=0.40 as cut-off values of f for small,
+#' @param f Cohen's *f*. Cohen (1988) suggested >=0.1, >=0.25, and >=0.40 as cut-off values of *f* for small,
 #' medium, and large effect sizes, respectively.
-#' @param f_squared Cohen's f_squared. Cohen (1988) suggested >=0.02, >=0.15, and >=0.35 as cut-off values of f for small,
+#' @param f_squared Cohen's *f_squared*. Cohen (1988) suggested >=0.02, >=0.15, and >=0.35 as cut-off values of *f* for small,
 #' medium, and large effect sizes, respectively.
 #' @param r_p Partial correlation.
 #'
-#' @return A list including PRE, r_p (partial correlation), Cohen's f_squared, and f.
+#' @return A list including *PRE*, *r_p* (partial correlation), Cohen's *f_squared*, and *f*.
 #'
 #' @references Cohen, J. (1988). *Statistical power analysis for the behavioral sciences* (2nd ed.). Routledge.
 #'
