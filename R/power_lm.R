@@ -1,4 +1,4 @@
-#' Compute the post-hoc power and/or plan the sample size for one or a set of predictors in linear regression
+#' Post-hoc and/or prior power of regression analysis
 #'
 #' @param PRE Proportional Reduction in Error.
 #' *PRE* = The square of partial correlation.
