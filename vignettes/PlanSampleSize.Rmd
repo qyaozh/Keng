@@ -38,7 +38,7 @@ To plan sample size for one or a set of predictors, the following information ar
 
   `power` is the expected statistical power, usually it's set to be 0.80.
 
-- sig.level
+- `sig.level`
 
   `sig.level` is the expected significance level, and it's commonly known as the cut-off *p* -value. Usually it's set to be 0.05.
   
@@ -76,7 +76,7 @@ Note that in this case you must use the **CORRECT** *PRE* to yield correct power
 
 If you are interested in the difference between two groups (e.g., experimental vs control), you may turn to the *t* -test. Or, you could treat the group variable as a binary predictor and conduct regression analysis. Then the focal predictor is the binary group predictor. Suppose your regression model has m predictors, in this case PA = m + 1, PC = (m + 1) - 1.
 
-### ANOVA or A multicategorical predictor
+### ANOVA or a multicategorical predictor
 
 If you are interested in the difference between multiple groups, you may turn to ANOVA. Or, you could treat the group variable as a multicategorical independent variable. Then you could code it using a coding schema like dummy coding. No matter which coding schema you use, for a multicategorical independent variable with j levels, it should be coded into (j - 1) predictors, which are the set of focal predictors. Suppose your regression model has m predictors, among which there are (j - 1) codes, in this case PA = m + 1, PC = (m + 1) - (j - 1).
 
