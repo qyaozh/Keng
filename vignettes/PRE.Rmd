@@ -21,7 +21,7 @@ library(car)
 data("depress")
 ```
 
-PRE is called partial R-squared in regression, and partial Eta-squared in anova. This vignette will examine their equivalence using the internal data `depress`.
+PRE is called partial R-squared in regression, and partial Eta-squared in ANOVA. This vignette will examine their equivalence using the internal data `depress`.
 
 `depress` collected `depression`, `gender`, and `class` at Time 1. Traditionally, we examine the effect of `gender` and `class` using anova. We firstly let R know `gender` and `class` are factors (i.e., categorical variables). Then we conduct anova using `car::Anova()` and compute partial Eta-squared using `effectsize::eta_squared()`.
 

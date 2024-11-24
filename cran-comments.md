@@ -2,4 +2,4 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is an update.
+* This is an update. New functions has been added.

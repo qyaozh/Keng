@@ -21,12 +21,12 @@
 #'
 #' Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model Comparison approach to regression, ANOVA, and beyond*. Routledge.
 #'
-#' @return A matrix with 4 rows and 10 columns.
-#' The first row reports information for baseline model (intercept-only model).
+#' @return A matrix with 11 rows and 4 columns.
+#' The first column reports information for baseline model (intercept-only model).
 #' the second for model C, the third for model A, and the fourth for the change (model A vs. model C).
 #' *SSE* (Sum of Squared Errors) and *df* of *SSE* for baseline model, model C,
-#' model A, and change (model A vs. model C) are reported in column 1 and column 2.
-#' The information in the fourth row are all for the change; put differently,
+#' model A, and change (model A vs. model C) are reported in row 1 and row 2.
+#' The information in the fourth column are all for the change; put differently,
 #' These results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
 #' If fitC and fitA are not inferior to the intercept-only model,
 #' *R-squared*, *Adjusted R-squared*, *PRE*, *PRE_adjusted*, and *f_squared* for the full model
@@ -205,13 +205,13 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
 
   # Return
   matrix(
-    c(       SSEM,   df_M,                        NA,          NA,              NA,    NA,  NA,  NA,        NA,           NA,
-             SSEC,   df_C,               R_squared_C, f_squared_C, R_squared_adj_C, PRE_C, F_C, p_C, PRE_C_adj, power_post_C,
-             SSEA,   df_A,               R_squared_A, f_squared_A, R_squared_adj_A, PRE_A, F_A, p_A, PRE_A_adj, power_post_A,
-      SSEC - SSEA, df_A_C, R_squared_A - R_squared_C,   f_squared,              NA,   PRE,   F,   p,   PRE_adj,   power_post),
+    c(       SSEM,   df_M,       1,                         NA,          NA,              NA,    NA,  NA,  NA,        NA,           NA,
+             SSEC,   df_C,      PC,                R_squared_C, f_squared_C, R_squared_adj_C, PRE_C, F_C, p_C, PRE_C_adj, power_post_C,
+             SSEA,   df_A,      PA,                R_squared_A, f_squared_A, R_squared_adj_A, PRE_A, F_A, p_A, PRE_A_adj, power_post_A,
+      SSEC - SSEA, df_A_C, PA - PC,  R_squared_A - R_squared_C,   f_squared,              NA,   PRE,   F,   p,   PRE_adj,   power_post),
     ncol = 4,
     dimnames = list(
-      c("SSE", "df", "R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj", "power_post"),
+      c("SSE", "df", "Number of parameters","R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj", "power_post"),
       c("Baseline", "C", "A", "A vs. C")
     ))
 }

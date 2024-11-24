@@ -66,3 +66,9 @@ when *r* and *n* is known.
 
 `compare_lm()` compares `lm()`’s fitted outputs using *PRE*,
 *R*<sup>2</sup>, *f*<sup>2</sup>, and post-hoc power.
+
+`calc_pre()` calculates PRE from partial correlation, Cohen’s f, or
+f_squared.
+
+`power_lm()` computes the post-hoc power and/or plans the sample size
+for one or a set of predictors in regression analysis.

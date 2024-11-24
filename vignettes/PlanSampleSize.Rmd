@@ -1,0 +1,91 @@
+---
+title: "Plan Sample Size"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PlanSampleSize}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Keng)
+```
+
+The significance of the unique effect of one or a set of predictors in the regression model is determined by the PRE (Proportional Reduction in Error, also called partial eta_squared in ANOVA, or partial R_squared in regression), number of parameters in the regression model, and sample size. As a result, given PRE, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). So, `power_lm()` comes.
+
+## `power_lm()`
+
+To plan sample size for one or a set of predictors, the following information are needed and passed to `power_lm()` as arguments:
+
+- `PRE`
+
+  *PRE* is partial R_squared. Partial R_squared is the square of the partial correlation. You could calculate *PRE* from the partial correlation. Other statistical software or R packages often plan sample size for regression model through Cohen's f_squared, or its square root, Cohen's f. `power_lm()` use *PRE* here because *PRE* and its square root, partial correlation, are more meaningful. The partial correlation is the net correlation between the outcome of regression (e.g., depression) and the predictor (e.g., problem-focused coping) or set of predictors (e.g., the dummy codes of class) of interest. Put differently, the partial correlation is the pure correlation between the outcome and the predictor or set of predictors of interest after controlling for all other predictors, no matter how many they are. We should give a nice guess about the partial correlation. For example, we may guess that, after controlling for other predictors, the partial correlation between the outcome depression and the predictor gender is 0.2, then *PRE* = 0.2^2^ = 0.04. You may get the effect size Cohen's f_squared or f of gender predicting depression, and in this case you could convert Cohen's f_squared or f to *PRE*. `Keng` provides a function `calc_PRE()` to help users to convert the partial correlation `r_p`, or `f_squared` or `f` to *PRE*.
+  
+- `PA` and `PC`
+  
+  Suppose that your regression model has m predictors totally. This model is the augmented model (Model A), and has both the focal predictors (e.g., gender, the dummy codes of class) and other less-important predictors like covariates. The number of parameters of this augmented model (Model A), `PA`, is m + 1, since the intercept is also a parameter. `PA` should be at least 1.
+  
+  The model without the focal predictors is the compact model (Model C). Suppose that the number of the focal predictors is k, the resulting number of parameters of the compact model (Model C), `PC`, is m + 1 - k. `PC` should be at least 0.
+  
+- `power`
+
+  `power` is the expected statistical power, usually it's set to be 0.80.
+
+- sig.level
+
+  `sig.level` is the expected significance level, and it's commonly known as the cut-off *p* -value. Usually it's set to be 0.05.
+  
+- `n`
+
+  `n` is an optional argument. `n` is the sample size, and should be larger than PA.  If `n` is given, post-hoc power would be computed.
+  
+Note that `power_lm()` follows Aberson's (2019), and the planed sample size is more conservative than other statistical software like G*power. However, the difference is small and negligible.
+
+## Application
+
+Given that regression analysis is equivalent to t-test and ANOVA, `power_lm()` could plan the sample size for perhaps all common research designs.
+
+### A set of predictors
+
+You may be interested in the power and required sample size of the full regression model, you could treat all predictors as a set. Suppose your regression model has m predictors, in this case the Model C is the intercept-only model, hence PC = 1, and PA = m + 1.
+
+### A continuous predictor
+
+You may be interested in the power and required sample size of one predictor. Suppose your regression model has m predictors, in this case PA = m + 1, PC = (m + 1) - 1.
+
+### Moderation model
+
+You may be interested in the two-way moderation model. In the two-way moderation model, the focal predictor is actually the two-way interaction term. Suppose your regression model has m predictors, in this case PA = m + 1, PC = (m + 1) - 1.
+
+You may be interested in the three-way moderation model. In the three-way moderation model, the focal predictors are  two two-way interaction terms and one three-way interaction term. Suppose your regression model has m predictors, in this case PA = m + 1, PC = (m + 1) - 3.
+
+### One-sample *t* -test or a intercept-only regression
+
+If you are interested in the difference between the mean of one group and 0, you may turn to the one-sample *t* -test. Or, you could establish a intercept-only model. Then the focal parameter is the intercept. In this case PA = 1, PC = 0.
+
+Note that in this case you must use the **CORRECT** *PRE* to yield correct power and planned sample size. Do not compute *PRE* from Cohen's one-sample *d* ; instead, compute *PRE* from the *t* value of the one-sample *t* -test. You could also compute the correct *PRE* using `compare_lm()` function.
+
+### Two-sample *t* -test or a binary predictor
+
+If you are interested in the difference between two groups (e.g., experimental vs control), you may turn to the *t* -test. Or, you could treat the group variable as a binary predictor and conduct regression analysis. Then the focal predictor is the binary group predictor. Suppose your regression model has m predictors, in this case PA = m + 1, PC = (m + 1) - 1.
+
+### ANOVA or A multicategorical predictor
+
+If you are interested in the difference between multiple groups, you may turn to ANOVA. Or, you could treat the group variable as a multicategorical independent variable. Then you could code it using a coding schema like dummy coding. No matter which coding schema you use, for a multicategorical independent variable with j levels, it should be coded into (j - 1) predictors, which are the set of focal predictors. Suppose your regression model has m predictors, among which there are (j - 1) codes, in this case PA = m + 1, PC = (m + 1) - (j - 1).
+
+### ANOVA concerning repeated measures
+
+If you are interested in the outcome that were repeatably measured, you may turn to repeated-measures-ANOVA. In essence, repeated-measures-ANOVA computes the difference score of interest (contrasts), and then conduct between-factor ANOVA. Similarly, you could compute the difference score of interest, and then conduct regression analysis. Treat the group variable as a multicategorical independent variable, then code it using a coding schema like dummy coding. No matter which coding schema you use, for a multicategorical independent variable with j levels, it should be coded into (j - 1) predictors, which are the set of focal predictors. Suppose your regression model has m predictors, among which there are (j - 1) codes, in this case PA = m + 1, PC = (m + 1) - (j - 1).
+
+A special case is there is no between-subject factor. Under this circumstance, treat the difference score as the outcome and establish a intercept-only model like one-sample *t* -test.
+
+## Reference
+
+Aberson, C. L. (2019). *Applied power analysis for the behavioral sciences*. Routledge.
