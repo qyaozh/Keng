@@ -1,4 +1,4 @@
-#' Post-hoc and/or prior power of regression analysis
+#' Prior and post-hoc power of regression analysis
 #'
 #' @param PRE Proportional Reduction in Error.
 #' *PRE* = The square of partial correlation.
