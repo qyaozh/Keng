@@ -40,11 +40,11 @@ To plan sample size for one or a set of predictors, the following information ar
 - `sig.level`
 
   `sig.level` is the expected significance level, and it's commonly known as the cut-off *p* -value. Usually it's set to be 0.05.
-  
-Note that `power_lm()` follows Aberson's (2019), and the planed sample size is more conservative than other statistical software like G*power. However, the difference is small and negligible.
 
 - `n`
   `n` is the current sample size. If `n` is given, post-hoc power analysis would also be conducted.
+  
+Note that `power_lm()` follows Aberson's (2019), and the planed sample size is more conservative than other statistical software like G*power. However, the difference is small and negligible.
 
 ## Application
 
