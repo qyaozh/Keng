@@ -24,7 +24,7 @@
 #' `F_i`(the *F*-test of `PRE` at the sample size `n_i`),
 #' `p_i`(the p-value of `F_i`),
 #' `lambda_i`(the non-centrality parameter of `F_i` at the sample size `n_i`),
-#' `power_i`(the actual power at the sample size `n_i`).
+#' `power_i`(the actual power at the sample size `n_i`),
 #' `[[7]]` `prior`, a prior power table including `n_i` and corresponding `df_A_C`, `df_A_i`, `F_i`, `p_i`, `lambda_i`, `power_i`.
 #' `_i` indicates these statistics are the intermediate iterative results.
 #'
@@ -38,7 +38,7 @@
 #' `lambda_post` (the non-centrality parameter of `F` at the sample size `n`),
 #' and `power_post` (the post-hoc power at the sample size `n`).
 #'
-#' By default, print() gives a brief report about the contents of the `Keng_power` class.
+#' By default, `print()` prints the primary but not all contents of the `Keng_power` class.
 #' To inspect more contents, use list extracting.
 #'
 #' @references Cohen, J. (1988). *Statistical power analysis for the behavioral sciences* (2nd ed.). Routledge.

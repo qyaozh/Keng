@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_r.R
 \name{power_r}
 \alias{power_r}
-\title{Compute the prior power and plan the sample size for r.}
+\title{Conduct post-hoc and prior power analysis, and plan the sample size for r.}
 \usage{
 power_r(r = 0.2, sig.level = 0.05, power = 0.8, n = NULL)
 }
@@ -16,18 +16,18 @@ power_r(r = 0.2, sig.level = 0.05, power = 0.8, n = NULL)
 \item{n}{The current sample size.}
 }
 \value{
-A Keng_power class, also a list. If n is not given, the following results would be returned:
+A Keng_power class, also a list. If \code{n} is not given, the following results would be returned:
 \verb{[[1]]} \code{r}, the given \emph{r};
 \verb{[[2]]} \code{d}, Cohen's \emph{d} derived from \code{r};  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
-as cut-off values of \code{d} for small, medium, and large effect sizes, respectively.
-\verb{[[3]]} \code{power}, the expected power,
+as cut-off values of \code{d} for small, medium, and large effect sizes, respectively;
+\verb{[[3]]} \code{power}, the expected power;
 \verb{[[4]]} \code{minimum}, the minimum planned sample size \code{n_i} and corresponding
 \code{df_i} (the \code{df} of \emph{t}-test at the sample size \code{n_i}, \code{df_i} = \code{n_i} - 2),
-\code{SE_r_i} (the \emph{SE} of \code{r} at the sample size \code{n_i}),
+\code{SE_i} (the \emph{SE} of \code{r} at the sample size \code{n_i}),
 \code{t_i} (the \emph{t}-test of \code{r}),
-\code{p_r_i} (the \emph{p}-value of \code{t_i}),
+\code{p_i} (the \emph{p}-value of \code{t_i}),
 \code{delta_i} (the non-centrality parameter of \emph{t}-test),
-\code{power_i} (the actual power at the sample size \code{n_i}).
+\code{power_i} (the actual power at the sample size \code{n_i});
 \verb{[[5]]} \code{prior}, a power table with increasing sample sizes and power;
 \verb{[[6]]}  A plot of power against sample size \emph{n}.
 
@@ -41,11 +41,11 @@ Integer \code{n}, the t_test of \code{r} at the sample size \code{n} with
 \code{lambda_post} (the non-centrality parameter of \code{F} at the sample size \code{n}),
 and \code{power_post} (the post-hoc power at the sample size \code{n}).
 
-By default, print() gives a brief report about the contents of the \code{Keng_power} class.
+By default, \code{print()} prints the primary but not all contents of the \code{Keng_power} class.
 To inspect more contents, use list extracting.
 }
 \description{
-Compute the prior power and plan the sample size for r.
+Conduct post-hoc and prior power analysis, and plan the sample size for r.
 }
 \details{
 \code{Power_r()} follows Aberson (2019) approach to conduct power analysis.

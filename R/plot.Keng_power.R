@@ -28,7 +28,7 @@ plot.Keng_power <- function(x, ...) {
       pch = 20,
       col = "#1661AB",
       main = "Power ~ Sample Size",
-      xlab = "Sample Size n",
+      xlab = "Sample Size",
       ylim = c(0, 1),
       ylab = "Power"
     ) + graphics::abline(

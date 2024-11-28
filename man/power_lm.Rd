@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_lm.R
 \name{power_lm}
 \alias{power_lm}
-\title{Conduct post-hoc and prior power analysis and plan the sample size for regression analysis}
+\title{Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis}
 \usage{
 power_lm(PRE = 0.02, PC = 1, PA = 2, sig.level = 0.05, power = 0.8, n = NULL)
 }
@@ -37,7 +37,7 @@ expected statistical power and significance level, and corresponding
 \code{F_i}(the \emph{F}-test of \code{PRE} at the sample size \code{n_i}),
 \code{p_i}(the p-value of \code{F_i}),
 \code{lambda_i}(the non-centrality parameter of \code{F_i} at the sample size \code{n_i}),
-\code{power_i}(the actual power at the sample size \code{n_i}).
+\code{power_i}(the actual power at the sample size \code{n_i}),
 \verb{[[7]]} \code{prior}, a prior power table including \code{n_i} and corresponding \code{df_A_C}, \code{df_A_i}, \code{F_i}, \code{p_i}, \code{lambda_i}, \code{power_i}.
 \verb{_i} indicates these statistics are the intermediate iterative results.
 
@@ -51,11 +51,11 @@ Integer \code{n}, the \emph{F}_test of \code{PRE} at the sample size \code{n} wi
 \code{lambda_post} (the non-centrality parameter of \code{F} at the sample size \code{n}),
 and \code{power_post} (the post-hoc power at the sample size \code{n}).
 
-By default, print() gives a brief report about the contents of the \code{Keng_power} class.
+By default, \code{print()} prints the primary but not all contents of the \code{Keng_power} class.
 To inspect more contents, use list extracting.
 }
 \description{
-Conduct post-hoc and prior power analysis and plan the sample size for regression analysis
+Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis
 }
 \examples{
 print(power_lm())

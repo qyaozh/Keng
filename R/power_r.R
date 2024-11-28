@@ -7,18 +7,18 @@
 #'
 #' @details `Power_r()` follows Aberson (2019) approach to conduct power analysis.
 #'
-#' @return A Keng_power class, also a list. If n is not given, the following results would be returned:
+#' @return A Keng_power class, also a list. If `n` is not given, the following results would be returned:
 #' `[[1]]` `r`, the given *r*;
 #' `[[2]]` `d`, Cohen's *d* derived from `r`;  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
-#' as cut-off values of `d` for small, medium, and large effect sizes, respectively.
-#' `[[3]]` `power`, the expected power,
+#' as cut-off values of `d` for small, medium, and large effect sizes, respectively;
+#' `[[3]]` `power`, the expected power;
 #' `[[4]]` `minimum`, the minimum planned sample size `n_i` and corresponding
 #' `df_i` (the `df` of *t*-test at the sample size `n_i`, `df_i` = `n_i` - 2),
-#' `SE_r_i` (the *SE* of `r` at the sample size `n_i`),
+#' `SE_i` (the *SE* of `r` at the sample size `n_i`),
 #' `t_i` (the *t*-test of `r`),
-#' `p_r_i` (the *p*-value of `t_i`),
+#' `p_i` (the *p*-value of `t_i`),
 #' `delta_i` (the non-centrality parameter of *t*-test),
-#' `power_i` (the actual power at the sample size `n_i`).
+#' `power_i` (the actual power at the sample size `n_i`);
 #' `[[5]]` `prior`, a power table with increasing sample sizes and power;
 #' `[[6]]`  A plot of power against sample size *n*.
 #'
@@ -32,7 +32,7 @@
 #' `lambda_post` (the non-centrality parameter of `F` at the sample size `n`),
 #' and `power_post` (the post-hoc power at the sample size `n`).
 #'
-#' By default, print() gives a brief report about the contents of the `Keng_power` class.
+#' By default, `print()` prints the primary but not all contents of the `Keng_power` class.
 #' To inspect more contents, use list extracting.
 #'
 #' @references Aberson, C. L. (2019). *Applied power analysis for the behavioral sciences*. Routledge.

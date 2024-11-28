@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.Keng_power.R
 \name{print.Keng_power}
 \alias{print.Keng_power}
-\title{Print the contents of the Keng_power class briefly}
+\title{Print primary but not all contents of the Keng_power class}
 \usage{
 \method{print}{Keng_power}(x, ...)
 }
@@ -15,7 +15,7 @@
 None (invisible NULL).
 }
 \description{
-Print the contents of the Keng_power class briefly
+Print primary but not all contents of the Keng_power class
 }
 \examples{
 print(power_lm(n = 200))
