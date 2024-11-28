@@ -68,7 +68,24 @@ You may be interested in the three-way moderation model. In the three-way modera
 
 If you are interested in the difference between the mean of one group and 0, you may turn to the one-sample *t* -test. Or, you could establish a intercept-only model. Then the focal parameter is the intercept. In this case PA = 1, PC = 0.
 
-Note that in this case you must use the **CORRECT** *PRE* to yield correct power and planned sample size. Do not compute *PRE* from Cohen's one-sample *d* ; instead, compute *PRE* from the *t* value of the one-sample *t* -test by converting *t* to *r*, and then converting *r* to *PRE* using `calc_PRE()`. You could also compute the correct *PRE* using `compare_lm()` function.
+Note that in this case you must use the **CORRECT** *PRE* to yield correct power and planned sample size. Do not compute *PRE* from Cohen's one-sample *d* ; instead, compute *PRE* from the *t* value of the one-sample *t* -test by converting *t* to *r*, and then converting *r* to *PRE*. You could also compute the correct *PRE* using `compare_lm()` function.
+
+```{r}
+library(Keng)
+data("depress")
+# WRONG PRE for the one-sample t-test
+(Cohens_d <- effectsize::cohens_d(dm1 ~ 1, data = depress)$Cohens_d)
+(r_from_d <- effectsize::d_to_r(Cohens_d, n1 = 94))
+(PRE_from_d <- r_from_d^2)
+# CORRECT PRE for the one-sample t-test
+out <- t.test(dm1 ~ 1, depress)
+(r_from_t <- effectsize::t_to_r(t = out$statistic, df_error = out$parameter)$r)
+(PRE_from_t <- r_from_t^2)
+# PRE from lm()
+fit0 <- lm(dm1 ~ 0, depress)
+fit1 <- lm(dm1 ~ 1, depress)
+compare_lm(fit0, fit1)[7, 4]
+```
 
 ### Two-sample *t* -test or a binary predictor
 
