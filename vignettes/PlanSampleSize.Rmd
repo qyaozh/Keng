@@ -15,7 +15,9 @@ knitr::opts_chunk$set(
 ```
 
 
-The significance of the unique effect of one or a set of predictors in the regression model is determined by the PRE (Proportional Reduction in Error, also called partial *eta_squared* in ANOVA, or partial *R_squared* in regression), number of parameters in the regression model, and sample size. As a result, given *PRE*, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). So, `power_lm()` comes.
+The significance of the unique effect of one or a set of predictors in the regression model is determined by the PRE (Proportional Reduction in Error, also called partial *eta_squared* in ANOVA, or partial *R_squared* in regression), number of parameters in the regression model, and sample size. As a result, given *PRE*, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). So, `power_lm()` comes. 
+
+To compare the power of r^2^ and PRE, `Keng` also gives `power_r()` to conduct power analysis for Pearson's *r*. `power_r()` has readable arguments and is easy to use, hence is not detailed in vignettes.
 
 ## `power_lm()`
 
@@ -41,6 +43,9 @@ To plan sample size for one or a set of predictors, the following information ar
   
 Note that `power_lm()` follows Aberson's (2019), and the planed sample size is more conservative than other statistical software like G*power. However, the difference is small and negligible.
 
+- `n`
+  `n` is the current sample size. If `n` is given, post-hoc power analysis would also be conducted.
+
 ## Application
 
 Given that regression analysis is equivalent to t-test and ANOVA, `power_lm()` could plan the sample size for perhaps all common research designs.
@@ -63,7 +68,7 @@ You may be interested in the three-way moderation model. In the three-way modera
 
 If you are interested in the difference between the mean of one group and 0, you may turn to the one-sample *t* -test. Or, you could establish a intercept-only model. Then the focal parameter is the intercept. In this case PA = 1, PC = 0.
 
-Note that in this case you must use the **CORRECT** *PRE* to yield correct power and planned sample size. Do not compute *PRE* from Cohen's one-sample *d* ; instead, compute *PRE* from the *t* value of the one-sample *t* -test. You could also compute the correct *PRE* using `compare_lm()` function.
+Note that in this case you must use the **CORRECT** *PRE* to yield correct power and planned sample size. Do not compute *PRE* from Cohen's one-sample *d* ; instead, compute *PRE* from the *t* value of the one-sample *t* -test by converting *t* to *r*, and then converting *r* to *PRE* using `calc_PRE()`. You could also compute the correct *PRE* using `compare_lm()` function.
 
 ### Two-sample *t* -test or a binary predictor
 
