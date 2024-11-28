@@ -7,16 +7,16 @@
 calc_PRE(f = NULL, f_squared = NULL, r_p = NULL)
 }
 \arguments{
-\item{f}{Cohen's f. Cohen (1988) suggested >=0.1, >=0.25, and >=0.40 as cut-off values of f for small,
+\item{f}{Cohen's \emph{f}. Cohen (1988) suggested >=0.1, >=0.25, and >=0.40 as cut-off values of \emph{f} for small,
 medium, and large effect sizes, respectively.}
 
-\item{f_squared}{Cohen's f_squared. Cohen (1988) suggested >=0.02, >=0.15, and >=0.35 as cut-off values of f for small,
+\item{f_squared}{Cohen's \emph{f_squared}. Cohen (1988) suggested >=0.02, >=0.15, and >=0.35 as cut-off values of \emph{f} for small,
 medium, and large effect sizes, respectively.}
 
 \item{r_p}{Partial correlation.}
 }
 \value{
-A list including PRE, r_p (partial correlation), Cohen's f_squared, and f.
+A list including \emph{PRE}, \emph{r_p} (partial correlation), Cohen's \emph{f_squared}, and \emph{f}.
 }
 \description{
 Calculate PRE from Cohen's f, f_squared, or partial correlation

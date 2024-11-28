@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Keng(庚) <img src="man/figures/logo.png" align="right" height="139" alt="Keng" />
+# Keng <img src="man/figures/logo.png" align="right" height="139" alt="Keng" />
 
 <!-- badges: start -->
 
@@ -39,7 +39,7 @@ library(Keng)
 
 ## List of contents
 
-Here is a list of the functions and data gathered in the `Keng` package.
+Here is a list of the data and functions gathered in the `Keng` package.
 Their usages are detailed in the documentation.
 
 ### Data
@@ -59,8 +59,12 @@ mean-centering it), or standardize the mean and standard deviation of
 significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size
 *n* is known.
 
-`test_r()` tests the significance of *r* using *t*-test and Fisher’s z
-when *r* and *n* is known.
+`test_r()` tests the significance and compute the post-hoc power of *r*
+with known sample size *n*.
+
+`power_r()` conducts prior power analysis and plan the sample size for
+*r*; post-hoc power analysis would also be conducted with known sample
+size *n*.
 
 ### The linear model
 
@@ -70,5 +74,15 @@ when *r* and *n* is known.
 `calc_PRE()` calculates PRE from partial correlation, Cohen’s f, or
 f_squared.
 
-`power_lm()` computes the post-hoc power and/or plans the sample size
-for one or a set of predictors in regression analysis.
+`power_lm()` conducts prior power analysis and plans the sample size for
+one or a set of predictors in regression analysis; post-hoc power
+analysis would also be conducted with known sample size *n*.
+
+### The `Keng_power` class
+
+`power_r()` and `power_lm()` return the `Keng_power` class, which has
+`print()` and `plot()` methods.
+
+`print()` prints primary but not all contents of the Keng_power class.
+
+`plot()` plots the power against sample size for the Keng_power class.

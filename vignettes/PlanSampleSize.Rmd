@@ -14,9 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(Keng)
-```
 
 The significance of the unique effect of one or a set of predictors in the regression model is determined by the PRE (Proportional Reduction in Error, also called partial *eta_squared* in ANOVA, or partial *R_squared* in regression), number of parameters in the regression model, and sample size. As a result, given *PRE*, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). So, `power_lm()` comes.
 
@@ -41,10 +38,6 @@ To plan sample size for one or a set of predictors, the following information ar
 - `sig.level`
 
   `sig.level` is the expected significance level, and it's commonly known as the cut-off *p* -value. Usually it's set to be 0.05.
-  
-- `n`
-
-  `n` is an optional argument. `n` is the sample size, and should be larger than `PA`.  If `n` is given, post-hoc power would be computed.
   
 Note that `power_lm()` follows Aberson's (2019), and the planed sample size is more conservative than other statistical software like G*power. However, the difference is small and negligible.
 

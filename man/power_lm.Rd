@@ -2,44 +2,65 @@
 % Please edit documentation in R/power_lm.R
 \name{power_lm}
 \alias{power_lm}
-\title{Compute the post-hoc power and/or plan the sample size for one or a set of predictors in linear regression}
+\title{Conduct post-hoc and prior power analysis and plan the sample size for regression analysis}
 \usage{
-power_lm(PRE = 0.02, PC = 0, PA = 1, power = 0.8, sig.level = 0.05, n = NULL)
+power_lm(PRE = 0.02, PC = 1, PA = 2, sig.level = 0.05, power = 0.8, n = NULL)
 }
 \arguments{
 \item{PRE}{Proportional Reduction in Error.
 \emph{PRE} = The square of partial correlation.
-Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of PRE for small,
+Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of \emph{PRE} for small,
 medium, and large effect sizes, respectively.}
 
 \item{PC}{Number of parameters of model C (compact model) without focal predictors of interest.}
 
 \item{PA}{Number of parameters of model A (augmented model) with focal predictors of interest.}
 
-\item{power}{Expected statistical power for effects of focal predictors.}
-
 \item{sig.level}{Expected significance level for effects of focal predictors.}
 
-\item{n}{The current sample size. If \emph{n} is given, the post-hoc power would be computed.}
+\item{power}{Expected statistical power for effects of focal predictors.}
+
+\item{n}{The current sample size.#'}
 }
 \value{
-A list with 4 items: (1) \code{post}, the post-hoc F-test, lambda (non-centrality parameter),
-and power for sample size \emph{n};
-(2)\code{minimum}, the minimum sample size required for focal predictors to reach the
-expected statistical power and significance level;
-(3) \code{prior}, a data.frame including \code{n_i}, \code{PC}, \code{PA},\code{df_A_i}, \code{F_i}, \code{p_i}, \code{lambda_i}, \code{power_i}.
+A Keng_power class, also a list. If sample size \code{n} is not given, the following results would be returned:
+\verb{[[1]]} \code{PRE};
+\verb{[[2]]} \code{f_squared}, Cohen's \emph{f_squared} derived from \emph{PRE};
+\verb{[[3]]} \code{PC};
+\verb{[[4]]} \code{PA};
+\verb{[[5]]} \code{sig.level}, expected significance level for effects of focal predictors;
+\verb{[[6]]} \code{power}, expected statistical power for effects of focal predictors;
+\verb{[[6]]} \code{minimum}, the minimum sample size \code{n_i} required for focal predictors to reach the
+expected statistical power and significance level, and corresponding
+\code{df_A_C}(the \emph{df} of the numerator of the \emph{F}-test, i.e., the difference of the \emph{df}s between model C and model A),
+\code{df_A_i}(the \emph{df} of the denominator of the \emph{F}-test, i.e., the \emph{df} of the model A at the sample size \code{n_i}),
+\code{F_i}(the \emph{F}-test of \code{PRE} at the sample size \code{n_i}),
+\code{p_i}(the p-value of \code{F_i}),
+\code{lambda_i}(the non-centrality parameter of \code{F_i} at the sample size \code{n_i}),
+\code{power_i}(the actual power at the sample size \code{n_i}).
+\verb{[[7]]} \code{prior}, a prior power table including \code{n_i} and corresponding \code{df_A_C}, \code{df_A_i}, \code{F_i}, \code{p_i}, \code{lambda_i}, \code{power_i}.
 \verb{_i} indicates these statistics are the intermediate iterative results.
-Each row of \code{prior} presents results for one possible sample size \code{n_i}.
-Given \code{n_i}, \code{df_A_i}, \code{F_i}, \code{p_i}, \code{lambda_i} and \code{power_i} would be computed accordingly.
-(4) A plot of power against sample size \emph{n}.
-The cut-off value of \emph{n} for expected statistical power \code{power} and
-expected significance level \code{sig.level} is annotated on the plot.
+
+If sample size \code{n} is given, the following results would also be returned:
+
+Integer \code{n}, the \emph{F}_test of \code{PRE} at the sample size \code{n} with
+\code{df_A_C},
+\code{df_A} (the \emph{df} of the model A at the sample size \code{n}),
+\code{F} (the \emph{F}-test of \code{PRE} at the sample size \code{n}),
+\code{p} (the p-value of \emph{F}-test at the sample size \code{n}), and the post-hoc power analysis with
+\code{lambda_post} (the non-centrality parameter of \code{F} at the sample size \code{n}),
+and \code{power_post} (the post-hoc power at the sample size \code{n}).
+
+By default, print() gives a brief report about the contents of the \code{Keng_power} class.
+To inspect more contents, use list extracting.
 }
 \description{
-Compute the post-hoc power and/or plan the sample size for one or a set of predictors in linear regression
+Conduct post-hoc and prior power analysis and plan the sample size for regression analysis
 }
 \examples{
-power_lm()
+print(power_lm())
+
+plot(power_lm())
 }
 \references{
 Cohen, J. (1988). \emph{Statistical power analysis for the behavioral sciences} (2nd ed.). Routledge.

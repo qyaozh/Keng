@@ -1,4 +1,12 @@
-test_that("test_r return a data.frame", {
+test_that("test_r", {
+  r <- runif(1)
+  out <- test_r(r, 100)
   expect_lt(
-    abs(test_r(0.2, 100)[[1]][4]-test_r(0.2, 100)[[2]][4]), 0.001)
+    abs(out$t_test["p_r"] - out$Fisher_z["p_fz"]), 0.002)
+
+  p_r <- out$t_test["p_r"]
+  names(p_r) <- NULL
+  p <- power_lm(r^2, n = 100)$F_test["p"]
+  names(p) <- NULL
+  expect_equal(p_r, p)
 })
