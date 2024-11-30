@@ -16,7 +16,7 @@ plot.Keng_power <- function(x, ...) {
 
   # select 200 rows
   if (nrow(x$prior) > 100) {
-    x$prior <- x$prior[quantile(0:nrow(x$prior), seq(0, 1, 0.01)), ]
+    x$prior <- x$prior[stats::quantile(0:nrow(x$prior), seq(0, 1, 0.01)), ]
   }
 
   labels <- switch(x$method,
@@ -45,7 +45,7 @@ plot.Keng_power <- function(x, ...) {
     lty = 3,
     col = "#FCC307"
   ) +
-    title(
+    graphics::title(
       main = "Power ~ Sample Size",
       sub = labels,
       col.sub = "#A7535A")
