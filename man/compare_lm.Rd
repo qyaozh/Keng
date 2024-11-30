@@ -23,11 +23,12 @@ compare_lm(
 Model C and model A must use the same sample, and hence have the same sample size.
 Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.}
 
-\item{PC}{The number of parameters in model C. PC must be a integer.
+\item{PC}{The number of parameters in model C.
 Non-integer \code{PC} would be converted to be a integer using \code{as.integer()}.}
 
-\item{PA}{The number of parameters in model A. PA must be a integer larger than PC.
-Non-integer \code{PA} would be converted to be a integer using \code{as.integer()}.}
+\item{PA}{The number of parameters in model A.
+Non-integer \code{PA} would be converted to be a integer using \code{as.integer()}.
+\code{as.integer(PA)} should be larger than \code{as.integer(PC)}.}
 
 \item{SSEC}{The Sum of Squared Errors (SSE) of model C.}
 

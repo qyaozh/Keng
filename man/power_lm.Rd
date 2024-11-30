@@ -4,7 +4,15 @@
 \alias{power_lm}
 \title{Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis}
 \usage{
-power_lm(PRE = 0.02, PC = 1, PA = 2, sig.level = 0.05, power = 0.8, n = NULL)
+power_lm(
+  PRE = 0.02,
+  PC = 1,
+  PA = 2,
+  sig.level = 0.05,
+  power = 0.8,
+  power.ul = 0.9,
+  n = NULL
+)
 }
 \arguments{
 \item{PRE}{Proportional Reduction in Error.
@@ -12,15 +20,26 @@ PRE = The square of partial correlation.
 Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of PRE for small,
 medium, and large effect sizes, respectively.}
 
-\item{PC}{Number of parameters of model C (compact model) without focal predictors of interest.}
+\item{PC}{Number of parameters of model C (compact model) without focal predictors of interest.
+Non-integer \code{PC} would be converted to be a integer using \code{as.integer()}.}
 
-\item{PA}{Number of parameters of model A (augmented model) with focal predictors of interest.}
+\item{PA}{Number of parameters of model A (augmented model) with focal predictors of interest.
+Non-integer \code{PA} would be converted to be a integer using \code{as.integer()}.
+\code{as.integer(PA)} should be larger than \code{as.integer(PC)}.}
 
 \item{sig.level}{Expected significance level for effects of focal predictors.}
 
 \item{power}{Expected statistical power for effects of focal predictors.}
 
-\item{n}{The current sample size.#'}
+\item{power.ul}{The upper limit of power. \code{power.ul} should be larger than \code{power}, and the maximum \code{power.ul} is 1.
+\code{power.ul} determines the number of rows of the returned power table \code{prior},
+and the right limit of the horizontal axis of the returned power plot.
+\code{power_lm} will keep running and gradually raise the sample size until the sample size reaches the power level \code{power.ul}.
+When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
+a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
+You could set \code{power.ul} to be a value less than 1 (e.g., 0.90) to make \code{power_lm} omit unnecessary attempts.}
+
+\item{n}{The current sample size. Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.}
 }
 \value{
 A Keng_power class, also a list. If sample size \code{n} is not given, the following results would be returned:
@@ -41,8 +60,9 @@ expected statistical power and significance level, and corresponding
 \verb{[[7]]} \code{prior}, a prior power table including \code{n_i} and corresponding \code{df_A_C}, \code{df_A_i}, \code{F_i}, \code{p_i}, \code{lambda_i}, \code{power_i}.
 \verb{_i} indicates these statistics are the intermediate iterative results.
 
-If sample size \code{n} is given, the following results would also be returned:
+Note that the maximum \code{n_i} is limited to be 100,000.
 
+If sample size \code{n} is given, the following results would also be returned:
 Integer \code{n}, the F_test of \code{PRE} at the sample size \code{n} with
 \code{df_A_C},
 \code{df_A} (the df of the model A at the sample size \code{n}),

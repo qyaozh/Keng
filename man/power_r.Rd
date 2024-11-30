@@ -4,7 +4,7 @@
 \alias{power_r}
 \title{Conduct post-hoc and prior power analysis, and plan the sample size for r.}
 \usage{
-power_r(r = 0.2, sig.level = 0.05, power = 0.8, n = NULL)
+power_r(r = 0.2, sig.level = 0.05, power = 0.8, power.ul = 0.9, n = NULL)
 }
 \arguments{
 \item{r}{Pearson's correlation.}
@@ -12,6 +12,14 @@ power_r(r = 0.2, sig.level = 0.05, power = 0.8, n = NULL)
 \item{sig.level}{Expected significance level.}
 
 \item{power}{Expected statistical power.}
+
+\item{power.ul}{The upper limit of power. \code{power.ul} should be larger than \code{power}, and the maximum \code{power.ul} is 1.
+\code{power.ul} determines the number of rows of the returned power table \code{prior},
+and the right limit of the horizontal axis of the returned power plot.
+\code{power_lm} will keep running and gradually raise the sample size until the sample size reaches the power level \code{power.ul}.
+When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
+a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
+You could set \code{power.ul} to be a value less than 1 (e.g., 0.90) to make \code{power_lm} omit unnecessary attempts.}
 
 \item{n}{The current sample size.}
 }
@@ -51,6 +59,8 @@ Conduct post-hoc and prior power analysis, and plan the sample size for r.
 \code{Power_r()} follows Aberson (2019) approach to conduct power analysis.
 }
 \examples{
+power_r(0.2)
+
 print(power_r(0.04))
 
 plot(power_r(0.04))

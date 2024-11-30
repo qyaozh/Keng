@@ -7,7 +7,7 @@
 cut_r(n)
 }
 \arguments{
-\item{n}{Sample size of Pearson's correlation r.}
+\item{n}{Sample size of Pearson's correlation r. \code{n} should be larger than}
 }
 \value{
 A data.frame including the cut-off values of r at the significance levels of p = 0.1, 0.05, 0.01, 0.001.  r with the absolute value larger than the cut-off value is significant at the corresponding significance level.
