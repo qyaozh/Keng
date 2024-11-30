@@ -22,13 +22,13 @@ The scaled vector.
 Scale a vector
 }
 \details{
-To scale \code{x}, its origin, or unit (\emph{sd}), or both, could be changed.
+To scale \code{x}, its origin, or unit (sd), or both, could be changed.
 
 If \code{m} = 0 or \code{NULL}, and \code{sd} = \code{NULL}, \code{x} would be mean-centered.
 
 If \code{m} is a non-zero number, and \code{sd} = \code{NULL}, the mean of \code{x} would be transformed to m.
 
-If \code{m} = 0 or \code{NULL}, and \code{sd} = 1, \code{x} would be standardized to be its z-score with \emph{m} = 0 and \emph{m} = 1.
+If \code{m} = 0 or \code{NULL}, and \code{sd} = 1, \code{x} would be standardized to be its z-score with m = 0 and m = 1.
 
 The standardized score is not necessarily the z-score. If neither \code{m} nor \code{sd} is \code{NULL},
 \code{x} would be standardized to be a vector whose mean and standard deviation would be \code{m} and \code{sd}, respectively.

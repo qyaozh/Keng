@@ -13,11 +13,8 @@ The `Keng` package is named after Loo-Keng Hua, who made great
 achievements in mathematics mainly through self-study. Loo-Keng Hua
 encouraged novices to show their axe skills at the gate of Ban’s house,
 so the `Keng` package comes. In addition, `Keng` is the abbreviation of
-“Knock Errors off Nice Guesses.”
-
-The `Keng` package aims to automate the computations Qingyao repeat in
-his psychological research and teaching. Hope the functions and data
-gathered in this package help to ease your life.
+“Knock Errors off Nice Guesses.” Hope the functions and data gathered in
+the `Keng` package help to ease your life.
 
 ## Installation
 
@@ -53,36 +50,36 @@ coping.
 mean-centering it), or standardize the mean and standard deviation of
 `x` (including transforming it to its z-score).
 
-### Pearson’s *r*
+### Pearson’s r
 
-`cut_r()` gives you the cut-off values of Pearson’s *r* at the
-significance levels of *p* = 0.1, 0.05, 0.01, 0.001 when the sample size
-*n* is known.
+`cut_r()` gives you the cut-off values of Pearson’s r at the
+significance levels of p = 0.1, 0.05, 0.01, and 0.001 with known sample
+size n.
 
-`test_r()` tests the significance and compute the post-hoc power of *r*
-with known sample size *n*.
+`test_r()` tests the significance and compute the post-hoc power of r
+with known sample size n.
 
 `power_r()` conducts prior power analysis and plan the sample size for
-*r*; post-hoc power analysis would also be conducted with known sample
-size *n*.
+r; post-hoc power analysis would also be conducted with known sample
+size n. 
 
 ### The linear model
 
-`compare_lm()` compares `lm()`’s fitted outputs using *PRE*,
-*R*<sup>2</sup>, *f*<sup>2</sup>, and post-hoc power.
+`compare_lm()` compares `lm()`’s fitted outputs using PRE,
+R<sup>2</sup>, f<sup>2</sup>, and post-hoc power.
 
 `calc_PRE()` calculates PRE from partial correlation, Cohen’s f, or
 f_squared.
 
 `power_lm()` conducts prior power analysis and plans the sample size for
 one or a set of predictors in regression analysis; post-hoc power
-analysis would also be conducted with known sample size *n*.
+analysis would also be conducted with known sample size n.
 
 ### The `Keng_power` class
 
 `power_r()` and `power_lm()` return the `Keng_power` class, which has
 `print()` and `plot()` methods.
 
-`print()` prints primary but not all contents of the Keng_power class.
+`print()` prints primary but not all contents of the `Keng_power` class.
 
-`plot()` plots the power against sample size for the Keng_power class.
+`plot()` plots the power against sample size for the `Keng_power` class.

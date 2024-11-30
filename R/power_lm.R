@@ -1,8 +1,8 @@
 #' Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis
 #'
 #' @param PRE Proportional Reduction in Error.
-#' *PRE* = The square of partial correlation.
-#' Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of *PRE* for small,
+#' PRE = The square of partial correlation.
+#' Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of PRE for small,
 #' medium, and large effect sizes, respectively.
 #' @param PC Number of parameters of model C (compact model) without focal predictors of interest.
 #' @param PA Number of parameters of model A (augmented model) with focal predictors of interest.
@@ -12,15 +12,15 @@
 #'
 #' @return A Keng_power class, also a list. If sample size `n` is not given, the following results would be returned:
 #' `[[1]]` `PRE`;
-#' `[[2]]` `f_squared`, Cohen's *f_squared* derived from *PRE*;
+#' `[[2]]` `f_squared`, Cohen's f_squared derived from PRE;
 #' `[[3]]` `PC`;
 #' `[[4]]` `PA`;
 #' `[[5]]` `sig.level`, expected significance level for effects of focal predictors;
 #' `[[6]]` `power`, expected statistical power for effects of focal predictors;
 #' `[[6]]` `minimum`, the minimum sample size `n_i` required for focal predictors to reach the
 #' expected statistical power and significance level, and corresponding
-#' `df_A_C`(the *df* of the numerator of the *F*-test, i.e., the difference of the *df*s between model C and model A),
-#' `df_A_i`(the *df* of the denominator of the *F*-test, i.e., the *df* of the model A at the sample size `n_i`),
+#' `df_A_C`(the df of the numerator of the F-test, i.e., the difference of the dfs between model C and model A),
+#' `df_A_i`(the df of the denominator of the F-test, i.e., the df of the model A at the sample size `n_i`),
 #' `F_i`(the *F*-test of `PRE` at the sample size `n_i`),
 #' `p_i`(the p-value of `F_i`),
 #' `lambda_i`(the non-centrality parameter of `F_i` at the sample size `n_i`),
@@ -30,11 +30,11 @@
 #'
 #' If sample size `n` is given, the following results would also be returned:
 #'
-#' Integer `n`, the *F*_test of `PRE` at the sample size `n` with
+#' Integer `n`, the F_test of `PRE` at the sample size `n` with
 #' `df_A_C`,
-#' `df_A` (the *df* of the model A at the sample size `n`),
-#' `F` (the *F*-test of `PRE` at the sample size `n`),
-#' `p` (the p-value of *F*-test at the sample size `n`), and the post-hoc power analysis with
+#' `df_A` (the df of the model A at the sample size `n`),
+#' `F` (the F-test of `PRE` at the sample size `n`),
+#' `p` (the p-value of F-test at the sample size `n`), and the post-hoc power analysis with
 #' `lambda_post` (the non-centrality parameter of `F` at the sample size `n`),
 #' and `power_post` (the post-hoc power at the sample size `n`).
 #'

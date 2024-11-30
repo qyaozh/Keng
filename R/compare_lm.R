@@ -3,35 +3,35 @@
 #' @param fitC The result of `lm()` of the Compact model (model C).
 #' @param fitA The result of `lm()` of the Augmented model (model A).
 #' @param n Sample size of the model C or model A. model C and model A must use the same sample, and hence have the same sample size.
-#' @param PC The number of parameters in model C.
-#' @param PA The number of parameters in model A. PA must be larger than PC.
+#' @param PC The number of parameters in model C. PC must be a integer.
+#' @param PA The number of parameters in model A. PA must be a integer larger than PC.
 #' @param SSEC The Sum of Squared Errors (SSE) of model C.
 #' @param SSEA The Sum of Squared Errors of model A.
 #'
-#' @details `compare_lm()` compare model A with model C using *PRE* (Proportional Reduction in Error) , *R-squared*, *f_squared*, and post-hoc power.
-#' *PRE* is partial R-squared (called partial Eta-squared in Anova).
+#' @details `compare_lm()` compares model A with model C using PRE (Proportional Reduction in Error) , R-squared, f_squared, and post-hoc power.
+#' PRE is partial R-squared (called partial Eta-squared in Anova).
 #' There are two ways of using `compare_lm()`.
-#' The first is giving `compare_lm()` fitC and fitA.
-#' The second is giving *n*, *PC*, *PA*, *SSEC*, and *SSEA*.
+#' The first is giving `compare_lm()` `fitC` and `fitA`.
+#' The second is giving `n`, `PC`, `PA`, `SSEC`, and `SSEA`.
 #' The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
-#' Note that the *F*-tests for *PRE* and that for R-squared change are equivalent.
-#' Please refer to Judd et al. (2017) for more details about *PRE*, and refer to Aberson (2019) for more details about *f_squared* and post-hoc power.
+#' Note that the F-tests for PRE and that for R-squared change are equivalent.
+#' Please refer to Judd et al. (2017) for more details about PRE, and refer to Aberson (2019) for more details about f_squared and post-hoc power.
 #'
 #' @references Aberson, C. L. (2019). *Applied power analysis for the behavioral sciences*. Routledge.
 #'
 #' Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model Comparison approach to regression, ANOVA, and beyond*. Routledge.
 #'
 #' @return A matrix with 11 rows and 4 columns.
-#' The first column reports information for baseline model (intercept-only model).
+#' The first column reports information for the baseline model (intercept-only model).
 #' the second for model C, the third for model A, and the fourth for the change (model A vs. model C).
-#' *SSE* (Sum of Squared Errors), *df* of *SSE*, and the number of parameters for baseline model, model C,
+#' SSE (Sum of Squared Errors), df of SSE, and the number of parameters for baseline model, model C,
 #' model A, and change (model A vs. model C) are reported in row 1 and row 2.
 #' The information in the fourth column are all for the change; put differently,
 #' these results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
 #' If fitC and fitA are not inferior to the intercept-only model,
-#' *R-squared*, *Adjusted R-squared*, *PRE*, *PRE_adjusted*, and *f_squared* for the full model
+#' R-squared, Adjusted R-squared, PRE, PRE_adjusted, and f_squared for the full model
 #' (compared with the baseline model) are reported for model C and model A.
-#' If model C or model A has at least one predictor, *F* -test with *p*,
+#' If model C or model A has at least one predictor, F-test with p,
 #' and post-hoc power would be computed for the corresponding full model.
 #'
 #' @export
@@ -41,15 +41,15 @@
 #' x2 <- rnorm(193)
 #' y <- 0.3 + 0.2*x1 + 0.1*x2 + rnorm(193)
 #' dat <- data.frame(y, x1, x2)
-#' # Fix intercept to constant 1 using I().
+#' # Fix the intercept to constant 1 using I().
 #' fit1 <- lm(I(y - 1) ~ 0, dat)
-#' # Free intercept.
+#' # Free the intercept.
 #' fit2 <- lm(y ~ 1, dat)
 #' compare_lm(fit1, fit2)
 #' # One predictor.
 #' fit3 <- lm(y ~ x1, dat)
 #' compare_lm(fit2, fit3)
-#' # Fix intercept to 0.3 using offset().
+#' # Fix the intercept to 0.3 using offset().
 #' intercept <- rep(0.3, 193)
 #' fit4 <- lm(y ~ 0 + x1 + offset(intercept), dat)
 #' compare_lm(fit4, fit3)
@@ -57,7 +57,7 @@
 #' fit5 <- lm(y ~ x1 + x2, dat)
 #' compare_lm(fit2, fit5)
 #' compare_lm(fit3, fit5)
-#' # Fix slope of x2 to 0.05 using offset().
+#' # Fix the slope of x2 to 0.05 using offset().
 #' fit6 <- lm(y ~ x1 + offset(0.05*x2), dat)
 #' compare_lm(fit6, fit5)
 

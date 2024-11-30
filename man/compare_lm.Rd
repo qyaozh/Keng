@@ -21,9 +21,9 @@ compare_lm(
 
 \item{n}{Sample size of the model C or model A. model C and model A must use the same sample, and hence have the same sample size.}
 
-\item{PC}{The number of parameters in model C.}
+\item{PC}{The number of parameters in model C. PC must be a integer.}
 
-\item{PA}{The number of parameters in model A. PA must be larger than PC.}
+\item{PA}{The number of parameters in model A. PA must be a integer larger than PC.}
 
 \item{SSEC}{The Sum of Squared Errors (SSE) of model C.}
 
@@ -31,45 +31,45 @@ compare_lm(
 }
 \value{
 A matrix with 11 rows and 4 columns.
-The first column reports information for baseline model (intercept-only model).
+The first column reports information for the baseline model (intercept-only model).
 the second for model C, the third for model A, and the fourth for the change (model A vs. model C).
-\emph{SSE} (Sum of Squared Errors), \emph{df} of \emph{SSE}, and the number of parameters for baseline model, model C,
+SSE (Sum of Squared Errors), df of SSE, and the number of parameters for baseline model, model C,
 model A, and change (model A vs. model C) are reported in row 1 and row 2.
 The information in the fourth column are all for the change; put differently,
 these results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
 If fitC and fitA are not inferior to the intercept-only model,
-\emph{R-squared}, \emph{Adjusted R-squared}, \emph{PRE}, \emph{PRE_adjusted}, and \emph{f_squared} for the full model
+R-squared, Adjusted R-squared, PRE, PRE_adjusted, and f_squared for the full model
 (compared with the baseline model) are reported for model C and model A.
-If model C or model A has at least one predictor, \emph{F} -test with \emph{p},
+If model C or model A has at least one predictor, F-test with p,
 and post-hoc power would be computed for the corresponding full model.
 }
 \description{
 Compare lm()'s fitted outputs using PRE and R-squared.
 }
 \details{
-\code{compare_lm()} compare model A with model C using \emph{PRE} (Proportional Reduction in Error) , \emph{R-squared}, \emph{f_squared}, and post-hoc power.
-\emph{PRE} is partial R-squared (called partial Eta-squared in Anova).
+\code{compare_lm()} compares model A with model C using PRE (Proportional Reduction in Error) , R-squared, f_squared, and post-hoc power.
+PRE is partial R-squared (called partial Eta-squared in Anova).
 There are two ways of using \code{compare_lm()}.
-The first is giving \code{compare_lm()} fitC and fitA.
-The second is giving \emph{n}, \emph{PC}, \emph{PA}, \emph{SSEC}, and \emph{SSEA}.
+The first is giving \code{compare_lm()} \code{fitC} and \code{fitA}.
+The second is giving \code{n}, \code{PC}, \code{PA}, \code{SSEC}, and \code{SSEA}.
 The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
-Note that the \emph{F}-tests for \emph{PRE} and that for R-squared change are equivalent.
-Please refer to Judd et al. (2017) for more details about \emph{PRE}, and refer to Aberson (2019) for more details about \emph{f_squared} and post-hoc power.
+Note that the F-tests for PRE and that for R-squared change are equivalent.
+Please refer to Judd et al. (2017) for more details about PRE, and refer to Aberson (2019) for more details about f_squared and post-hoc power.
 }
 \examples{
 x1 <- rnorm(193)
 x2 <- rnorm(193)
 y <- 0.3 + 0.2*x1 + 0.1*x2 + rnorm(193)
 dat <- data.frame(y, x1, x2)
-# Fix intercept to constant 1 using I().
+# Fix the intercept to constant 1 using I().
 fit1 <- lm(I(y - 1) ~ 0, dat)
-# Free intercept.
+# Free the intercept.
 fit2 <- lm(y ~ 1, dat)
 compare_lm(fit1, fit2)
 # One predictor.
 fit3 <- lm(y ~ x1, dat)
 compare_lm(fit2, fit3)
-# Fix intercept to 0.3 using offset().
+# Fix the intercept to 0.3 using offset().
 intercept <- rep(0.3, 193)
 fit4 <- lm(y ~ 0 + x1 + offset(intercept), dat)
 compare_lm(fit4, fit3)
@@ -77,7 +77,7 @@ compare_lm(fit4, fit3)
 fit5 <- lm(y ~ x1 + x2, dat)
 compare_lm(fit2, fit5)
 compare_lm(fit3, fit5)
-# Fix slope of x2 to 0.05 using offset().
+# Fix the slope of x2 to 0.05 using offset().
 fit6 <- lm(y ~ x1 + offset(0.05*x2), dat)
 compare_lm(fit6, fit5)
 }

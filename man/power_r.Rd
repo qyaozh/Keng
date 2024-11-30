@@ -17,27 +17,27 @@ power_r(r = 0.2, sig.level = 0.05, power = 0.8, n = NULL)
 }
 \value{
 A Keng_power class, also a list. If \code{n} is not given, the following results would be returned:
-\verb{[[1]]} \code{r}, the given \emph{r};
-\verb{[[2]]} \code{d}, Cohen's \emph{d} derived from \code{r};  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
+\verb{[[1]]} \code{r}, the given r;
+\verb{[[2]]} \code{d}, Cohen's d derived from \code{r};  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
 as cut-off values of \code{d} for small, medium, and large effect sizes, respectively;
 \verb{[[3]]} \code{power}, the expected power;
 \verb{[[4]]} \code{minimum}, the minimum planned sample size \code{n_i} and corresponding
-\code{df_i} (the \code{df} of \emph{t}-test at the sample size \code{n_i}, \code{df_i} = \code{n_i} - 2),
-\code{SE_i} (the \emph{SE} of \code{r} at the sample size \code{n_i}),
-\code{t_i} (the \emph{t}-test of \code{r}),
-\code{p_i} (the \emph{p}-value of \code{t_i}),
+\code{df_i} (the \code{df} of t-test at the sample size \code{n_i}, \code{df_i} = \code{n_i} - 2),
+\code{SE_i} (the SE of \code{r} at the sample size \code{n_i}),
+\code{t_i} (the t-test of \code{r}),
+\code{p_i} (the p-value of \code{t_i}),
 \code{delta_i} (the non-centrality parameter of \emph{t}-test),
 \code{power_i} (the actual power at the sample size \code{n_i});
 \verb{[[5]]} \code{prior}, a power table with increasing sample sizes and power;
-\verb{[[6]]}  A plot of power against sample size \emph{n}.
+\verb{[[6]]}  A plot of power against sample size n.
 
 If sample size \code{n} is given, the following results would also be returned:
 
 Integer \code{n}, the t_test of \code{r} at the sample size \code{n} with
 \code{df_A_C},
-\code{df_A} (the \emph{df} of the model A at the sample size \code{n}),
-\code{F} (the \emph{F}-test of \code{PRE} at the sample size \code{n}),
-\code{p} (the p-value of \emph{F}-test at the sample size \code{n}), and the post-hoc power analysis with
+\code{df_A} (the df of the model A at the sample size \code{n}),
+\code{F} (the F-test of \code{PRE} at the sample size \code{n}),
+\code{p} (the p-value of F-test at the sample size \code{n}), and the post-hoc power analysis with
 \code{lambda_post} (the non-centrality parameter of \code{F} at the sample size \code{n}),
 and \code{power_post} (the post-hoc power at the sample size \code{n}).
 

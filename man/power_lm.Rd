@@ -8,8 +8,8 @@ power_lm(PRE = 0.02, PC = 1, PA = 2, sig.level = 0.05, power = 0.8, n = NULL)
 }
 \arguments{
 \item{PRE}{Proportional Reduction in Error.
-\emph{PRE} = The square of partial correlation.
-Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of \emph{PRE} for small,
+PRE = The square of partial correlation.
+Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of PRE for small,
 medium, and large effect sizes, respectively.}
 
 \item{PC}{Number of parameters of model C (compact model) without focal predictors of interest.}
@@ -25,15 +25,15 @@ medium, and large effect sizes, respectively.}
 \value{
 A Keng_power class, also a list. If sample size \code{n} is not given, the following results would be returned:
 \verb{[[1]]} \code{PRE};
-\verb{[[2]]} \code{f_squared}, Cohen's \emph{f_squared} derived from \emph{PRE};
+\verb{[[2]]} \code{f_squared}, Cohen's f_squared derived from PRE;
 \verb{[[3]]} \code{PC};
 \verb{[[4]]} \code{PA};
 \verb{[[5]]} \code{sig.level}, expected significance level for effects of focal predictors;
 \verb{[[6]]} \code{power}, expected statistical power for effects of focal predictors;
 \verb{[[6]]} \code{minimum}, the minimum sample size \code{n_i} required for focal predictors to reach the
 expected statistical power and significance level, and corresponding
-\code{df_A_C}(the \emph{df} of the numerator of the \emph{F}-test, i.e., the difference of the \emph{df}s between model C and model A),
-\code{df_A_i}(the \emph{df} of the denominator of the \emph{F}-test, i.e., the \emph{df} of the model A at the sample size \code{n_i}),
+\code{df_A_C}(the df of the numerator of the F-test, i.e., the difference of the dfs between model C and model A),
+\code{df_A_i}(the df of the denominator of the F-test, i.e., the df of the model A at the sample size \code{n_i}),
 \code{F_i}(the \emph{F}-test of \code{PRE} at the sample size \code{n_i}),
 \code{p_i}(the p-value of \code{F_i}),
 \code{lambda_i}(the non-centrality parameter of \code{F_i} at the sample size \code{n_i}),
@@ -43,11 +43,11 @@ expected statistical power and significance level, and corresponding
 
 If sample size \code{n} is given, the following results would also be returned:
 
-Integer \code{n}, the \emph{F}_test of \code{PRE} at the sample size \code{n} with
+Integer \code{n}, the F_test of \code{PRE} at the sample size \code{n} with
 \code{df_A_C},
-\code{df_A} (the \emph{df} of the model A at the sample size \code{n}),
-\code{F} (the \emph{F}-test of \code{PRE} at the sample size \code{n}),
-\code{p} (the p-value of \emph{F}-test at the sample size \code{n}), and the post-hoc power analysis with
+\code{df_A} (the df of the model A at the sample size \code{n}),
+\code{F} (the F-test of \code{PRE} at the sample size \code{n}),
+\code{p} (the p-value of F-test at the sample size \code{n}), and the post-hoc power analysis with
 \code{lambda_post} (the non-centrality parameter of \code{F} at the sample size \code{n}),
 and \code{power_post} (the post-hoc power at the sample size \code{n}).
 

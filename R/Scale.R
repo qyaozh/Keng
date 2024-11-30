@@ -8,13 +8,13 @@
 #' @return The scaled vector.
 #'
 #' @details
-#' To scale `x`, its origin, or unit (*sd*), or both, could be changed.
+#' To scale `x`, its origin, or unit (sd), or both, could be changed.
 #'
 #' If `m` = 0 or `NULL`, and `sd` = `NULL`, `x` would be mean-centered.
 #'
 #' If `m` is a non-zero number, and `sd` = `NULL`, the mean of `x` would be transformed to m.
 #'
-#' If `m` = 0 or `NULL`, and `sd` = 1, `x` would be standardized to be its z-score with *m* = 0 and *m* = 1.
+#' If `m` = 0 or `NULL`, and `sd` = 1, `x` would be standardized to be its z-score with m = 0 and m = 1.
 #'
 #' The standardized score is not necessarily the z-score. If neither `m` nor `sd` is `NULL`,
 #' `x` would be standardized to be a vector whose mean and standard deviation would be `m` and `sd`, respectively.

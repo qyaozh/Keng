@@ -9,7 +9,7 @@ test_r(r = NULL, n = NULL, sig.level = 0.05, power = 0.8)
 \arguments{
 \item{r}{Pearson's correlation.}
 
-\item{n}{Sample size of \emph{r}. If \emph{n} is given, the t-test, Fisher's z transformation,
+\item{n}{Sample size of r. If n is given, the t-test, Fisher's z transformation,
 post-hoc power analysis would be conducted.}
 
 \item{sig.level}{Expected significance level.}
@@ -18,42 +18,42 @@ post-hoc power analysis would be conducted.}
 }
 \value{
 A list with the following results: would also be returned:
-\verb{[[1]]} \code{r}, the given \emph{r};
-\verb{[[2]]} \code{d}, Cohen's \emph{d} derived from \code{r};  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
+\verb{[[1]]} \code{r}, the given r;
+\verb{[[2]]} \code{d}, Cohen's d derived from \code{r};  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
 as cut-off values of \code{d} for small, medium, and large effect sizes, respectively.
 \verb{[[3]]} \code{minimum}, the minimum planned sample size \code{n_i} and corresponding
-\code{df_i} (the \code{df} of \emph{t}-test at the sample size \code{n_i}, \code{df_i} = \code{n_i} - 2),
-\code{SE_r_i} (the \emph{SE} of \code{r} at the sample size \code{n_i}),
-\code{t_i} (the \emph{t}-test of \code{r} at the sample size \code{n_i}),
-\code{p_r_i} (the \emph{p}-value of \code{t_i}),
+\code{df_i} (the \code{df} of t-test at the sample size \code{n_i}, \code{df_i} = \code{n_i} - 2),
+\code{SE_r_i} (the SE of \code{r} at the sample size \code{n_i}),
+\code{t_i} (the t-test of \code{r} at the sample size \code{n_i}),
+\code{p_r_i} (the p-value of \code{t_i}),
 \code{delta_i} (the non-centrality parameter of \code{t_i}),
 \code{power_i} (the actual power at the sample size \code{n_i}).
 \verb{[[4]]} \code{prior}, a power table with increasing sample sizes and power;
-\verb{[[5]]}  A plot of power against sample size \emph{n}.
-The minimum \emph{n} satisfying the expected statistical power and
+\verb{[[5]]}  A plot of power against sample size n.
+The minimum n satisfying the expected statistical power and
 significance level is annotated on the plot.
 
-If sample size \emph{n} is given, the following results would also be returned:
+If sample size n is given, the following results would also be returned:
 \verb{[[1]]} Integer \code{n};
-\verb{[[2]]} \emph{t} -test of \emph{r} (\code{r}, \code{df} of \emph{r}, \code{SE_r}, \code{t}, \code{p_r}),
-95\% \emph{CI} of \emph{r} based on \emph{t} -test (\code{LLCI_r_t}, \code{ULCI_r_t}),
-and post-hoc power of \emph{r} (Cohen's \code{d}, \code{delta_post}, \code{power_post});
-\verb{[[3]]} Fisher's z transformation (\code{fz} of \emph{r}, \emph{z} -test of \code{fz} [\code{SE_fz}, \code{z}, \code{p_fz}], and 95\% \emph{CI} of \emph{r} derived from \code{fz}.
+\verb{[[2]]} t-test of r (\code{r}, \code{df} of r, \code{SE_r}, \code{t}, \code{p_r}),
+95\% CI of r based on t -test (\code{LLCI_r_t}, \code{ULCI_r_t}),
+and post-hoc power of r (Cohen's \code{d}, \code{delta_post}, \code{power_post});
+\verb{[[3]]} Fisher's z transformation (\code{fz} of r, z -test of \code{fz} [\code{SE_fz}, \code{z}, \code{p_fz}], and 95\% CI of r derived from \code{fz}.
 
-Note that the returned \emph{CI} of \emph{r} may be out of \emph{r}'s valid range [-1, 1].
+Note that the returned CI of r may be out of r's valid range [-1, 1].
 This "error" is deliberately left to users, who should correct the CI manually when reporting.
 }
 \description{
 Test the significance, analyze the power, and plan the sample size for r.
 }
 \details{
-To test the significance of the \emph{r} using one-sample \emph{t}-test,
-the \emph{SE} of the \emph{r} is determined by the following formula: \code{SE = sqrt((1 - r^2)/(n - 2))}.
-Another way is transforming \emph{r} to Fisher's z using the following formula:
-\code{fz = atanh(r)} with the \emph{SE} of \code{fz} being \code{sqrt(n - 3)}.
+To test the significance of the r using one-sample t-test,
+the SE of the r is determined by the following formula: \code{SE = sqrt((1 - r^2)/(n - 2))}.
+Another way is transforming r to Fisher's z using the following formula:
+\code{fz = atanh(r)} with the SE of \code{fz} being \code{sqrt(n - 3)}.
 Note that Fisher's z is commonly used to compare two Pearson's correlations from independent samples.
 Fisher's transformation is presented here only for satisfying the curiosity of users
-interested in the difference of \emph{t} -test and Fisher's transformation.
+interested in the difference of t-test and Fisher's transformation.
 }
 \examples{
 test_r(0.2, 193)

@@ -3,41 +3,41 @@
 #' @param r Pearson's correlation.
 #' @param sig.level Expected significance level.
 #' @param power Expected statistical power.
-#' @param n Sample size of *r*. If *n* is given, the t-test, Fisher's z transformation,
+#' @param n Sample size of r. If n is given, the t-test, Fisher's z transformation,
 #' post-hoc power analysis would be conducted.
 #'
-#' @details To test the significance of the *r* using one-sample *t*-test,
-#' the *SE* of the *r* is determined by the following formula: `SE = sqrt((1 - r^2)/(n - 2))`.
-#' Another way is transforming *r* to Fisher's z using the following formula:
-#' `fz = atanh(r)` with the *SE* of `fz` being `sqrt(n - 3)`.
+#' @details To test the significance of the r using one-sample t-test,
+#' the SE of the r is determined by the following formula: `SE = sqrt((1 - r^2)/(n - 2))`.
+#' Another way is transforming r to Fisher's z using the following formula:
+#' `fz = atanh(r)` with the SE of `fz` being `sqrt(n - 3)`.
 #' Note that Fisher's z is commonly used to compare two Pearson's correlations from independent samples.
 #' Fisher's transformation is presented here only for satisfying the curiosity of users
-#' interested in the difference of *t* -test and Fisher's transformation.
+#' interested in the difference of t-test and Fisher's transformation.
 #'
 #' @return A list with the following results: would also be returned:
-#' `[[1]]` `r`, the given *r*;
-#' `[[2]]` `d`, Cohen's *d* derived from `r`;  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
+#' `[[1]]` `r`, the given r;
+#' `[[2]]` `d`, Cohen's d derived from `r`;  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
 #' as cut-off values of `d` for small, medium, and large effect sizes, respectively.
 #' `[[3]]` `minimum`, the minimum planned sample size `n_i` and corresponding
-#' `df_i` (the `df` of *t*-test at the sample size `n_i`, `df_i` = `n_i` - 2),
-#' `SE_r_i` (the *SE* of `r` at the sample size `n_i`),
-#' `t_i` (the *t*-test of `r` at the sample size `n_i`),
-#' `p_r_i` (the *p*-value of `t_i`),
+#' `df_i` (the `df` of t-test at the sample size `n_i`, `df_i` = `n_i` - 2),
+#' `SE_r_i` (the SE of `r` at the sample size `n_i`),
+#' `t_i` (the t-test of `r` at the sample size `n_i`),
+#' `p_r_i` (the p-value of `t_i`),
 #' `delta_i` (the non-centrality parameter of `t_i`),
 #' `power_i` (the actual power at the sample size `n_i`).
 #' `[[4]]` `prior`, a power table with increasing sample sizes and power;
-#' `[[5]]`  A plot of power against sample size *n*.
-#' The minimum *n* satisfying the expected statistical power and
+#' `[[5]]`  A plot of power against sample size n.
+#' The minimum n satisfying the expected statistical power and
 #' significance level is annotated on the plot.
 #'
-#' If sample size *n* is given, the following results would also be returned:
+#' If sample size n is given, the following results would also be returned:
 #' `[[1]]` Integer `n`;
-#' `[[2]]` *t* -test of *r* (`r`, `df` of *r*, `SE_r`, `t`, `p_r`),
-#' 95% *CI* of *r* based on *t* -test (`LLCI_r_t`, `ULCI_r_t`),
-#' and post-hoc power of *r* (Cohen's `d`, `delta_post`, `power_post`);
-#' `[[3]]` Fisher's z transformation (`fz` of *r*, *z* -test of `fz` \[`SE_fz`, `z`, `p_fz`\], and 95% *CI* of *r* derived from `fz`.
+#' `[[2]]` t-test of r (`r`, `df` of r, `SE_r`, `t`, `p_r`),
+#' 95% CI of r based on t -test (`LLCI_r_t`, `ULCI_r_t`),
+#' and post-hoc power of r (Cohen's `d`, `delta_post`, `power_post`);
+#' `[[3]]` Fisher's z transformation (`fz` of r, z -test of `fz` \[`SE_fz`, `z`, `p_fz`\], and 95% CI of r derived from `fz`.
 #'
-#' Note that the returned *CI* of *r* may be out of *r*'s valid range \[-1, 1\].
+#' Note that the returned CI of r may be out of r's valid range \[-1, 1\].
 #' This "error" is deliberately left to users, who should correct the CI manually when reporting.
 #'
 #' @references Aberson, C. L. (2019). *Applied power analysis for the behavioral sciences*. Routledge.
