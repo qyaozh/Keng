@@ -19,23 +19,27 @@ compare_lm(
 
 \item{fitA}{The result of \code{lm()} of the Augmented model (model A).}
 
-\item{n}{Sample size of the model C or model A. model C and model A must use the same sample, and hence have the same sample size.}
+\item{n}{Sample size of the model C or model A.
+Model C and model A must use the same sample, and hence have the same sample size.
+Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.}
 
-\item{PC}{The number of parameters in model C. PC must be a integer.}
+\item{PC}{The number of parameters in model C. PC must be a integer.
+Non-integer \code{PC} would be converted to be a integer using \code{as.integer()}.}
 
-\item{PA}{The number of parameters in model A. PA must be a integer larger than PC.}
+\item{PA}{The number of parameters in model A. PA must be a integer larger than PC.
+Non-integer \code{PA} would be converted to be a integer using \code{as.integer()}.}
 
 \item{SSEC}{The Sum of Squared Errors (SSE) of model C.}
 
 \item{SSEA}{The Sum of Squared Errors of model A.}
 }
 \value{
-A matrix with 11 rows and 4 columns.
-The first column reports information for the baseline model (intercept-only model).
-the second for model C, the third for model A, and the fourth for the change (model A vs. model C).
-SSE (Sum of Squared Errors), df of SSE, and the number of parameters for baseline model, model C,
-model A, and change (model A vs. model C) are reported in row 1 and row 2.
-The information in the fourth column are all for the change; put differently,
+A matrix with 12 rows and 4 columns.
+The 1st column reports information for the baseline model (intercept-only model).
+the 2nd for model C, the third for model A, and the fourth for the change (model A vs. model C).
+SSE (Sum of Squared Errors), sample size n, df of SSE, and the number of parameters for baseline model, model C,
+model A, and change (model A vs. model C) are reported in rows 1-3.
+The information in the 4th column are all for the change; put differently,
 these results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
 If fitC and fitA are not inferior to the intercept-only model,
 R-squared, Adjusted R-squared, PRE, PRE_adjusted, and f_squared for the full model
@@ -50,9 +54,9 @@ Compare lm()'s fitted outputs using PRE and R-squared.
 \code{compare_lm()} compares model A with model C using PRE (Proportional Reduction in Error) , R-squared, f_squared, and post-hoc power.
 PRE is partial R-squared (called partial Eta-squared in Anova).
 There are two ways of using \code{compare_lm()}.
-The first is giving \code{compare_lm()} \code{fitC} and \code{fitA}.
-The second is giving \code{n}, \code{PC}, \code{PA}, \code{SSEC}, and \code{SSEA}.
-The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
+The 1st is giving \code{compare_lm()} \code{fitC} and \code{fitA}.
+The 2nd is giving \code{n}, \code{PC}, \code{PA}, \code{SSEC}, and \code{SSEA}.
+The 1st way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
 Note that the F-tests for PRE and that for R-squared change are equivalent.
 Please refer to Judd et al. (2017) for more details about PRE, and refer to Aberson (2019) for more details about f_squared and post-hoc power.
 }

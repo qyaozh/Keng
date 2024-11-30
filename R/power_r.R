@@ -4,6 +4,13 @@
 #' @param sig.level Expected significance level.
 #' @param power Expected statistical power.
 #' @param n The current sample size.
+#' @param power.ul The upper limit of power. `power.ul` should be larger than `power`, and the maximum `power.ul` is 1.
+#' `power.ul` determines the number of rows of the returned power table `prior`,
+#' and the right limit of the horizontal axis of the returned power plot.
+#' `power_lm` will keep running and gradually raise the sample size until the sample size reaches the power level `power.ul`.
+#' When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
+#' a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
+#' You could set `power.ul` to be a value less than 1 (e.g., 0.90) to make `power_lm` omit unnecessary attempts.
 #'
 #' @details `Power_r()` follows Aberson (2019) approach to conduct power analysis.
 #'
@@ -41,24 +48,29 @@
 #'
 #' @export
 #'
-#' @examples print(power_r(0.04))
+#' @examples power_r(0.2)
+#'
+#' print(power_r(0.04))
 #'
 #' plot(power_r(0.04))
 
 power_r <- function(r = 0.2,
                     sig.level = 0.05,
                     power = 0.80,
+                    power.ul = 0.9,
                     n = NULL) {
   n <- as.integer(n)
 
   stopifnot(r > -1,
             r < 1,
             r != 0,
-            power > 0,
+            power >= 0,
             power <= 1,
+            power.ul >= power,
+            power.ul <= 1,
             sig.level > 0,
             sig.level <= 1,
-            identical(n, integer(0)) | n > 2)
+            identical(n, integer(0)) || n > 2)
 
   d <- 2 * r / sqrt(1 - r ^ 2) #approximate estimate of d
 
@@ -83,7 +95,7 @@ power_r <- function(r = 0.2,
   prior <- list()
   index <- 1
 
-  while (power_i < 1) {
+  while (power_i <= power.ul & n_i <= 100000) {
     df_i <- n_i - 2
     SE_i <- sqrt((1 - r ^ 2) / df_i)
     t_i <- r / SE_i
@@ -134,5 +146,6 @@ power_r <- function(r = 0.2,
       class = c("Keng_power", "list")
     )
   }
+  out
 }
 

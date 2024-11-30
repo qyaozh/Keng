@@ -16,7 +16,7 @@ medium, and large effect sizes, respectively.}
 \item{r_p}{Partial correlation.}
 }
 \value{
-A list including PRE, r_p (partial correlation), Cohen's f_squared, and f.
+A list including PRE, the absolute value of r_p (partial correlation), Cohen's f_squared, and f.
 }
 \description{
 Calculate PRE from Cohen's f, f_squared, or partial correlation

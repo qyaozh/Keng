@@ -12,22 +12,29 @@
 #'
 #' plot(out)
 plot.Keng_power <- function(x, ...) {
+  stopifnot("Keng_power" %in% class(x))
+
+  # select 200 rows
+  if (nrow(x$prior) > 100) {
+    x$prior <- x$prior[quantile(0:nrow(x$prior), seq(0, 1, 0.01)), ]
+  }
+
   labels <- switch(x$method,
-                   power_r = paste0("r = ", x$r, ",\n",
-                                    "sig.level = ", x$sig.level, ",\n",
-                                    "Planned sample size = ", x$minimum$n_i),
-                   power_lm = paste0("PRE = ", x$PRE, ",\n",
-                                     "PC = ", x$PC, ",\n",
-                                     "PA = ", x$PA, ",\n",
-                                     "sig.level = ", x$sig.level, ",\n",
-                                     "Planned sample size = ", x$minimum$n_i))
+                   power_r = paste0("Note. ",
+                                    "r = ", x$r, ", ",
+                                    "sig.level = ", x$sig.level, ", ",
+                                    "planned sample size = ", x$minimum$n_i, "."),
+                   power_lm = paste0("Note. ",
+                                     "PRE = ", x$PRE, ", ",
+                                     "PC = ", x$PC, ", ", "PA = ", x$PA, ", ",
+                                     "sig.level = ", x$sig.level, ", ",
+                                     "planned sample size = ", x$minimum$n_i, "."))
   plot_power_n <-
     graphics::plot(
       formula = power_i ~ n_i,
       data = x$prior,
       pch = 20,
       col = "#1661AB",
-      main = "Power ~ Sample Size",
       xlab = "Sample Size",
       ylim = c(0, 1),
       ylab = "Power"
@@ -37,11 +44,9 @@ plot.Keng_power <- function(x, ...) {
     lwd = 2,
     lty = 3,
     col = "#FCC307"
-  ) + graphics::text(
-    x = x$minimum$n_i,
-    y = 0.2,
-    labels = labels,
-    pos = 4,
-    col = "#A7535A"
-  )
+  ) +
+    title(
+      main = "Power ~ Sample Size",
+      sub = labels,
+      col.sub = "#A7535A")
 }

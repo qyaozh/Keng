@@ -12,6 +12,8 @@
 #'
 #' out
 print.Keng_power <- function(x, ...) {
+  stopifnot("Keng_power" %in% class(x))
+
   switch(
     x$method,
     power_r =  cat("r = ", x$r, "\n",

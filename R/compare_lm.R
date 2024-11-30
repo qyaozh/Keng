@@ -2,18 +2,23 @@
 #'
 #' @param fitC The result of `lm()` of the Compact model (model C).
 #' @param fitA The result of `lm()` of the Augmented model (model A).
-#' @param n Sample size of the model C or model A. model C and model A must use the same sample, and hence have the same sample size.
-#' @param PC The number of parameters in model C. PC must be a integer.
-#' @param PA The number of parameters in model A. PA must be a integer larger than PC.
+#' @param n Sample size of the model C or model A.
+#' Model C and model A must use the same sample, and hence have the same sample size.
+#' Non-integer `n` would be converted to be a integer using `as.integer()`.
+#' @param PC The number of parameters in model C.
+#' Non-integer `PC` would be converted to be a integer using `as.integer()`.
+#' @param PA The number of parameters in model A.
+#' Non-integer `PA` would be converted to be a integer using `as.integer()`.
+#' `as.integer(PA)` should be larger than `as.integer(PC)`.
 #' @param SSEC The Sum of Squared Errors (SSE) of model C.
 #' @param SSEA The Sum of Squared Errors of model A.
 #'
 #' @details `compare_lm()` compares model A with model C using PRE (Proportional Reduction in Error) , R-squared, f_squared, and post-hoc power.
 #' PRE is partial R-squared (called partial Eta-squared in Anova).
 #' There are two ways of using `compare_lm()`.
-#' The first is giving `compare_lm()` `fitC` and `fitA`.
-#' The second is giving `n`, `PC`, `PA`, `SSEC`, and `SSEA`.
-#' The first way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
+#' The 1st is giving `compare_lm()` `fitC` and `fitA`.
+#' The 2nd is giving `n`, `PC`, `PA`, `SSEC`, and `SSEA`.
+#' The 1st way is more convenient, and it minimizes precision loss by omitting copying-and-pasting.
 #' Note that the F-tests for PRE and that for R-squared change are equivalent.
 #' Please refer to Judd et al. (2017) for more details about PRE, and refer to Aberson (2019) for more details about f_squared and post-hoc power.
 #'
@@ -21,12 +26,12 @@
 #'
 #' Judd, C. M., McClelland, G. H., & Ryan, C. S. (2017). *Data analysis: A model Comparison approach to regression, ANOVA, and beyond*. Routledge.
 #'
-#' @return A matrix with 11 rows and 4 columns.
-#' The first column reports information for the baseline model (intercept-only model).
-#' the second for model C, the third for model A, and the fourth for the change (model A vs. model C).
-#' SSE (Sum of Squared Errors), df of SSE, and the number of parameters for baseline model, model C,
-#' model A, and change (model A vs. model C) are reported in row 1 and row 2.
-#' The information in the fourth column are all for the change; put differently,
+#' @return A matrix with 12 rows and 4 columns.
+#' The 1st column reports information for the baseline model (intercept-only model).
+#' the 2nd for model C, the third for model A, and the fourth for the change (model A vs. model C).
+#' SSE (Sum of Squared Errors), sample size n, df of SSE, and the number of parameters for baseline model, model C,
+#' model A, and change (model A vs. model C) are reported in rows 1-3.
+#' The information in the 4th column are all for the change; put differently,
 #' these results could quantify the effect of one or a set of new parameters model A has but model C doesn't.
 #' If fitC and fitA are not inferior to the intercept-only model,
 #' R-squared, Adjusted R-squared, PRE, PRE_adjusted, and f_squared for the full model
@@ -187,9 +192,21 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
     f_squared_A <- NA
     lambda_A <- NA
     power_post_A <- NA
+
+    # convert n to integer
+    n <- as.integer(n)
+    PC <- as.integer(PC)
+    PA <- as.integer(PA)
+
+    # check the validity of arguments
+    stopifnot(
+      n >= 1,
+      PC >= 0,
+      PC < PA,
+      SSEC > SSEA)
   }
 
-  # PRE
+  # PRE for two sets of arguments
   df_M <- n - 1
   df_C  <- n - PC
   df_A  <- n - PA
@@ -205,13 +222,13 @@ compare_lm <- function(fitC=NULL, fitA=NULL, n=NULL, PC=NULL, PA=NULL, SSEC=NULL
 
   # Return
   matrix(
-    c(       SSEM,   df_M,       1,                         NA,          NA,              NA,    NA,  NA,  NA,        NA,           NA,
-             SSEC,   df_C,      PC,                R_squared_C, f_squared_C, R_squared_adj_C, PRE_C, F_C, p_C, PRE_C_adj, power_post_C,
-             SSEA,   df_A,      PA,                R_squared_A, f_squared_A, R_squared_adj_A, PRE_A, F_A, p_A, PRE_A_adj, power_post_A,
-      SSEC - SSEA, df_A_C, PA - PC,  R_squared_A - R_squared_C,   f_squared,              NA,   PRE,   F,   p,   PRE_adj,   power_post),
+    c(       SSEM, n,       1,    df_M,                         NA,          NA,              NA,    NA,  NA,  NA,        NA,           NA,
+             SSEC, n,      PC,    df_C,                R_squared_C, f_squared_C, R_squared_adj_C, PRE_C, F_C, p_C, PRE_C_adj, power_post_C,
+             SSEA, n,      PA,    df_A,                R_squared_A, f_squared_A, R_squared_adj_A, PRE_A, F_A, p_A, PRE_A_adj, power_post_A,
+      SSEC - SSEA, n, PA - PC,  df_A_C,  R_squared_A - R_squared_C,   f_squared,              NA,   PRE,   F,   p,   PRE_adj,   power_post),
     ncol = 4,
     dimnames = list(
-      c("SSE", "df", "Number of parameters","R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj", "power_post"),
+      c("SSE", "n", "Number of parameters", "df", "R_squared", "f_squared", "R_squared_adj", "PRE", "F(PA-PC,n-PA)", "p", "PRE_adj", "power_post"),
       c("Baseline", "C", "A", "A vs. C")
     ))
 }
