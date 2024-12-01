@@ -20,12 +20,12 @@ plot.Keng_power <- function(x, ...) {
   labels <- switch(x$method,
                    power_r = paste0("Note. ",
                                     "r = ", x$r, ", ",
-                                    "sig.level = ", x$sig.level, ", ",
+                                    "sig_level = ", x$sig_level, ", ",
                                     "planned sample size = ", x$minimum$n_i, "."),
                    power_lm = paste0("Note. ",
                                      "PRE = ", x$PRE, ", ",
                                      "PC = ", x$PC, ", ", "PA = ", x$PA, ", ",
-                                     "sig.level = ", x$sig.level, ", ",
+                                     "sig_level = ", x$sig_level, ", ",
                                      "planned sample size = ", x$minimum$n_i, "."))
   plot_power_n <-
     graphics::plot(
