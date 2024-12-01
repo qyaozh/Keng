@@ -1,4 +1,4 @@
-#' Plot the power against sample size for the Keng_power class
+#' Plot the power against the sample size for the Keng_power class
 #'
 #' @param x The output object of `power_r()` or `power_lm()`.
 #' @param ... Further arguments passed to or from other methods.

@@ -7,16 +7,16 @@
 #' @param n Sample size of r. Non-integer `n` would be converted to be a integer using `as.integer()`.
 #' `n` should be at least 3.
 #'
-#' @details To test the significance of the r using one-sample t-test,
+#' @details To test the significance of the r using the one-sample t-test,
 #' the SE of `r` is determined by the following formula: `SE = sqrt((1 - r^2)/(n - 2))`.
 #' Another way is transforming `r` to Fisher's z using the following formula:
 #' `fz = atanh(r)` with the SE of `fz` being `sqrt(n - 3)`.
 #' Fisher's z is commonly used to compare two Pearson's correlations from independent samples.
-#' Fisher's transformation is presented here only for satisfying the curiosity of users who are
-#' interested in the difference of t-test and Fisher's transformation.
+#' Fisher's transformation is presented here only to satisfy the curiosity of users who are
+#' interested in the difference between t-test and Fisher's transformation.
 #'
 #' The post-hoc power of `r`'s t-test is computed through the way of Aberson (2019).
-#' Other softwares and R packages like SPSS and `pwr` give different power estimates due to
+#' Other software and R packages like SPSS and `pwr` give different power estimates due to
 #' underlying different formulas. `Keng` adopts Aberson's approach because this approach guarantees
 #' the equivalence of r and PRE.
 #'

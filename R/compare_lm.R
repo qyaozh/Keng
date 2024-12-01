@@ -4,11 +4,11 @@
 #' @param fitA The result of `lm()` of the Augmented model (model A).
 #' @param n Sample size of the model C or model A.
 #' Model C and model A must use the same sample, and hence have the same sample size.
-#' Non-integer `n` would be converted to be a integer using `as.integer()`.
+#' Non-integer `n` would be converted to be an integer using `as.integer()`.
 #' @param PC The number of parameters in model C.
-#' Non-integer `PC` would be converted to be a integer using `as.integer()`.
+#' Non-integer `PC` would be converted to be an integer using `as.integer()`.
 #' @param PA The number of parameters in model A.
-#' Non-integer `PA` would be converted to be a integer using `as.integer()`.
+#' Non-integer `PA` would be converted to be an integer using `as.integer()`.
 #' `as.integer(PA)` should be larger than `as.integer(PC)`.
 #' @param SSEC The Sum of Squared Errors (SSE) of model C.
 #' @param SSEA The Sum of Squared Errors of model A.

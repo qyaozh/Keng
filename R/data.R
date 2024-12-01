@@ -1,6 +1,6 @@
 #' Depression and Coping
 #'
-#' A subset of data from a research about depression and coping.
+#' A subset of data from research about depression and coping.
 #'
 #' @format ## `depress`
 #' A data frame with 94 rows and 237 columns:

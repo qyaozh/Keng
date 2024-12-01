@@ -5,25 +5,25 @@
 #' Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of PRE for small,
 #' medium, and large effect sizes, respectively.
 #' @param PC Number of parameters of model C (compact model) without focal predictors of interest.
-#' Non-integer `PC` would be converted to be a integer using `as.integer()`.
+#' Non-integer `PC` would be converted to be an integer using `as.integer()`.
 #' @param PA Number of parameters of model A (augmented model) with focal predictors of interest.
-#' Non-integer `PA` would be converted to be a integer using `as.integer()`.
+#' Non-integer `PA` would be converted to be an integer using `as.integer()`.
 #' `as.integer(PA)` should be larger than `as.integer(PC)`.
 #' @param sig_level Expected significance level for effects of focal predictors.
 #' @param power Expected statistical power for effects of focal predictors.
 #' @param power_ul The upper limit of power below which the minimum sample size is searched.
 #' `power_ul` should be larger than `power`, and the maximum `power_ul` is 1.
 #' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
-#' Non-integer `n_ul` would be converted to be a integer using `as.integer()`.
+#' Non-integer `n_ul` would be converted to be an integer using `as.integer()`.
 #' `as.integer(n_ul)` should be at least `as.integer(PA) + 1`.
-#' @param n The current sample size. Non-integer `n` would be converted to be a integer using `as.integer()`.
+#' @param n The current sample size. Non-integer `n` would be converted to be an integer using `as.integer()`.
 #' Non-NULL `as.integer(n)` should be at least `as.integer(PA) + 1`.
 #'
 #' @details `power_ul` and `n_ul` determine the total times of power_lm()'s attempts searching for the minimum required sample size,
 #' hence the number of rows of the returned power table `prior` and the right limit of the horizontal axis of the returned power plot.
 #' `power_lm()` will keep running and gradually raise the sample size to `n_ul` until the sample size pushes the power level to `power_ul`.
 #' When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
-#' a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
+#' a huge increase in sample size only brings about a trivial increase in power, which is cost-ineffective.
 #' To make `power_lm()` omit unnecessary attempts, you could set `power_ul` to be a value less than 1 (e.g., 0.90),
 #' and/or set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
 #'

@@ -4,17 +4,17 @@
 #' of Pearson's correlation r for small, medium, and large effect sizes, respectively.
 #' @param sig_level Expected significance level.
 #' @param power Expected statistical power.
-#' @param n The current sample size. Non-integer `n` would be converted to be a integer using `as.integer()`.
+#' @param n The current sample size. Non-integer `n` would be converted to be an integer using `as.integer()`.
 #' `n` should be at least 3.
 #' @param power_ul The upper limit of power. `power_ul` should be larger than `power`, and the maximum `power_ul` is 1.
 #' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
-#' Non-integer `n_ul` would be converted to be a integer using `as.integer()`.
+#' Non-integer `n_ul` would be converted to be an integer using `as.integer()`.
 #' `n_ul` should be at least 3.
 #'
 #' @details `Power_r()` follows Aberson (2019) approach to conduct power analysis. `power_ul` and `n_ul` determine the total times of power_r()'s attempts searching for the minimum required sample size,
 #' hence the number of rows of the returned power table `prior` and the right limit of the horizontal axis of the returned power plot.
 #' `power_r()` will keep running and gradually raise the sample size to `n_ul` until the sample size pushes the power level to `power_ul`.
-#' When `r` is very small and power is larger than 0.8, a huge increase of sample size only bring about a trivial increase of power,
+#' When `r` is very small and power is larger than 0.8, a huge increase of sample size only brings about a trivial increase in power,
 #' which is cost-ineffective. To make `power_r()` omit unnecessary attempts, you could set `power_ul` to be a value less than 1 (e.g., 0.90),
 #' and/or set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
 #'
