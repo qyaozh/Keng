@@ -15,35 +15,23 @@ knitr::opts_chunk$set(
 ```
 
 
-The significance of the unique effect of one or a set of predictors in the regression model is determined by the PRE (Proportional Reduction in Error, also called partial *eta_squared* in ANOVA, or partial *R_squared* in regression), number of parameters in the regression model, and sample size. As a result, given *PRE*, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). So, `power_lm()` comes. 
+The significance of the unique effect of one or a set of predictors in the regression model is determined by (1) PRE (Proportional Reduction in Error, also called partial *eta_squared* in ANOVA, or partial *R_squared* in regression), (2) number of parameters in the regression model, and (3) sample size. As a result, given *PRE*, number of parameters in the regression model, and expected statistical power, we can plan the sample size for one or a set of predictors to reach the expected statistical power (usually 0.80) and the expected significance level (usually 0.05). This is just `power_lm()`'s mission. 
 
 To compare the power of r^2^ and PRE, `Keng` also gives `power_r()` to conduct power analysis for Pearson's *r*. `power_r()` has readable arguments and is easy to use, hence is not detailed in vignettes.
 
-## `power_lm()`
+## Understand the arguments of `power_lm()`
 
-To plan sample size for one or a set of predictors, the following information are needed and passed to `power_lm()` as arguments:
+Among the arguments of `power_lm()`, PRE, PC, and PA merit further explanation.
 
-- `PRE`
+### `PRE`
 
-  *PRE* is partial *R_squared*. Partial *R_squared* is the square of the partial correlation. You could calculate *PRE* from the partial correlation. Other statistical software or R packages often plan sample size for regression model through Cohen's *f_squared*, or its square root, Cohen's *f*. `power_lm()` use *PRE* here because *PRE* and its square root, partial correlation, are more meaningful. The partial correlation is the net correlation between the outcome of regression (e.g., depression) and the predictor (e.g., problem-focused coping) or set of predictors (e.g., the dummy codes of class) of interest. Put differently, the partial correlation is the pure correlation between the outcome and the predictor or set of predictors of interest after controlling for all other predictors, no matter how many they are. We should give a nice guess about the partial correlation. For example, we may guess that, after controlling for other predictors, the partial correlation between the outcome depression and the predictor problem-focused coping is 0.2, then *PRE* = 0.2^2^ = 0.04. You may get the effect size Cohen's *f_squared* or *f* of  problem-focused coping predicting depression, and in this case you could convert Cohen's *f_squared* or *f* to *PRE*. `Keng` provides a function `calc_PRE()` to help users to convert the partial correlation `r_p`, or `f_squared` or `f` to *PRE*.
+*PRE* is partial *R_squared*. Partial *R_squared* is the square of the partial correlation. You could calculate *PRE* from the partial correlation. Other statistical software or R packages often plan sample size for regression model through Cohen's *f_squared*, or its square root, Cohen's *f*. `power_lm()` use *PRE* here because *PRE* and its square root, partial correlation, are more meaningful. The partial correlation is the net correlation between the outcome of regression (e.g., depression) and the predictor (e.g., problem-focused coping) or set of predictors (e.g., the dummy codes of class) of interest. Put differently, the partial correlation is the pure correlation between the outcome and the predictor or set of predictors of interest after controlling for all other predictors, no matter how many they are. We should give a nice guess about the partial correlation. For example, we may guess that, after controlling for other predictors, the partial correlation between the outcome depression and the predictor problem-focused coping is 0.2, then *PRE* = 0.2^2^ = 0.04. You may get the effect size Cohen's *f_squared* or *f* of  problem-focused coping predicting depression, and in this case you could convert Cohen's *f_squared* or *f* to *PRE*. `Keng` provides a function `calc_PRE()` to help users to convert the partial correlation `r_p`, or `f_squared` or `f` to *PRE*.
   
-- `PA` and `PC`
+### `PA` and `PC`
   
-  Suppose that your regression model has m predictors totally. This model is the augmented model (Model A), and has both the focal predictors (e.g., gender, the dummy codes of class) and other less-important predictors like covariates. The number of parameters of this augmented model (Model A), `PA`, is m + 1, since the intercept is also a parameter. `PA` should be at least 1.
+Suppose that your regression model has m predictors totally. This model is the augmented model (Model A), and has both the focal predictors (e.g., gender, the dummy codes of class) and other less-important predictors like covariates. The number of parameters of this augmented model (Model A), `PA`, is m + 1, since the intercept is also a parameter. `PA` should be at least 1.
   
-  The model without the focal predictors is the compact model (Model C). Suppose that the number of the focal predictors is k, the resulting number of parameters of the compact model (Model C), `PC`, is m + 1 - k. `PC` should be at least 0.
-  
-- `power`
-
-  `power` is the expected statistical power, usually it's set to be 0.80.
-
-- `sig.level`
-
-  `sig.level` is the expected significance level, and it's commonly known as the cut-off *p* -value. Usually it's set to be 0.05.
-
-- `n`
-
-  `n` is the current sample size. If `n` is given, post-hoc power analysis would also be conducted.
+The model without the focal predictors is the compact model (Model C). Suppose that the number of the focal predictors is k, the resulting number of parameters of the compact model (Model C), `PC`, is m + 1 - k. `PC` should be at least 0.
   
 Note that `power_lm()` follows Aberson's (2019), and the planed sample size is more conservative than other statistical software like G*power. However, the difference is small and negligible.
 
@@ -53,7 +41,17 @@ Given that regression analysis is equivalent to t-test and ANOVA, `power_lm()` c
 
 ### A set of predictors
 
-You may be interested in the power and required sample size of the full regression model, you could treat all predictors as a set. Suppose your regression model has m predictors, in this case the Model C is the intercept-only model, hence PC = 1, and PA = m + 1.
+You may be interested in the power and required sample size of the full regression model, you could treat all predictors as a set. The Model C is the intercept-only model, hence PC = 1. Suppose your regression model has m predictors, hence PA = m + 1.
+
+m predictors' total PRE is actually R^2^. Assuming m predictors' total PRE is 0.02, m is 10, we plan the sample size using the following code:
+
+```{r}
+#| echo: true
+library(Keng)
+power_lm(PRE = 0.02, PC = 1, PA = 11)
+```
+
+As shown above, this design need at least 816 cases/observations.
 
 ### A continuous predictor
 
