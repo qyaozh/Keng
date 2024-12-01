@@ -51,7 +51,7 @@ library(Keng)
 power_lm(PRE = 0.02, PC = 1, PA = 11)
 ```
 
-As shown above, this design need at least 816 cases/observations.
+As shown above, this design needs at least 816 cases/observations.
 
 ### A continuous predictor
 
