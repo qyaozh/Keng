@@ -45,7 +45,10 @@ Scale <- function(x, m = NULL, sd = NULL, oadvances = NULL) {
   stopifnot(is.numeric(x))
 
   if (!is.null(oadvances)) {
-    stopifnot(is.numeric(x), is.null(m), is.null(sd))
+    stopifnot(
+      is.numeric(x),
+      is.null(m),
+      is.null(sd))
     x - oadvances
   }
   else {

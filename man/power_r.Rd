@@ -4,65 +4,74 @@
 \alias{power_r}
 \title{Conduct post-hoc and prior power analysis, and plan the sample size for r.}
 \usage{
-power_r(r = 0.2, sig.level = 0.05, power = 0.8, power.ul = 0.9, n = NULL)
+power_r(
+  r = 0.2,
+  sig_level = 0.05,
+  power = 0.8,
+  power_ul = 1,
+  n_ul = 1.45e+09,
+  n = NULL
+)
 }
 \arguments{
-\item{r}{Pearson's correlation.}
+\item{r}{Pearson's correlation. Cohen(1988) suggested >=0.1, >=0.3, and >=0.5 as cut-off values
+of Pearson's correlation r for small, medium, and large effect sizes, respectively.}
 
-\item{sig.level}{Expected significance level.}
+\item{sig_level}{Expected significance level.}
 
 \item{power}{Expected statistical power.}
 
-\item{power.ul}{The upper limit of power. \code{power.ul} should be larger than \code{power}, and the maximum \code{power.ul} is 1.
-\code{power.ul} determines the number of rows of the returned power table \code{prior},
-and the right limit of the horizontal axis of the returned power plot.
-\code{power_lm} will keep running and gradually raise the sample size until the sample size reaches the power level \code{power.ul}.
-When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
-a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
-You could set \code{power.ul} to be a value less than 1 (e.g., 0.90) to make \code{power_lm} omit unnecessary attempts.}
+\item{power_ul}{The upper limit of power. \code{power_ul} should be larger than \code{power}, and the maximum \code{power_ul} is 1.}
 
-\item{n}{The current sample size.}
+\item{n_ul}{The upper limit of sample size below which the minimum required sample size is searched.
+Non-integer \code{n_ul} would be converted to be a integer using \code{as.integer()}.
+\code{n_ul} should be at least 3.}
+
+\item{n}{The current sample size. Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.
+\code{n} should be at least 3.}
 }
 \value{
 A Keng_power class, also a list. If \code{n} is not given, the following results would be returned:
 \verb{[[1]]} \code{r}, the given r;
 \verb{[[2]]} \code{d}, Cohen's d derived from \code{r};  Cohen (1988) suggested >=0.2, >=0.5, and >=0.8
 as cut-off values of \code{d} for small, medium, and large effect sizes, respectively;
-\verb{[[3]]} \code{power}, the expected power;
-\verb{[[4]]} \code{minimum}, the minimum planned sample size \code{n_i} and corresponding
+\verb{[[3]]} \code{sig_level}, the expected significance level;
+\verb{[[4]]} \code{power}, the expected power;
+\verb{[[5]]} \code{power_ul}, The upper limit of power;
+\verb{[[6]]} \code{n_ul}, the upper limit of sample size;
+\verb{[[7]]} \code{minimum}, the minimum planned sample size \code{n_i} and corresponding
 \code{df_i} (the \code{df} of t-test at the sample size \code{n_i}, \code{df_i} = \code{n_i} - 2),
 \code{SE_i} (the SE of \code{r} at the sample size \code{n_i}),
 \code{t_i} (the t-test of \code{r}),
 \code{p_i} (the p-value of \code{t_i}),
-\code{delta_i} (the non-centrality parameter of \emph{t}-test),
-\code{power_i} (the actual power at the sample size \code{n_i});
-\verb{[[5]]} \code{prior}, a power table with increasing sample sizes and power;
-\verb{[[6]]}  A plot of power against sample size n.
+\code{delta_i} (the non-centrality parameter of the t-distribution for the alternative hypothesis, given \code{r} and \code{n_i}),
+\code{power_i} (the actual power of \code{r} at the sample size \code{n_i});
+\verb{[[8]]} \code{prior}, a prior power table with increasing sample sizes (\code{n_i}) and power(\code{power_i}).
+\verb{[[9]]}  A plot of power against sample size n.
 
 If sample size \code{n} is given, the following results would also be returned:
-
 Integer \code{n}, the t_test of \code{r} at the sample size \code{n} with
-\code{df_A_C},
-\code{df_A} (the df of the model A at the sample size \code{n}),
-\code{F} (the F-test of \code{PRE} at the sample size \code{n}),
-\code{p} (the p-value of F-test at the sample size \code{n}), and the post-hoc power analysis with
-\code{lambda_post} (the non-centrality parameter of \code{F} at the sample size \code{n}),
-and \code{power_post} (the post-hoc power at the sample size \code{n}).
+\code{df}, \code{SE} of \code{r}, \code{p} (the p-value of t-test), and the post-hoc power analysis with
+\code{delta_post} (the non-centrality parameter of the t-distribution for the alternative hypothesis),
+and \code{power_post} (the post-hoc power of \code{r} at the sample size \code{n}).
 
 By default, \code{print()} prints the primary but not all contents of the \code{Keng_power} class.
-To inspect more contents, use list extracting.
+To inspect more contents, use \code{print.AsIs()} or list extracting.
 }
 \description{
 Conduct post-hoc and prior power analysis, and plan the sample size for r.
 }
 \details{
-\code{Power_r()} follows Aberson (2019) approach to conduct power analysis.
+\code{Power_r()} follows Aberson (2019) approach to conduct power analysis. \code{power_ul} and \code{n_ul} determine the total times of power_r()'s attempts searching for the minimum required sample size,
+hence the number of rows of the returned power table \code{prior} and the right limit of the horizontal axis of the returned power plot.
+\code{power_r()} will keep running and gradually raise the sample size to \code{n_ul} until the sample size pushes the power level to \code{power_ul}.
+When \code{r} is very small and power is larger than 0.8, a huge increase of sample size only bring about a trivial increase of power,
+which is cost-ineffective. To make \code{power_r()} omit unnecessary attempts, you could set \code{power_ul} to be a value less than 1 (e.g., 0.90),
+and/or set \code{n_ul} to be a value less than 1.45e+09 (e.g., 10000).
 }
 \examples{
 power_r(0.2)
-
 print(power_r(0.04))
-
 plot(power_r(0.04))
 }
 \references{

@@ -7,14 +7,12 @@
 #' @export
 #'
 #' @examples plot(power_lm())
-#'
 #' out <- power_r(0.2, n = 193)
-#'
 #' plot(out)
 plot.Keng_power <- function(x, ...) {
   stopifnot("Keng_power" %in% class(x))
 
-  # select 200 rows
+  # select 100 rows
   if (nrow(x$prior) > 100) {
     x$prior <- x$prior[stats::quantile(0:nrow(x$prior), seq(0, 1, 0.01)), ]
   }
@@ -37,14 +35,18 @@ plot.Keng_power <- function(x, ...) {
       col = "#1661AB",
       xlab = "Sample Size",
       ylim = c(0, 1),
-      ylab = "Power"
-    ) + graphics::abline(
+      ylab = "Power") +
+    graphics::abline(
     h = x$power,
     v = x$minimum$n_i,
     lwd = 2,
     lty = 3,
-    col = "#FCC307"
-  ) +
+    col = "#FCC307") +
+    graphics::text(
+      x = x$minimum$n_i,
+      y = 0.05,
+      labels = x$minimum$n_i,
+      col = "#FCC307") +
     graphics::title(
       main = "Power ~ Sample Size",
       sub = labels,

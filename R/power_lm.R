@@ -9,36 +9,42 @@
 #' @param PA Number of parameters of model A (augmented model) with focal predictors of interest.
 #' Non-integer `PA` would be converted to be a integer using `as.integer()`.
 #' `as.integer(PA)` should be larger than `as.integer(PC)`.
-#' @param sig.level Expected significance level for effects of focal predictors.
+#' @param sig_level Expected significance level for effects of focal predictors.
 #' @param power Expected statistical power for effects of focal predictors.
-#' @param power.ul The upper limit of power. `power.ul` should be larger than `power`, and the maximum `power.ul` is 1.
-#' `power.ul` determines the number of rows of the returned power table `prior`,
-#' and the right limit of the horizontal axis of the returned power plot.
-#' `power_lm` will keep running and gradually raise the sample size until the sample size reaches the power level `power.ul`.
+#' @param power_ul The upper limit of power below which the minimum sample size is searched.
+#' `power_ul` should be larger than `power`, and the maximum `power_ul` is 1.
+#' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
+#' Non-integer `n_ul` would be converted to be a integer using `as.integer()`.
+#' `as.integer(n_ul)` should be at least `as.integer(PA) + 1`.
+#' @param n The current sample size. Non-integer `n` would be converted to be a integer using `as.integer()`.
+#' Non-NULL `as.integer(n)` should be at least `as.integer(PA) + 1`.
+#'
+#' @details `power_ul` and `n_ul` determine the total times of power_lm()'s attempts searching for the minimum required sample size,
+#' hence the number of rows of the returned power table `prior` and the right limit of the horizontal axis of the returned power plot.
+#' `power_lm()` will keep running and gradually raise the sample size to `n_ul` until the sample size pushes the power level to `power_ul`.
 #' When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
 #' a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
-#' You could set `power.ul` to be a value less than 1 (e.g., 0.90) to make `power_lm` omit unnecessary attempts.
-#' @param n The current sample size. Non-integer `n` would be converted to be a integer using `as.integer()`.
+#' To make `power_lm()` omit unnecessary attempts, you could set `power_ul` to be a value less than 1 (e.g., 0.90),
+#' and/or set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
 #'
 #' @return A Keng_power class, also a list. If sample size `n` is not given, the following results would be returned:
 #' `[[1]]` `PRE`;
 #' `[[2]]` `f_squared`, Cohen's f_squared derived from PRE;
 #' `[[3]]` `PC`;
 #' `[[4]]` `PA`;
-#' `[[5]]` `sig.level`, expected significance level for effects of focal predictors;
+#' `[[5]]` `sig_level`, expected significance level for effects of focal predictors;
 #' `[[6]]` `power`, expected statistical power for effects of focal predictors;
-#' `[[6]]` `minimum`, the minimum sample size `n_i` required for focal predictors to reach the
+#' `[[7]]` `power_ul`, the upper limit of power;
+#' `[[8]]` `n_ul`, the upper limit of sample size;
+#' `[[9]]` `minimum`, the minimum sample size `n_i` required for focal predictors to reach the
 #' expected statistical power and significance level, and corresponding
 #' `df_A_C`(the df of the numerator of the F-test, i.e., the difference of the dfs between model C and model A),
 #' `df_A_i`(the df of the denominator of the F-test, i.e., the df of the model A at the sample size `n_i`),
 #' `F_i`(the *F*-test of `PRE` at the sample size `n_i`),
 #' `p_i`(the p-value of `F_i`),
-#' `lambda_i`(the non-centrality parameter of `F_i` at the sample size `n_i`),
-#' `power_i`(the actual power at the sample size `n_i`),
-#' `[[7]]` `prior`, a prior power table including `n_i` and corresponding `df_A_C`, `df_A_i`, `F_i`, `p_i`, `lambda_i`, `power_i`.
-#' `_i` indicates these statistics are the intermediate iterative results.
-#'
-#' Note that the maximum `n_i` is limited to be 100,000.
+#' `lambda_i`(the non-centrality parameter of the F-distribution for the alternative hypothesis, given `PRE` and `n_i`),
+#' `power_i`(the actual power of `PRE` at the sample size `n_i`);
+#' `[[10]]` `prior`, a prior power table with increasing sample sizes (`n_i`) and power(`power_i`).
 #'
 #' If sample size `n` is given, the following results would also be returned:
 #' Integer `n`, the F_test of `PRE` at the sample size `n` with
@@ -50,31 +56,31 @@
 #' and `power_post` (the post-hoc power at the sample size `n`).
 #'
 #' By default, `print()` prints the primary but not all contents of the `Keng_power` class.
-#' To inspect more contents, use list extracting.
+#' To inspect more contents, use `print.AsIs()` or list extracting.
 #'
 #' @references Cohen, J. (1988). *Statistical power analysis for the behavioral sciences* (2nd ed.). Routledge.
 #'
 #' @export
 #'
-#' @examples print(power_lm())
-#'
+#' @examples power_lm()
+#' print(power_lm())
 #' plot(power_lm())
 power_lm <- function(PRE = 0.02,
                      PC = 1,
                      PA = 2,
-                     sig.level = 0.05,
+                     sig_level = 0.05,
                      power = 0.8,
-                     power.ul = 0.9,
+                     power_ul = 1,
+                     n_ul = 1.45e+09,
                      n = NULL) {
 
   PC <- as.integer(PC)
   PA <- as.integer(PA)
+  n_ul <- as.integer(n_ul)
   n <- as.integer(n)
 
   stopifnot(
-    sum(sapply(
-      list(PRE, PC, PA, power, sig.level), is.null
-    )) == 0,
+    sum(sapply(list(PRE, PC, PA, sig_level, power, power_ul, n_ul), is.null)) == 0,
     PRE > 0, # If PRE = 0, the computation would be endless.
     PRE < 1, # PRE would be subjected to the F-test, hence should be smaller than 1.
     PC >= 0,
@@ -85,11 +91,12 @@ power_lm <- function(PRE = 0.02,
     # power could be 1.
     # If PRE is very very small, n_i will grow towards Inf. Limit the maximum n_i to be 100,000.
     power <= 1,
-    power.ul >= power,
-    power.ul <= 1, # power.ul must <= 1, otherwise the loop will be endless because power cannot > 1.
-    sig.level > 0, # if sig.level = 0, the computation would be endless.
-    sig.level <= 1,
-    identical(n, integer(0)) || n > PA # Use ||, so if n is integer(0), (n > PA) would not be evaluated.
+    power_ul >= power,
+    power_ul <= 1, # power_ul must <= 1, otherwise the loop will be endless because power_i cannot > 1.
+    sig_level > 0, # if sig_level = 0, the computation would be endless.
+    sig_level <= 1,
+    identical(n, integer(0)) || n >= PA + 1, # Use ||, so if n is integer(0), (n > PA) would not be evaluated.
+    n_ul >= PA + 1 # the loop begin from n_i = PA + 1
   )
 
   f_squared <- PRE / (1 - PRE)
@@ -101,7 +108,7 @@ power_lm <- function(PRE = 0.02,
     F <- (PRE / df_A_C) / ((1 - PRE) / df_A)
     p <- stats::pf(F, df_A_C , df_A, lower.tail = FALSE)
     lambda_post <- f_squared * df_A
-    power_post <- stats::pf(stats::qf((1 - sig.level), df_A_C , df_A),
+    power_post <- stats::pf(stats::qf((1 - sig_level), df_A_C , df_A),
                             df_A_C,
                             df_A,
                             lambda_post,
@@ -115,12 +122,16 @@ power_lm <- function(PRE = 0.02,
   prior <- list()
   index <- 1
 
-  while (power_i <= power.ul & n_i <= 100000) {
+  # The maximum power_i is 1, and the maximum power_ul is 1.
+  # Do not use "power_i <= power_ul" to keep the while alive,
+  # when power_ul = 1, the loop will be endless.
+
+  while ((power_i < power_ul) & (n_i <= n_ul)) {
     df_A_i <- n_i - PA
     F_i <- (PRE / df_A_C) / ((1 - PRE) / df_A_i)
     p_i <- stats::pf(F_i, df_A_C , df_A_i, lower.tail = FALSE)
     lambda_i <- f_squared * df_A_i
-    power_i <- stats::pf(stats::qf((1 - sig.level), df_A_C , df_A_i),
+    power_i <- stats::pf(stats::qf((1 - sig_level), df_A_C , df_A_i),
                          df_A_C,
                          df_A_i,
                          lambda_i,
@@ -144,8 +155,10 @@ power_lm <- function(PRE = 0.02,
         f_squared = f_squared,
         PC = PC,
         PA = PA,
-        sig.level = sig.level,
+        sig_level = sig_level,
         power = power,
+        power_ul = power_ul,
+        n_ul = n_ul,
         minimum = minimum,
         prior = prior,
         method = method
@@ -159,10 +172,12 @@ power_lm <- function(PRE = 0.02,
         f_squared = f_squared,
         PC = PC,
         PA = PA,
-        sig.level = sig.level,
+        sig_level = sig_level,
         n = n,
         F_test = F_test,
         power = power,
+        power_ul = power_ul,
+        n_ul = n_ul,
         minimum = minimum,
         prior = prior,
         method = method

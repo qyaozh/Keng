@@ -6,38 +6,46 @@
 #' @return None (invisible NULL).
 #' @export
 #'
-#' @examples print(power_lm(n = 200))
-#'
-#' out <- power_r(0.2, n = 193)
-#'
-#' out
+#' @examples power_lm()
+#' power_lm(n = 200)
+#' print(power_lm(n = 200))
+#' x <- power_r(0.2, n = 193)
+#' x
 print.Keng_power <- function(x, ...) {
+
   stopifnot("Keng_power" %in% class(x))
 
   switch(
     x$method,
-    power_r =  cat("r = ", x$r, "\n",
+    power_r =  cat("-- Given ---------------------------", "\n",
+                   "r = ", x$r, "\n",
                    "d = ", x$d, "\n",
-                   "sig.level = ", x$sig.level, "\n",
-                   "----- Post-hoc power analysis -----", "\n",
-                   "n = ", ifelse(is.null(x$n), "NULL", x$n), "\n",
-                   "power_post = ", ifelse(is.null(x$n), "NULL", format(x$t_test["power_post"])), "\n",
-                   "------ Sample size planning -------", "\n",
+                   "sig_level = ", x$sig_level, "\n",
+                   "-- Post-hoc power analysis --------", "\n",
+                   # $ allows partial matching. Use [[]] instead.
+                   "n = ", ifelse(is.null(x[["n"]]), "NULL", x[["n"]]), "\n",
+                   "power_post = ", ifelse(is.null(x[["n"]]), "NULL", format(x$t_test["power_post"])), "\n",
+                   "-- Sample size planning -----------", "\n",
                    "power = ", x$power, "\n",
                    "Minimum sample size = ", x$minimum$n_i, "\n",
-
+                   if (is.na(x$minimum$n_i))
+                     paste0("Note. Sample size has reached ", x$n_ul, ", but power failed to reach ",  x$power, "."),
                    sep = ""),
-    power_lm = cat("PRE = ", x$PRE, "\n",
+    power_lm = cat("-- Given ---------------------------", "\n",
+                   "PRE = ", x$PRE, "\n",
                    "f_squared = ", x$f_squared, "\n",
                    "PC = ", x$PC, "\n",
                    "PA = ", x$PA, "\n",
-                   "sig.level = ", x$sig.level, "\n",
-                   "----- Post-hoc power analysis -----", "\n",
-                   "n = ", ifelse(is.null(x$n), "NULL", x$n), "\n",
-                   "power_post = ", ifelse(is.null(x$n), "NULL", format(x$F_test["power_post"])), "\n",
-                   "------ Sample size planning -------", "\n",
+                   "sig_level = ", x$sig_level, "\n",
+                   "-- Post-hoc power analysis --------", "\n",
+                   # $ allows partial matching. Use [[]] instead.
+                   "n = ", ifelse(is.null(x[["n"]]), "NULL", x[["n"]]), "\n",
+                   "power_post = ", ifelse(is.null(x[["n"]]), "NULL", format(x$F_test["power_post"])), "\n",
+                   "-- Sample size planning -----------", "\n",
                    "Expected power = ", x$power, "\n",
-                   "Minimum sample size = ", x$minimum$n_i,
-                   sep = ""),
+                   "Minimum sample size = ", x$minimum$n_i, "\n",
+                   if (is.na(x$minimum$n_i))
+                       paste0("Note. Sample size has reached ", x$n_ul, ", but power failed to reach ",  x$power, "."),
+                   sep = "")
   )
 }

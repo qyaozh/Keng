@@ -19,8 +19,6 @@ Plot the power against sample size for the Keng_power class
 }
 \examples{
 plot(power_lm())
-
 out <- power_r(0.2, n = 193)
-
 plot(out)
 }

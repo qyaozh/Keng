@@ -8,9 +8,10 @@ power_lm(
   PRE = 0.02,
   PC = 1,
   PA = 2,
-  sig.level = 0.05,
+  sig_level = 0.05,
   power = 0.8,
-  power.ul = 0.9,
+  power_ul = 1,
+  n_ul = 1.45e+09,
   n = NULL
 )
 }
@@ -27,19 +28,19 @@ Non-integer \code{PC} would be converted to be a integer using \code{as.integer(
 Non-integer \code{PA} would be converted to be a integer using \code{as.integer()}.
 \code{as.integer(PA)} should be larger than \code{as.integer(PC)}.}
 
-\item{sig.level}{Expected significance level for effects of focal predictors.}
+\item{sig_level}{Expected significance level for effects of focal predictors.}
 
 \item{power}{Expected statistical power for effects of focal predictors.}
 
-\item{power.ul}{The upper limit of power. \code{power.ul} should be larger than \code{power}, and the maximum \code{power.ul} is 1.
-\code{power.ul} determines the number of rows of the returned power table \code{prior},
-and the right limit of the horizontal axis of the returned power plot.
-\code{power_lm} will keep running and gradually raise the sample size until the sample size reaches the power level \code{power.ul}.
-When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
-a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
-You could set \code{power.ul} to be a value less than 1 (e.g., 0.90) to make \code{power_lm} omit unnecessary attempts.}
+\item{power_ul}{The upper limit of power below which the minimum sample size is searched.
+\code{power_ul} should be larger than \code{power}, and the maximum \code{power_ul} is 1.}
 
-\item{n}{The current sample size. Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.}
+\item{n_ul}{The upper limit of sample size below which the minimum required sample size is searched.
+Non-integer \code{n_ul} would be converted to be a integer using \code{as.integer()}.
+\code{as.integer(n_ul)} should be at least \code{as.integer(PA) + 1}.}
+
+\item{n}{The current sample size. Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.
+Non-NULL \code{as.integer(n)} should be at least \code{as.integer(PA) + 1}.}
 }
 \value{
 A Keng_power class, also a list. If sample size \code{n} is not given, the following results would be returned:
@@ -47,20 +48,19 @@ A Keng_power class, also a list. If sample size \code{n} is not given, the follo
 \verb{[[2]]} \code{f_squared}, Cohen's f_squared derived from PRE;
 \verb{[[3]]} \code{PC};
 \verb{[[4]]} \code{PA};
-\verb{[[5]]} \code{sig.level}, expected significance level for effects of focal predictors;
+\verb{[[5]]} \code{sig_level}, expected significance level for effects of focal predictors;
 \verb{[[6]]} \code{power}, expected statistical power for effects of focal predictors;
-\verb{[[6]]} \code{minimum}, the minimum sample size \code{n_i} required for focal predictors to reach the
+\verb{[[7]]} \code{power_ul}, the upper limit of power;
+\verb{[[8]]} \code{n_ul}, the upper limit of sample size;
+\verb{[[9]]} \code{minimum}, the minimum sample size \code{n_i} required for focal predictors to reach the
 expected statistical power and significance level, and corresponding
 \code{df_A_C}(the df of the numerator of the F-test, i.e., the difference of the dfs between model C and model A),
 \code{df_A_i}(the df of the denominator of the F-test, i.e., the df of the model A at the sample size \code{n_i}),
 \code{F_i}(the \emph{F}-test of \code{PRE} at the sample size \code{n_i}),
 \code{p_i}(the p-value of \code{F_i}),
-\code{lambda_i}(the non-centrality parameter of \code{F_i} at the sample size \code{n_i}),
-\code{power_i}(the actual power at the sample size \code{n_i}),
-\verb{[[7]]} \code{prior}, a prior power table including \code{n_i} and corresponding \code{df_A_C}, \code{df_A_i}, \code{F_i}, \code{p_i}, \code{lambda_i}, \code{power_i}.
-\verb{_i} indicates these statistics are the intermediate iterative results.
-
-Note that the maximum \code{n_i} is limited to be 100,000.
+\code{lambda_i}(the non-centrality parameter of the F-distribution for the alternative hypothesis, given \code{PRE} and \code{n_i}),
+\code{power_i}(the actual power of \code{PRE} at the sample size \code{n_i});
+\verb{[[10]]} \code{prior}, a prior power table with increasing sample sizes (\code{n_i}) and power(\code{power_i}).
 
 If sample size \code{n} is given, the following results would also be returned:
 Integer \code{n}, the F_test of \code{PRE} at the sample size \code{n} with
@@ -72,14 +72,23 @@ Integer \code{n}, the F_test of \code{PRE} at the sample size \code{n} with
 and \code{power_post} (the post-hoc power at the sample size \code{n}).
 
 By default, \code{print()} prints the primary but not all contents of the \code{Keng_power} class.
-To inspect more contents, use list extracting.
+To inspect more contents, use \code{print.AsIs()} or list extracting.
 }
 \description{
 Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis
 }
+\details{
+\code{power_ul} and \code{n_ul} determine the total times of power_lm()'s attempts searching for the minimum required sample size,
+hence the number of rows of the returned power table \code{prior} and the right limit of the horizontal axis of the returned power plot.
+\code{power_lm()} will keep running and gradually raise the sample size to \code{n_ul} until the sample size pushes the power level to \code{power_ul}.
+When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
+a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
+To make \code{power_lm()} omit unnecessary attempts, you could set \code{power_ul} to be a value less than 1 (e.g., 0.90),
+and/or set \code{n_ul} to be a value less than 1.45e+09 (e.g., 10000).
+}
 \examples{
+power_lm()
 print(power_lm())
-
 plot(power_lm())
 }
 \references{

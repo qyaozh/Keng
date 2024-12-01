@@ -18,9 +18,9 @@ None (invisible NULL).
 Print primary but not all contents of the Keng_power class
 }
 \examples{
+power_lm()
+power_lm(n = 200)
 print(power_lm(n = 200))
-
-out <- power_r(0.2, n = 193)
-
-out
+x <- power_r(0.2, n = 193)
+x
 }
