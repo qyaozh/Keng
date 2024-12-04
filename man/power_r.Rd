@@ -24,10 +24,10 @@ of Pearson's correlation r for small, medium, and large effect sizes, respective
 \item{power_ul}{The upper limit of power. \code{power_ul} should be larger than \code{power}, and the maximum \code{power_ul} is 1.}
 
 \item{n_ul}{The upper limit of sample size below which the minimum required sample size is searched.
-Non-integer \code{n_ul} would be converted to be a integer using \code{as.integer()}.
+Non-integer \code{n_ul} would be converted to be an integer using \code{as.integer()}.
 \code{n_ul} should be at least 3.}
 
-\item{n}{The current sample size. Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.
+\item{n}{The current sample size. Non-integer \code{n} would be converted to be an integer using \code{as.integer()}.
 \code{n} should be at least 3.}
 }
 \value{
@@ -65,7 +65,7 @@ Conduct post-hoc and prior power analysis, and plan the sample size for r.
 \code{Power_r()} follows Aberson (2019) approach to conduct power analysis. \code{power_ul} and \code{n_ul} determine the total times of power_r()'s attempts searching for the minimum required sample size,
 hence the number of rows of the returned power table \code{prior} and the right limit of the horizontal axis of the returned power plot.
 \code{power_r()} will keep running and gradually raise the sample size to \code{n_ul} until the sample size pushes the power level to \code{power_ul}.
-When \code{r} is very small and power is larger than 0.8, a huge increase of sample size only bring about a trivial increase of power,
+When \code{r} is very small and power is larger than 0.8, a huge increase of sample size only brings about a trivial increase in power,
 which is cost-ineffective. To make \code{power_r()} omit unnecessary attempts, you could set \code{power_ul} to be a value less than 1 (e.g., 0.90),
 and/or set \code{n_ul} to be a value less than 1.45e+09 (e.g., 10000).
 }
