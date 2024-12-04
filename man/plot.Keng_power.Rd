@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.Keng_power.R
 \name{plot.Keng_power}
 \alias{plot.Keng_power}
-\title{Plot the power against sample size for the Keng_power class}
+\title{Plot the power against the sample size for the Keng_power class}
 \usage{
 \method{plot}{Keng_power}(x, ...)
 }
@@ -15,7 +15,7 @@
 A plot of power against sample size.
 }
 \description{
-Plot the power against sample size for the Keng_power class
+Plot the power against the sample size for the Keng_power class
 }
 \examples{
 plot(power_lm())
