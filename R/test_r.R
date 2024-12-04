@@ -44,12 +44,13 @@
 #'
 #' # compare the p-values of t-test and Fisher's transformation
 #' for (i in seq(30, 200, 10)) {
-#' cat(c("n =", i, ",",
+#' cat(c("n = ", i, ", difference between ps = ",
 #'        format(
 #'         abs(test_r(0.2, i)[["t_test"]]["p_r"] - test_r(0.2, i)[["Fisher_z"]]["p_fz"]),
 #'         nsmall = 12,
 #'         scientific = FALSE)),
-#'     fill = TRUE)
+#'       sep = "",
+#'       fill = TRUE)
 #' }
 
 test_r <- function(r = NULL,
