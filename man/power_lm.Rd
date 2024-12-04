@@ -22,10 +22,10 @@ Cohen (1988) suggested >=0.02, >=0.13, and >=0.26 as cut-off values of PRE for s
 medium, and large effect sizes, respectively.}
 
 \item{PC}{Number of parameters of model C (compact model) without focal predictors of interest.
-Non-integer \code{PC} would be converted to be a integer using \code{as.integer()}.}
+Non-integer \code{PC} would be converted to be an integer using \code{as.integer()}.}
 
 \item{PA}{Number of parameters of model A (augmented model) with focal predictors of interest.
-Non-integer \code{PA} would be converted to be a integer using \code{as.integer()}.
+Non-integer \code{PA} would be converted to be an integer using \code{as.integer()}.
 \code{as.integer(PA)} should be larger than \code{as.integer(PC)}.}
 
 \item{sig_level}{Expected significance level for effects of focal predictors.}
@@ -36,10 +36,10 @@ Non-integer \code{PA} would be converted to be a integer using \code{as.integer(
 \code{power_ul} should be larger than \code{power}, and the maximum \code{power_ul} is 1.}
 
 \item{n_ul}{The upper limit of sample size below which the minimum required sample size is searched.
-Non-integer \code{n_ul} would be converted to be a integer using \code{as.integer()}.
+Non-integer \code{n_ul} would be converted to be an integer using \code{as.integer()}.
 \code{as.integer(n_ul)} should be at least \code{as.integer(PA) + 1}.}
 
-\item{n}{The current sample size. Non-integer \code{n} would be converted to be a integer using \code{as.integer()}.
+\item{n}{The current sample size. Non-integer \code{n} would be converted to be an integer using \code{as.integer()}.
 Non-NULL \code{as.integer(n)} should be at least \code{as.integer(PA) + 1}.}
 }
 \value{
@@ -82,7 +82,7 @@ Conduct post-hoc and prior power analysis, and plan the sample size for regressi
 hence the number of rows of the returned power table \code{prior} and the right limit of the horizontal axis of the returned power plot.
 \code{power_lm()} will keep running and gradually raise the sample size to \code{n_ul} until the sample size pushes the power level to \code{power_ul}.
 When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
-a huge increase of sample size only bring about a trivial increase of power, which is cost-ineffective.
+a huge increase in sample size only brings about a trivial increase in power, which is cost-ineffective.
 To make \code{power_lm()} omit unnecessary attempts, you could set \code{power_ul} to be a value less than 1 (e.g., 0.90),
 and/or set \code{n_ul} to be a value less than 1.45e+09 (e.g., 10000).
 }
