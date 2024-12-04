@@ -39,6 +39,6 @@ Keng package.
 depress
 }
 \description{
-A subset of data from a research about depression and coping.
+A subset of data from research about depression and coping.
 }
 \keyword{datasets}
