@@ -56,6 +56,6 @@ Scale <- function(x, m = NULL, sd = NULL, oadvances = NULL) {
     else stopifnot(is.numeric(m))
     if (is.null(sd)) sd <- stats::sd(x, na.rm = TRUE)
     else stopifnot(is.numeric(sd))
-    m + (x - mean(x, na.rm = TRUE))/stats::sd(x, na.rm = FALSE)*sd
+    m + (x - mean(x, na.rm = TRUE))/stats::sd(x, na.rm = TRUE)*sd
   }
 }
