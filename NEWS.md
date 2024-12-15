@@ -1,4 +1,4 @@
-# Keng 2024.11.30
+# Keng 2024.12.15
 
 * `power_r()` has been added to conduct post-hoc and prior power analysis, and plan the sample size for Pearson's r.
 * `power_lm()` has reorganized its output.
