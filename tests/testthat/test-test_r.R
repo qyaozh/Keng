@@ -5,8 +5,6 @@ test_that("test_r", {
     abs(out$t_test["p_r"] - out$Fisher_z["p_fz"]), 0.002)
 
   p_r <- out$t_test["p_r"]
-  names(p_r) <- NULL
   p <- power_lm(r^2, n = 100)$F_test["p"]
-  names(p) <- NULL
-  expect_equal(p_r, p)
+  expect_equal(p_r, p, ignore_attr = TRUE)
 })

@@ -11,4 +11,6 @@ test_that("power_r", {
   expect_error(power_r(r = 1))
   expect_error(power_r(r = 2))
 
+  # test 3, NA
+  expect_error(power_r(r = NA))
 })

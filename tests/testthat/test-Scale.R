@@ -7,4 +7,8 @@ test_that("Scale", {
   expect_equal(mean(Scale(x, m = 100, sd = 15)), 100) # M of standardized score
   expect_equal(sd(Scale(x, m = 100, sd = 15)), 15) # SD of standardized score
   expect_equal(Scale(x, oadvances = 2), Scale(x, m = mean(x) - 2))
+
+  # test NA
+  expect_error(Scale(NA))
+  expect_equal(Scale(c(x, NA)), c(Scale(x), NA))
 })

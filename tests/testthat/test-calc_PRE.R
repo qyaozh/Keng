@@ -22,4 +22,7 @@ test_that("calc_PRE", {
   expect_error(calc_PRE(r_p = -10))
   expect_equal(calc_PRE(r_p = 0)$PRE, 0)
   expect_equal(calc_PRE(r_p = 1)$PRE, 1)
+
+  # test NA
+  expect_error(calc_PRE(f = NA))
 })
