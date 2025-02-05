@@ -1,4 +1,4 @@
-#' Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis
+#' Conduct post hoc and a priori power analysis, and plan the sample size for regression analysis
 #'
 #' @param PRE Proportional Reduction in Error.
 #' PRE = The square of partial correlation.
@@ -20,7 +20,7 @@
 #' Non-NULL `as.integer(n)` should be at least `as.integer(PA) + 1`.
 #'
 #' @details `power_ul` and `n_ul` determine the total times of power_lm()'s attempts searching for the minimum required sample size,
-#' hence the number of rows of the returned power table `prior` and the right limit of the horizontal axis of the returned power plot.
+#' hence the number of rows of the returned power table `priori` and the right limit of the horizontal axis of the returned power plot.
 #' `power_lm()` will keep running and gradually raise the sample size to `n_ul` until the sample size pushes the power level to `power_ul`.
 #' When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
 #' a huge increase in sample size only brings about a trivial increase in power, which is cost-ineffective.
@@ -44,7 +44,7 @@
 #' `p_i`(the p-value of `F_i`),
 #' `lambda_i`(the non-centrality parameter of the F-distribution for the alternative hypothesis, given `PRE` and `n_i`),
 #' `power_i`(the actual power of `PRE` at the sample size `n_i`);
-#' `[[10]]` `prior`, a prior power table with increasing sample sizes (`n_i`) and power(`power_i`).
+#' `[[10]]` `priori`, a priori power table with increasing sample sizes (`n_i`) and power(`power_i`).
 #'
 #' If sample size `n` is given, the following results would also be returned:
 #' Integer `n`, the F_test of `PRE` at the sample size `n` with
@@ -116,10 +116,10 @@ power_lm <- function(PRE = 0.02,
     F_test = c(n = n, df_A_C = df_A_C, df_A = df_A, F = F, p = p, lambda_post = lambda_post, power_post = power_post)
   }
 
-  # prior power
+  # a priori power
   n_i <- PA + 1
   power_i <- 0
-  prior <- list()
+  priori <- list()
   index <- 1
 
   # The maximum power_i is 1, and the maximum power_ul is 1.
@@ -136,15 +136,15 @@ power_lm <- function(PRE = 0.02,
                          df_A_i,
                          lambda_i,
                          lower.tail = FALSE)
-    prior[[index]] <- c(n_i, df_A_C, df_A_i, F_i, p_i, lambda_i, power_i)
+    priori[[index]] <- c(n_i, df_A_C, df_A_i, F_i, p_i, lambda_i, power_i)
     n_i <- n_i + 1
     index <- index + 1
   }
 
-  prior <- data.frame(matrix(unlist(prior), ncol = 7, byrow = TRUE))
-  names(prior) <- c("n_i", "df_A_C", "df_A_i", "F_i", "p_i", "lambda_i", "power_i")
+  priori <- data.frame(matrix(unlist(priori), ncol = 7, byrow = TRUE))
+  names(priori) <- c("n_i", "df_A_C", "df_A_i", "F_i", "p_i", "lambda_i", "power_i")
 
-  minimum <- prior[prior$power_i >= power, ][1, ]
+  minimum <- priori[priori$power_i >= power, ][1, ]
 
   method <- "power_lm"
 
@@ -160,7 +160,7 @@ power_lm <- function(PRE = 0.02,
         power_ul = power_ul,
         n_ul = n_ul,
         minimum = minimum,
-        prior = prior,
+        priori = priori,
         method = method
       ),
       class = c("Keng_power", "list")
@@ -179,7 +179,7 @@ power_lm <- function(PRE = 0.02,
         power_ul = power_ul,
         n_ul = n_ul,
         minimum = minimum,
-        prior = prior,
+        priori = priori,
         method = method
       ),
       class = c("Keng_power", "list")

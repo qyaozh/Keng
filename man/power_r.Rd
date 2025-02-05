@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_r.R
 \name{power_r}
 \alias{power_r}
-\title{Conduct post-hoc and prior power analysis, and plan the sample size for r.}
+\title{Conduct post hoc and a priori power analysis, and plan the sample size for r.}
 \usage{
 power_r(
   r = 0.2,
@@ -46,7 +46,7 @@ as cut-off values of \code{d} for small, medium, and large effect sizes, respect
 \code{p_i} (the p-value of \code{t_i}),
 \code{delta_i} (the non-centrality parameter of the t-distribution for the alternative hypothesis, given \code{r} and \code{n_i}),
 \code{power_i} (the actual power of \code{r} at the sample size \code{n_i});
-\verb{[[8]]} \code{prior}, a prior power table with increasing sample sizes (\code{n_i}) and power(\code{power_i}).
+\verb{[[8]]} \code{priori}, a priori power table with increasing sample sizes (\code{n_i}) and power(\code{power_i}).
 \verb{[[9]]}  A plot of power against sample size n.
 
 If sample size \code{n} is given, the following results would also be returned:
@@ -59,11 +59,11 @@ By default, \code{print()} prints the primary but not all contents of the \code{
 To inspect more contents, use \code{print.AsIs()} or list extracting.
 }
 \description{
-Conduct post-hoc and prior power analysis, and plan the sample size for r.
+Conduct post hoc and a priori power analysis, and plan the sample size for r.
 }
 \details{
 \code{Power_r()} follows Aberson (2019) approach to conduct power analysis. \code{power_ul} and \code{n_ul} determine the total times of power_r()'s attempts searching for the minimum required sample size,
-hence the number of rows of the returned power table \code{prior} and the right limit of the horizontal axis of the returned power plot.
+hence the number of rows of the returned power table \code{priori} and the right limit of the horizontal axis of the returned power plot.
 \code{power_r()} will keep running and gradually raise the sample size to \code{n_ul} until the sample size pushes the power level to \code{power_ul}.
 When \code{r} is very small and power is larger than 0.8, a huge increase of sample size only brings about a trivial increase in power,
 which is cost-ineffective. To make \code{power_r()} omit unnecessary attempts, you could set \code{power_ul} to be a value less than 1 (e.g., 0.90),

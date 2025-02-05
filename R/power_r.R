@@ -1,4 +1,4 @@
-#' Conduct post-hoc and prior power analysis, and plan the sample size for r.
+#' Conduct post hoc and a priori power analysis, and plan the sample size for r.
 #'
 #' @param r Pearson's correlation. Cohen(1988) suggested >=0.1, >=0.3, and >=0.5 as cut-off values
 #' of Pearson's correlation r for small, medium, and large effect sizes, respectively.
@@ -12,7 +12,7 @@
 #' `n_ul` should be at least 3.
 #'
 #' @details `Power_r()` follows Aberson (2019) approach to conduct power analysis. `power_ul` and `n_ul` determine the total times of power_r()'s attempts searching for the minimum required sample size,
-#' hence the number of rows of the returned power table `prior` and the right limit of the horizontal axis of the returned power plot.
+#' hence the number of rows of the returned power table `priori` and the right limit of the horizontal axis of the returned power plot.
 #' `power_r()` will keep running and gradually raise the sample size to `n_ul` until the sample size pushes the power level to `power_ul`.
 #' When `r` is very small and power is larger than 0.8, a huge increase of sample size only brings about a trivial increase in power,
 #' which is cost-ineffective. To make `power_r()` omit unnecessary attempts, you could set `power_ul` to be a value less than 1 (e.g., 0.90),
@@ -33,7 +33,7 @@
 #' `p_i` (the p-value of `t_i`),
 #' `delta_i` (the non-centrality parameter of the t-distribution for the alternative hypothesis, given `r` and `n_i`),
 #' `power_i` (the actual power of `r` at the sample size `n_i`);
-#' `[[8]]` `prior`, a prior power table with increasing sample sizes (`n_i`) and power(`power_i`).
+#' `[[8]]` `priori`, a priori power table with increasing sample sizes (`n_i`) and power(`power_i`).
 #' `[[9]]`  A plot of power against sample size n.
 #'
 #' If sample size `n` is given, the following results would also be returned:
@@ -92,10 +92,10 @@ power_r <- function(r = 0.2,
     t_test <- c(n = n, df = df, SE = SE, t = t, p = p, delta_post = delta_post, power_post = power_post)
   }
 
-  # prior power
+  # a priori power
   n_i <- 3
   power_i <- 0
-  prior <- list()
+  priori <- list()
   index <- 1
 
   while (power_i < power_ul & n_i <= n_ul) {
@@ -108,15 +108,15 @@ power_r <- function(r = 0.2,
                          n_i - 2,
                          abs(delta_i),
                          lower.tail = FALSE)
-    prior[[index]] <- c(n_i, df_i, SE_i, t_i, p_i, delta_i, power_i)
+    priori[[index]] <- c(n_i, df_i, SE_i, t_i, p_i, delta_i, power_i)
     n_i <- n_i + 1
     index <- index + 1
   }
 
-  prior <- data.frame(matrix(unlist(prior), ncol = 7, byrow = TRUE))
-  names(prior) <- c("n_i", "df_i", "SE_i", "t_i", "p_i", "delta_i", "power_i")
+  priori <- data.frame(matrix(unlist(priori), ncol = 7, byrow = TRUE))
+  names(priori) <- c("n_i", "df_i", "SE_i", "t_i", "p_i", "delta_i", "power_i")
 
-  minimum <- prior[prior$power_i >= power, ][1, ]
+  minimum <- priori[priori$power_i >= power, ][1, ]
 
   method <- "power_r"
 
@@ -130,7 +130,7 @@ power_r <- function(r = 0.2,
         power_ul = power_ul,
         n_ul = n_ul,
         minimum = minimum,
-        prior = prior,
+        priori = priori,
         method = method
       ),
       class = c("Keng_power", "list")
@@ -147,7 +147,7 @@ power_r <- function(r = 0.2,
         power_ul = power_ul,
         n_ul = n_ul,
         minimum = minimum,
-        prior = prior,
+        priori = priori,
         method = method
       ),
       class = c("Keng_power", "list")

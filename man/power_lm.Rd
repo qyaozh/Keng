@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_lm.R
 \name{power_lm}
 \alias{power_lm}
-\title{Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis}
+\title{Conduct post hoc and a priori power analysis, and plan the sample size for regression analysis}
 \usage{
 power_lm(
   PRE = 0.02,
@@ -60,7 +60,7 @@ expected statistical power and significance level, and corresponding
 \code{p_i}(the p-value of \code{F_i}),
 \code{lambda_i}(the non-centrality parameter of the F-distribution for the alternative hypothesis, given \code{PRE} and \code{n_i}),
 \code{power_i}(the actual power of \code{PRE} at the sample size \code{n_i});
-\verb{[[10]]} \code{prior}, a prior power table with increasing sample sizes (\code{n_i}) and power(\code{power_i}).
+\verb{[[10]]} \code{priori}, a priori power table with increasing sample sizes (\code{n_i}) and power(\code{power_i}).
 
 If sample size \code{n} is given, the following results would also be returned:
 Integer \code{n}, the F_test of \code{PRE} at the sample size \code{n} with
@@ -75,11 +75,11 @@ By default, \code{print()} prints the primary but not all contents of the \code{
 To inspect more contents, use \code{print.AsIs()} or list extracting.
 }
 \description{
-Conduct post-hoc and prior power analysis, and plan the sample size for regression analysis
+Conduct post hoc and a priori power analysis, and plan the sample size for regression analysis
 }
 \details{
 \code{power_ul} and \code{n_ul} determine the total times of power_lm()'s attempts searching for the minimum required sample size,
-hence the number of rows of the returned power table \code{prior} and the right limit of the horizontal axis of the returned power plot.
+hence the number of rows of the returned power table \code{priori} and the right limit of the horizontal axis of the returned power plot.
 \code{power_lm()} will keep running and gradually raise the sample size to \code{n_ul} until the sample size pushes the power level to \code{power_ul}.
 When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
 a huge increase in sample size only brings about a trivial increase in power, which is cost-ineffective.
