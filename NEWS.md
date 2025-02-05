@@ -1,3 +1,7 @@
+# Keng 2025.02.05
+
+* Some spelling errors have been corrected.
+
 # Keng 2024.12.15
 
 * `power_r()` has been added to conduct post-hoc and a priori power analysis, and plan the sample size for Pearson's r.
