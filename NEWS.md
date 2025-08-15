@@ -1,6 +1,6 @@
 # Keng 2025.8.16
 
-* `pick_sl()` and `pick_dcb()` tools has been added to randomly pick numbers for Chinese 
+* `pick_sl()` and `pick_dcb()` tools have been added to randomly pick numbers for Chinese 
 Super Lotto and Double Color Balls.
 
 # Keng 2025.02.05
