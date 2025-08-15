@@ -1,6 +1,6 @@
 Package: Keng
 Title: Knock Errors Off Nice Guesses
-Version: 2025.02.05
+Version: 2025.08.15
 Authors@R: 
     person(
     given = "Qingyao",
@@ -17,7 +17,8 @@ Description: Miscellaneous functions and data used in psychological research and
     partial Eta-squared); (6) calculate PRE from partial correlation, Cohen's f, or f_squared; 
     (7) conduct a priori power analysis and plan the sample size for one or a set of predictors in 
     regression analysis; (8) conduct post-hoc power analysis for one or a set of predictors in 
-    regression analysis with known sample size.
+    regression analysis with known sample size; (9) randomly pick numbers for Chinese Super Lotto
+    and Double Color Balls. 
 License: CC BY 4.0
 Language: en-US
 Encoding: UTF-8

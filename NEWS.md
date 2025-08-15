@@ -1,3 +1,8 @@
+# Keng 2025.08.15
+
+* `pick_sl()` and `pick_dcb()` tools has been added to randomly pick numbers for Chinese 
+Super Lotto and Double Color Balls.
+
 # Keng 2025.02.05
 
 * Some spelling errors have been corrected.
