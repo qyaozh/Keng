@@ -22,7 +22,7 @@ pick_sl <- function(size = 1L, verbose = TRUE) {
     balls[[i]] <- c(red = sort(sample.int(35, 5)),
                     blue = sort(sample.int(12, 2)))
     if (verbose)
-      cat(balls[[i]][1:5], "| \033[32m", balls[[i]][6:7], "\033[0m\n")
+      cat(balls[[i]][1:5], "|\033[32m", balls[[i]][6:7], "\033[0m\n")
     i = i + 1
   }
   invisible(balls)
