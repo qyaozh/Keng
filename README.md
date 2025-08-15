@@ -9,12 +9,9 @@
 status](https://www.r-pkg.org/badges/version/Keng)](https://CRAN.R-project.org/package=Keng)
 <!-- badges: end -->
 
-The `Keng` package is named after Loo-Keng Hua, who made great
-achievements in mathematics mainly through self-study. Loo-Keng Hua
-encouraged novices to show their axe skills at the gate of Ban’s house,
-so the `Keng` package comes. In addition, `Keng` is the abbreviation of
-“Knock Errors off Nice Guesses.” Hope the functions and data gathered in
-the `Keng` package help to ease your life.
+`Keng` is the abbreviation of “Knock Errors off Nice Guesses.” Hope the
+functions and data gathered in the `Keng` package help to ease your
+life.
 
 ## Installation
 
