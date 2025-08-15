@@ -74,3 +74,8 @@ Here is a list of the data and functions gathered in the `Keng` package. Their u
 `print()` prints primary but not all contents of the `Keng_power` class.
 
 `plot()` plots the power against sample size for the `Keng_power` class.
+
+### pick_* tools
+
+`pick_sl()` and `pick_dcb()` tools have been added to randomly pick numbers for Chinese 
+Super Lotto and Double Color Balls.

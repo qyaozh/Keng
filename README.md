@@ -83,3 +83,8 @@ analysis would also be conducted with known sample size n.
 `print()` prints primary but not all contents of the `Keng_power` class.
 
 `plot()` plots the power against sample size for the `Keng_power` class.
+
+### pick\_\* tools
+
+`pick_sl()` and `pick_dcb()` tools have been added to randomly pick
+numbers for Chinese Super Lotto and Double Color Balls.
