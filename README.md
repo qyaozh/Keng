@@ -83,5 +83,5 @@ analysis would also be conducted with known sample size n.
 
 ### pick\_\* tools
 
-`pick_sl()` and `pick_dcb()` tools have been added to randomly pick
-numbers for Chinese Super Lotto and Double Color Balls.
+`pick_sl()` and `pick_dcb()` have been added to randomly pick numbers
+for Chinese Super Lotto and Double Color Balls.
