@@ -20,7 +20,7 @@ A data frame with 94 rows and 237 columns:
 \item{cope1i3a}{Cope scale, Time1, Item3, Avoidance coping}
 \item{cope1i5e}{cope scale, Time1, Item5, Emotion-focused coping}
 \item{cope2i1p}{Cope scale, Time2, Item1, Problem-focused coping}
-\item{depr1i1}{Depression scale, Time1, Item1, 1 = very seldom, 5 = always}
+\item{depr1i1}{Depression scale, Time1, Item1, 1 = very seldom, 4 = always}
 \item{ecr1avo}{ECR-RS scale, Item1, attachment avoidance, 1 = very disagree, 7 = very agree}
 \item{ecr2anx}{ECR-RS scale, Item2, attachment anxiety}
 \item{dm1}{Depression, Mean, Time1}
