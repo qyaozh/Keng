@@ -2,4 +2,4 @@
 
 0 errors | 0 warnings | 0 note
 
-The NOTE concerning the hidden files and directories `.github` has been resolved.
+Two functions have been refined.
