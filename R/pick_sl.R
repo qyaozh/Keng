@@ -18,8 +18,8 @@ pick_sl <- function(size = 1L, verbose = TRUE) {
   set.seed(NULL)
   balls <- list()
   for (i in 1:size) {
-    balls[[i]] <- c(red = sort(sample.int(35, 5)),
-                    blue = sort(sample.int(12, 2)))
+    balls[[i]] <- c(front = sort(sample.int(35, 5)),
+                    back = sort(sample.int(12, 2)))
     if (verbose)
       cat(balls[[i]][1:5], "&\033[32m", balls[[i]][6:7], "\033[0m\n")
   }
