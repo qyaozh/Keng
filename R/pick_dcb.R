@@ -16,14 +16,12 @@ pick_dcb <- function(size = 1L, verbose = TRUE) {
       !is.na(suppressWarnings(as.logical(verbose)))
   )
   set.seed(NULL)
-  i = 1
   balls <- list()
-  for (i in seq(i, size, 1)) {
+  for (i in 1:size) {
     balls[[i]] <- c(red = sort(sample.int(33, 6)),
                     blue = sort(sample.int(16, 1)))
     if (verbose)
       cat("\033[31m", balls[[i]][1:6], "\033[0m&\033[34m", balls[[i]][7], "\033[0m\n")
-    i = i + 1
   }
   invisible(balls)
 }

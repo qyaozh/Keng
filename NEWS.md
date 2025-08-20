@@ -1,3 +1,7 @@
+# Keng 2025.8.20
+
+* The codes for pick_* tools have been refined.
+
 # Keng 2025.8.16
 
 * `pick_sl()` and `pick_dcb()` have been added to randomly pick numbers for Chinese 
