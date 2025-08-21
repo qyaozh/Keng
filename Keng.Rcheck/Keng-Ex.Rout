@@ -1,0 +1,682 @@
+
+R version 4.5.1 (2025-06-13 ucrt) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Keng"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> options(pager = "console")
+> base::assign(".ExTimings", "Keng-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('Keng')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Scale")
+> ### * Scale
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: Scale
+> ### Title: Scale a vector
+> ### Aliases: Scale
+> 
+> ### ** Examples
+> 
+> (x <- rnorm(10, 5, 2))
+ [1] 3.747092 5.367287 3.328743 8.190562 5.659016 3.359063 5.974858 6.476649
+ [9] 6.151563 4.389223
+> # Mean-center x.
+> Scale(x)
+ [1] -1.5173132  0.1028811 -1.9356628  2.9261560  0.3946100 -1.9053423
+ [7]  0.7104525  1.2122438  0.8871571 -0.8751823
+> # Transform the mean of x to 3.
+> Scale(x, m = 3)
+ [1] 1.482687 3.102881 1.064337 5.926156 3.394610 1.094658 3.710453 4.212244
+ [9] 3.887157 2.124818
+> # Transform x to its z-score.
+> Scale(x, sd = 1)
+ [1] -0.97190653  0.06589991 -1.23987805  1.87433300  0.25276523 -1.22045645
+ [7]  0.45507643  0.77649606  0.56826358 -0.56059319
+> # Standardize x with m = 100 and sd = 15.
+> Scale(x, m = 100, sd = 15)
+ [1]  85.42140 100.98850  81.40183 128.11500 103.79148  81.69315 106.82615
+ [8] 111.64744 108.52395  91.59110
+> # The origin of x advances by 3.
+> Scale(x, oadvances = 3)
+ [1] 0.7470924 2.3672866 0.3287428 5.1905616 2.6590155 0.3590632 2.9748581
+ [8] 3.4766494 3.1515627 1.3892232
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("Scale", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("calc_PRE")
+> ### * calc_PRE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: calc_PRE
+> ### Title: Calculate PRE from Cohen's f, f_squared, or partial correlation
+> ### Aliases: calc_PRE
+> 
+> ### ** Examples
+> 
+> calc_PRE(f = 0.1)
+$PRE
+[1] 0.00990099
+
+$`abs(r_p)`
+[1] 0.09950372
+
+$f_squared
+[1] 0.01
+
+$f
+[1] 0.1
+
+> calc_PRE(f_squared = 0.02)
+$PRE
+[1] 0.01960784
+
+$`abs(r_p)`
+[1] 0.140028
+
+$f_squared
+[1] 0.02
+
+$f
+[1] 0.1414214
+
+> calc_PRE(r_p = 0.2)
+$PRE
+[1] 0.04
+
+$`abs(r_p)`
+[1] 0.2
+
+$f_squared
+[1] 0.04166667
+
+$f
+[1] 0.2041241
+
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("calc_PRE", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("compare_lm")
+> ### * compare_lm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: compare_lm
+> ### Title: Compare lm()'s fitted outputs using PRE and R-squared.
+> ### Aliases: compare_lm
+> 
+> ### ** Examples
+> 
+> x1 <- rnorm(193)
+> x2 <- rnorm(193)
+> y <- 0.3 + 0.2*x1 + 0.1*x2 + rnorm(193)
+> dat <- data.frame(y, x1, x2)
+> # Fix the intercept to constant 1 using I().
+> fit1 <- lm(I(y - 1) ~ 0, dat)
+> # Free the intercept.
+> fit2 <- lm(y ~ 1, dat)
+> compare_lm(fit1, fit2)
+                     Baseline       C       A      A vs. C
+SSE                   228.663 331.921 228.663 1.032580e+02
+n                     193.000 193.000 193.000 1.930000e+02
+Number of parameters    1.000   0.000   1.000 1.000000e+00
+df                    192.000 193.000 192.000 1.000000e+00
+R_squared                  NA      NA   0.000           NA
+f_squared                  NA      NA   0.000 4.515728e-01
+R_squared_adj              NA      NA   0.000           NA
+PRE                        NA      NA   0.000 3.110921e-01
+F(PA-PC,n-PA)              NA      NA      NA 8.670198e+01
+p                          NA      NA      NA 2.964337e-17
+PRE_adj                    NA      NA   0.000 3.075040e-01
+power_post                 NA      NA      NA 1.000000e+00
+> # One predictor.
+> fit3 <- lm(y ~ x1, dat)
+> compare_lm(fit2, fit3)
+                     Baseline       C            A      A vs. C
+SSE                   228.663 228.663 222.52553740   6.13743441
+n                     193.000 193.000 193.00000000 193.00000000
+Number of parameters    1.000   1.000   2.00000000   1.00000000
+df                    192.000 192.000 191.00000000   1.00000000
+R_squared                  NA   0.000   0.02684053   0.02684053
+f_squared                  NA   0.000   0.02758081   0.02758081
+R_squared_adj              NA   0.000   0.02174545           NA
+PRE                        NA   0.000   0.02684053   0.02684053
+F(PA-PC,n-PA)              NA      NA   5.26793458   5.26793458
+p                          NA      NA   0.02280837   0.02280837
+PRE_adj                    NA   0.000   0.02174545   0.02174545
+power_post                 NA      NA   0.62692160   0.62692160
+> # Fix the intercept to 0.3 using offset().
+> intercept <- rep(0.3, 193)
+> fit4 <- lm(y ~ 0 + x1 + offset(intercept), dat)
+> compare_lm(fit4, fit3)
+                     Baseline            C            A       A vs. C
+SSE                   228.663 222.82633346 222.52553740   0.300796063
+n                     193.000 193.00000000 193.00000000 193.000000000
+Number of parameters    1.000   1.00000000   2.00000000   1.000000000
+df                    192.000 192.00000000 191.00000000   1.000000000
+R_squared                  NA   0.02552507   0.02684053   0.001315456
+f_squared                  NA   0.02619367   0.02758081   0.001351737
+R_squared_adj              NA   0.02552507   0.02174545            NA
+PRE                        NA   0.02552507   0.02684053   0.001349913
+F(PA-PC,n-PA)              NA           NA   5.26793458   0.258181819
+p                          NA           NA   0.02280837   0.611958348
+PRE_adj                    NA   0.02552507   0.02174545  -0.003878622
+power_post                 NA           NA   0.62692160   0.079758484
+> # Two predictors.
+> fit5 <- lm(y ~ x1 + x2, dat)
+> compare_lm(fit2, fit5)
+                     Baseline       C            A      A vs. C
+SSE                   228.663 228.663 222.47421078   6.18876103
+n                     193.000 193.000 193.00000000 193.00000000
+Number of parameters    1.000   1.000   3.00000000   2.00000000
+df                    192.000 192.000 190.00000000   2.00000000
+R_squared                  NA   0.000   0.02706499   0.02706499
+f_squared                  NA   0.000   0.02781788   0.02781788
+R_squared_adj              NA   0.000   0.01682357           NA
+PRE                        NA   0.000   0.02706499   0.02706499
+F(PA-PC,n-PA)              NA      NA   2.64269866   2.64269866
+p                          NA      NA   0.07378430   0.07378430
+PRE_adj                    NA   0.000   0.01682357   0.01682357
+power_post                 NA      NA   0.52063806   0.52063806
+> compare_lm(fit3, fit5)
+                     Baseline            C            A       A vs. C
+SSE                   228.663 222.52553740 222.47421078  5.132662e-02
+n                     193.000 193.00000000 193.00000000  1.930000e+02
+Number of parameters    1.000   2.00000000   3.00000000  1.000000e+00
+df                    192.000 191.00000000 190.00000000  1.000000e+00
+R_squared                  NA   0.02684053   0.02706499  2.244641e-04
+f_squared                  NA   0.02758081   0.02781788  2.307082e-04
+R_squared_adj              NA   0.02174545   0.01682357            NA
+PRE                        NA   0.02684053   0.02706499  2.306550e-04
+F(PA-PC,n-PA)              NA   5.26793458   2.64269866  4.383455e-02
+p                          NA   0.02280837   0.07378430  8.343860e-01
+PRE_adj                    NA   0.02174545   0.01682357 -5.031289e-03
+power_post                 NA   0.62692160   0.52063806  5.498563e-02
+> # Fix the slope of x2 to 0.05 using offset().
+> fit6 <- lm(y ~ x1 + offset(0.05*x2), dat)
+> compare_lm(fit6, fit5)
+                     Baseline            C            A       A vs. C
+SSE                   228.663 222.69323227 222.47421078  2.190215e-01
+n                     193.000 193.00000000 193.00000000  1.930000e+02
+Number of parameters    1.000   2.00000000   3.00000000  1.000000e+00
+df                    192.000 191.00000000 190.00000000  1.000000e+00
+R_squared                  NA   0.02610715   0.02706499  9.578354e-04
+f_squared                  NA   0.02680701   0.02781788  9.844803e-04
+R_squared_adj              NA   0.02100824   0.01682357            NA
+PRE                        NA   0.02610715   0.02706499  9.835121e-04
+F(PA-PC,n-PA)              NA   5.12013877   2.64269866  1.870513e-01
+p                          NA   0.02477517   0.07378430  6.658727e-01
+PRE_adj                    NA   0.02100824   0.01682357 -4.274469e-03
+power_post                 NA   0.61464765   0.52063806  7.146932e-02
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("compare_lm", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("cut_r")
+> ### * cut_r
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: cut_r
+> ### Title: Cut-off values of Pearson's correlation r with known sample size
+> ###   n.
+> ### Aliases: cut_r
+> 
+> ### ** Examples
+> 
+> cut_r(193)
+         p         r
+[1,] 0.100 0.1187512
+[2,] 0.050 0.1412906
+[3,] 0.010 0.1850106
+[4,] 0.001 0.2350568
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("cut_r", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("pick_dcb")
+> ### * pick_dcb
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: pick_dcb
+> ### Title: Pick Double Color Balls
+> ### Aliases: pick_dcb
+> 
+> ### ** Examples
+> 
+> pick_dcb(10)
+[31m 5 6 14 15 17 18 [0m&[34m 8 [0m
+[31m 5 12 18 21 23 26 [0m&[34m 4 [0m
+[31m 10 16 21 22 24 26 [0m&[34m 16 [0m
+[31m 3 4 9 12 18 24 [0m&[34m 11 [0m
+[31m 8 11 15 16 18 22 [0m&[34m 8 [0m
+[31m 3 10 13 18 25 29 [0m&[34m 2 [0m
+[31m 4 9 18 23 27 28 [0m&[34m 8 [0m
+[31m 14 15 24 27 31 33 [0m&[34m 3 [0m
+[31m 10 13 21 22 27 30 [0m&[34m 16 [0m
+[31m 1 10 15 19 21 27 [0m&[34m 9 [0m
+> out <- pick_dcb(10, verbose = FALSE)
+> out
+[[1]]
+red1 red2 red3 red4 red5 red6 blue 
+   9   13   14   17   24   29   10 
+
+[[2]]
+red1 red2 red3 red4 red5 red6 blue 
+  10   11   13   22   26   32   10 
+
+[[3]]
+red1 red2 red3 red4 red5 red6 blue 
+   6    9   10   12   22   33    7 
+
+[[4]]
+red1 red2 red3 red4 red5 red6 blue 
+   7    8   10   12   16   20   11 
+
+[[5]]
+red1 red2 red3 red4 red5 red6 blue 
+   6    8   11   16   19   24    5 
+
+[[6]]
+red1 red2 red3 red4 red5 red6 blue 
+  14   17   20   21   22   29   15 
+
+[[7]]
+red1 red2 red3 red4 red5 red6 blue 
+   4    5    7   19   24   30    5 
+
+[[8]]
+red1 red2 red3 red4 red5 red6 blue 
+   1    2    5   10   17   32    9 
+
+[[9]]
+red1 red2 red3 red4 red5 red6 blue 
+   5   12   25   26   28   30    5 
+
+[[10]]
+red1 red2 red3 red4 red5 red6 blue 
+   5   11   15   16   20   21   11 
+
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("pick_dcb", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("pick_sl")
+> ### * pick_sl
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: pick_sl
+> ### Title: Pick Super Lotto numbers
+> ### Aliases: pick_sl
+> 
+> ### ** Examples
+> 
+> pick_sl(10)
+1 4 8 9 31 &[32m 2 5 [0m
+12 29 30 33 34 &[32m 1 7 [0m
+1 19 20 26 32 &[32m 8 12 [0m
+6 8 19 30 35 &[32m 4 10 [0m
+5 8 16 26 29 &[32m 7 10 [0m
+21 26 29 32 33 &[32m 6 12 [0m
+7 16 21 23 35 &[32m 8 12 [0m
+1 16 20 30 35 &[32m 1 9 [0m
+11 14 15 18 31 &[32m 4 11 [0m
+7 11 18 20 35 &[32m 7 11 [0m
+> out <- pick_sl(10, verbose = FALSE)
+> out
+[[1]]
+front1 front2 front3 front4 front5  back1  back2 
+     9     18     24     26     32      1      3 
+
+[[2]]
+front1 front2 front3 front4 front5  back1  back2 
+    13     14     21     28     31      3      8 
+
+[[3]]
+front1 front2 front3 front4 front5  back1  back2 
+     3      4     12     28     32      3      5 
+
+[[4]]
+front1 front2 front3 front4 front5  back1  back2 
+     6      8     30     31     34      3      7 
+
+[[5]]
+front1 front2 front3 front4 front5  back1  back2 
+     4      7      8     26     32      3     11 
+
+[[6]]
+front1 front2 front3 front4 front5  back1  back2 
+    14     18     24     31     33      1      5 
+
+[[7]]
+front1 front2 front3 front4 front5  back1  back2 
+     2      8     12     14     24      2      4 
+
+[[8]]
+front1 front2 front3 front4 front5  back1  back2 
+     2     17     23     33     35      5     10 
+
+[[9]]
+front1 front2 front3 front4 front5  back1  back2 
+     6      9     11     16     25      1      8 
+
+[[10]]
+front1 front2 front3 front4 front5  back1  back2 
+    13     19     21     22     26      5     12 
+
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("pick_sl", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plot.Keng_power")
+> ### * plot.Keng_power
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot.Keng_power
+> ### Title: Plot the power against the sample size for the Keng_power class
+> ### Aliases: plot.Keng_power
+> 
+> ### ** Examples
+> 
+> plot(power_lm())
+> out <- power_r(0.2, n = 193)
+> plot(out)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plot.Keng_power", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("power_lm")
+> ### * power_lm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: power_lm
+> ### Title: Conduct post hoc and a priori power analysis, and plan the
+> ###   sample size for regression analysis
+> ### Aliases: power_lm
+> 
+> ### ** Examples
+> 
+> power_lm()
+-- Given ---------------------------
+PRE = 0.02
+f_squared = 0.02040816
+PC = 1
+PA = 2
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = NULL
+power_post = NULL
+-- Sample size planning -----------
+Expected power = 0.8
+Minimum sample size = 389
+> print(power_lm())
+-- Given ---------------------------
+PRE = 0.02
+f_squared = 0.02040816
+PC = 1
+PA = 2
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = NULL
+power_post = NULL
+-- Sample size planning -----------
+Expected power = 0.8
+Minimum sample size = 389
+> plot(power_lm())
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("power_lm", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("power_r")
+> ### * power_r
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: power_r
+> ### Title: Conduct post hoc and a priori power analysis, and plan the
+> ###   sample size for r.
+> ### Aliases: power_r
+> 
+> ### ** Examples
+> 
+> power_r(0.2)
+-- Given ---------------------------
+r = 0.2
+d = 0.4082483
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = NULL
+power_post = NULL
+-- Sample size planning -----------
+power = 0.8
+Minimum sample size = 193
+> print(power_r(0.04))
+-- Given ---------------------------
+r = 0.04
+d = 0.08006408
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = NULL
+power_post = NULL
+-- Sample size planning -----------
+power = 0.8
+Minimum sample size = 4902
+> plot(power_r(0.04))
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("power_r", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("print.Keng_power")
+> ### * print.Keng_power
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: print.Keng_power
+> ### Title: Print primary but not all contents of the Keng_power class
+> ### Aliases: print.Keng_power
+> 
+> ### ** Examples
+> 
+> power_lm()
+-- Given ---------------------------
+PRE = 0.02
+f_squared = 0.02040816
+PC = 1
+PA = 2
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = NULL
+power_post = NULL
+-- Sample size planning -----------
+Expected power = 0.8
+Minimum sample size = 389
+> power_lm(n = 200)
+-- Given ---------------------------
+PRE = 0.02
+f_squared = 0.02040816
+PC = 1
+PA = 2
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = 200
+power_post = 0.5161739
+-- Sample size planning -----------
+Expected power = 0.8
+Minimum sample size = 389
+> print(power_lm(n = 200))
+-- Given ---------------------------
+PRE = 0.02
+f_squared = 0.02040816
+PC = 1
+PA = 2
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = 200
+power_post = 0.5161739
+-- Sample size planning -----------
+Expected power = 0.8
+Minimum sample size = 389
+> x <- power_r(0.2, n = 193)
+> x
+-- Given ---------------------------
+r = 0.2
+d = 0.4082483
+sig_level = 0.05
+-- Post-hoc power analysis --------
+n = 193
+power_post = 0.8014679
+-- Sample size planning -----------
+power = 0.8
+Minimum sample size = 193
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("print.Keng_power", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("test_r")
+> ### * test_r
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: test_r
+> ### Title: Test the significance, analyze the power, and plan the sample
+> ###   size for r.
+> ### Aliases: test_r
+> 
+> ### ** Examples
+> 
+> test_r(0.2, 193)
+$r
+[1] 0.2
+
+$d
+[1] 0.4082483
+
+$n
+[1] 193
+
+$t_test
+           r           df         SE_r            t          p_r     LLCI_r_t 
+2.000000e-01 1.910000e+02 7.089554e-02 2.821052e+00 5.292479e-03 1.408303e-01 
+    ULCI_r_t   delta_post   power_post 
+2.591697e-01 2.821052e+00 8.014679e-01 
+
+$Fisher_z
+         fz       SE_fz           z        p_fz   LLCI_r_fz   ULCI_r_fz 
+0.203253387 0.072547625 2.801654601 0.005084127 0.060986875 0.332328982 
+
+> 
+> # compare the p-values of t-test and Fisher's transformation
+> for (i in seq(30, 200, 10)) {
++ cat(c("n = ", i, ", difference between ps = ",
++        format(
++         abs(test_r(0.2, i)[["t_test"]]["p_r"] - test_r(0.2, i)[["Fisher_z"]]["p_fz"]),
++         nsmall = 12,
++         scientific = FALSE)),
++       sep = "",
++       fill = TRUE)
++ }
+n = 30, difference between ps = 0.005290103059
+n = 40, difference between ps = 0.004208979681
+n = 50, difference between ps = 0.003391197672
+n = 60, difference between ps = 0.002754999537
+n = 70, difference between ps = 0.002250279874
+n = 80, difference between ps = 0.001844615223
+n = 90, difference between ps = 0.001515713167
+n = 100, difference between ps = 0.001247471720
+n = 110, difference between ps = 0.001027818456
+n = 120, difference between ps = 0.000847450854
+n = 130, difference between ps = 0.000699057025
+n = 140, difference between ps = 0.000576806819
+n = 150, difference between ps = 0.000476003291
+n = 160, difference between ps = 0.000392834146
+n = 170, difference between ps = 0.000324188422
+n = 180, difference between ps = 0.000267517581
+n = 190, difference between ps = 0.000220727970
+n = 200, difference between ps = 0.000182096167
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("test_r", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  2.75 0.06 2.83 NA NA 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
