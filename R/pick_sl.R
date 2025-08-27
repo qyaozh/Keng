@@ -6,9 +6,36 @@
 #' @returns Print the numbers picked, and return the invisible `balls` list that stored these numbers.
 #' @export
 #'
-#' @examples pick_sl(10)
+#' @examples # Example 1
+#' pick_sl(10)
+#' # Example 2
 #' out <- pick_sl(10, verbose = FALSE)
 #' out
+#' # Example 3
+#' # create an empty list
+#' balls <- list(c(front = rep(NA, 5),
+#'                 back = rep(NA, 2))
+#' )
+#  specify the lucky numbers
+#' luck <- list(c(front = c(10L, 13L, 14L, 19L, 27L),
+#'                back = c( 6L, 10L)))
+#' # limit the max number of draws
+#' max <- 9999
+#' # try
+#' # count the number of draws
+#' i <- 0
+#' while (!identical(balls, luck, max)) {
+#'   i = i + 1
+#'   balls = pick_sl(verbose = FALSE)
+#'   if (identical(balls, luck)) {
+#'     print(i)
+#'     print(balls)
+#'   }
+#'   else
+#'     if (i == max) {
+#'       cat(i, "failed\n")
+#'       break}
+#' }
 pick_sl <- function(size = 1L, verbose = TRUE) {
   stopifnot(
     is.numeric(size) && size == round(size),
@@ -25,3 +52,4 @@ pick_sl <- function(size = 1L, verbose = TRUE) {
   }
   invisible(balls)
 }
+
