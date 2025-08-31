@@ -3,6 +3,7 @@
 S3method(plot,Keng_power)
 S3method(print,Keng_power)
 export(Scale)
+export(assess_coa)
 export(calc_PRE)
 export(compare_lm)
 export(cut_r)

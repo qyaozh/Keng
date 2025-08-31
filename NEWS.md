@@ -1,6 +1,7 @@
-# Keng 2025.8.20
+# Keng 2025.9.1
 
 * The codes for pick_* tools have been refined.
+* `assess_coa()` has been added to assess course objective achievement in Outcome-Based Education.
 
 # Keng 2025.8.16
 

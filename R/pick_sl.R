@@ -48,7 +48,12 @@ pick_sl <- function(size = 1L, verbose = TRUE) {
     balls[[i]] <- c(front = sort(sample.int(35, 5)),
                     back = sort(sample.int(12, 2)))
     if (verbose)
-      cat(balls[[i]][1:5], "&\033[32m", balls[[i]][6:7], "\033[0m\n")
+      cat(
+        paste(balls[[i]][1:5], collapse = ", "),
+        "&\033[32m",
+        paste(balls[[i]][6:7], collapse = ", "),
+        "\033[0m\n"
+      )
   }
   invisible(balls)
 }

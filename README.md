@@ -85,3 +85,9 @@ analysis would also be conducted with known sample size n.
 
 `pick_sl()` and `pick_dcb()` have been added to randomly pick numbers
 for Chinese Super Lotto and Double Color Balls.
+
+### Assess OBE-based course objective achievement
+
+`assess_coa()` calculates course objective achievement based on
+students’ grades per session, weights of each session, and weights of
+course objectives within each session.

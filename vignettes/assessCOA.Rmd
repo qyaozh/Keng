@@ -1,0 +1,121 @@
+---
+title: "assessCOA"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{assessCOA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "##"
+)
+```
+
+```{r setup}
+library(Keng)
+library(ggplot2)
+library(tidyr)
+```
+
+`assess_coa()` aims to ease the calculation of course objective achievement in Outcome-Based Education. Course objective achievements are actually proportions of objectives' actual grades in objectives' full grades.
+
+`assess_coa()` has the following arguments: `data`, `session_weights`, and `objective_weights1`. `...` indicates `objective_weights2`, `objective_weights3` ... You could pass as many `objective_weights*` as you need.
+
+`data` is a data.frame that ONLY contains students' grades in each session. Typically, students' final grades are bases on their regular grades and final exam grades, where the number of session is two. You may use more sessions, for example, 4, which are: listening, speaking, reading, and writing. `data` should be in the common wide-format, in which one student occupies a row, and one session occupies a column. The number of columns in `data` corresponds to the number of sessions you need. You may import data from external data file like ".csv" file or Excel files. Here we simulate the grades of two sessions for 100 students.
+
+```{r}
+data <- data.frame(
+session1 = 60 + sample.int(40, 100, 1), 
+session2 = 60 + sample.int(40, 100, 1))
+```
+
+The full score of each session is implicitly assumed to be 100, since the weights of each session within the final grade is assigned through `session_weights` by users. `session_weights` is a vector of sessions' weights, which determine the weights of corresponding sessions in determining the final grade. Obviously, the sum of all session weights should be 1. The order of elements in `session_weights` should strictly correspond to the order of columns in data. The data above has two sessions, hence the length of `session_weights` is 2. We specify the following `session_weights`, in which 0.4 is the weight of column 1 in data:
+
+```{r}
+session_weights <- c(0.4, 0.6)
+```
+
+To assess course objective achievement, the most troublesome work is to tackle the weights of course objectives, and `assess_coa()` simplifies this work. what we need to do is assigning weights to objectives within each session using `objective_weights*` arguments, one `objective_weights*` vector for one session. The element of `objective_weights*` is the weight of corresponding objective in determining the grade of corresponding session, and obviously, the sum of all objective weights within each session should be 1. The length of `objective_weights*` should be the number of the objectives. You may have as many course objectives as you need, and here we simulate 3 objectives. Importantly, the order of elements in `objective_weights*` should strictly corresponds to the order of objectives. Here, we have two sessions, and we need to assign weights using `objective_weights1` and `objective_weights2`. If you has 10 sessions, then you should assign `objective_weights1` to `objective_weights10`.
+
+Before we assign `objective_weights*`, it's helpful to write the objective weight matrix out:
+
+|          |session1|session2|
+|-         |-       |-       |
+|objective1|0.5     |0.1     |
+|objective2|0.3     |0.3     |
+|objective3|0.2     |0.6     |
+
+: {.sm}
+
+Then we specify:
+
+```{r}
+objective_weights1 <- c(0.5, 0.3, 0.2)
+objective_weights2 <- c(0.1, 0.3, 0.6)
+```
+
+It's time for `assess_coa()` to play its role. Pass arguments to it, assign it's return, a data.frame, to `coa`.
+
+```{r}
+coa <- assess_coa(data, session_weights, objective_weights1, objective_weights2)
+```
+
+Now, let's see the data in `coa`:
+
+```{r}
+head(coa)
+```
+
+`coa` has grades of each session (i.e., `session1`, `session2`), final grade (i.e., `final`), and achievements of each objectives (i.e., `objective1`, `objective2`, `objective3`).
+
+`coa` also has an attribute named "weights", which contains `session_weights`, `objective_weights_matrix`, and `weighted_objective_weights_matrix`. `weighted objective_weights matrix` is calculated by weighting `objective_weights matrix` using `session_weights`, and was used in `assess_coa()` to calculate achievements. Make sure `objective_weights_matrix` is the same as you intended.
+
+```{r}
+attr(coa, "weights")
+```
+
+Then we could report overall achievements:
+
+```{r}
+coa_overall <- data.frame(
+  objective = factor(1:nrow(attr(coa, "weights")[[2]])),
+  achievement = round(colMeans(coa[row.names(attr(coa, "weights")[[2]])]), 2)
+)
+
+ggplot(coa_overall, aes(objective, achievement)) +
+  geom_bar(aes(fill = objective), stat = "identity") +
+  geom_text(aes(y = achievement, label = achievement), vjust = 0) +
+  coord_cartesian(ylim = c(0.6, 1)) +
+  theme_minimal()
+```
+
+Then we could report individual achievements:
+
+
+```{r}
+# add individual ID
+coa$ID <- as.numeric(row.names(coa))
+# wide format to long format
+coa_long <- pivot_longer(coa,
+             cols = starts_with("objective"),
+             values_to = "achievement",
+             names_to = "objective",
+             names_prefix = "objective")
+# plot individual achievement around the overall mean for each objective
+ggplot(coa_long , aes(ID, achievement, color = objective)) +
+  geom_point(size = 2) +
+  geom_hline(aes(yintercept = achievement, color = objective), linewidth = 2, data = coa_overall) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ objective) +
+  coord_cartesian(ylim = c(0, 1)) +
+  theme_minimal()
+# visualize the distribution of achievements for each objective
+ggplot(coa_long, aes(achievement, fill =  objective)) +
+  geom_histogram(aes(y = after_stat(count / sum(count))), bins = 20) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  facet_wrap(~ objective) +
+  theme_minimal()
+```
