@@ -48,8 +48,6 @@ Before we assign `objective_weights*`, it's helpful to write the objective weigh
 |objective2|0.3     |0.3     |
 |objective3|0.2     |0.6     |
 
-: {.sm}
-
 Then we specify:
 
 ```{r}
