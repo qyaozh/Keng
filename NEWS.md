@@ -1,6 +1,6 @@
-# Keng 2025.9.1
+# Keng 2025.9.2
 
-* The bug of length(...) has been fixed.
+* The bug of `length(...)` has been fixed.
 
 # Keng 2025.9.1
 
