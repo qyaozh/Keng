@@ -21,11 +21,22 @@
 #' session_weights, objective_weights_matrix, and weighted_objective_weights_matrix
 #' @export
 #'
-#' @examples data <- data.frame(session1 = 60 + sample.int(40, 100, 1), session2 = 60 + sample.int(40, 100, 1))
-#' session_weights <- c(0.4, 0.6)
-#' objective_weights1 <- c(0.5, 0.3, 0.2)
-#' objective_weights2 <- c(0.1, 0.3, 0.6)
-#' coa <- assess_coa(data, session_weights, objective_weights1, objective_weights2)
+#' @examples data <- data.frame(
+#'   session1 = 60 + sample.int(40, 100, 1),
+#'   session2 = 60 + sample.int(40, 100, 1),
+#'   session3 = 60 + sample.int(40, 100, 1)
+#' )
+#' session_weights    <- c(0.2, 0.3, 0.5)
+#' objective_weights1 <- c(0.1, 0.4, 0.5)
+#' objective_weights2 <- c(0.2, 0.2, 0.6)
+#' objective_weights2 <- c(0.3,   0, 0.7)
+#' coa <- assess_coa(
+#'   data,
+#'   session_weights,
+#'   objective_weights1,
+#'   objective_weights2,
+#'   objective_weights2
+#' )
 #' head(coa)
 #' attr(coa, "weights")
 #' colMeans(coa[row.names(attr(coa, "weights")[[2]])])
@@ -34,27 +45,57 @@ assess_coa <- function(data,
                        session_weights,
                        objective_weights1,
                        ...) {
-  # check args
+  # vector
   if (!is.data.frame(data))
-    stop("data is not a data.frame")
+    stop("`data` is not a data.frame.")
   if (!is.vector(session_weights))
-    stop("session_weights is not vector")
+    stop("`session_weights` is not a vector.")
+  if (!is.vector(objective_weights1))
+    stop(
+      "`objective_weights1` is not a vector."
+    )
+  for (i in 1:...length()) {
+    if (!is.vector(...elt(i)))
+      stop("Not all objective_weights* are vectors.")
+  }
+  # at least 2
+  if (length(session_weights) <=  1)
+    stop(
+      "The length of `session_weights` should be at least 2."
+    )
+  if (ncol(data) <=  1)
+    stop(
+      "The number of columnes in `data` should be at least 2."
+    )
+  if (length(objective_weights1) <=  1)
+    stop(
+      "The length of each objective_weights* should be at least 2."
+    )
+  for (i in 1:...length()) {
+    if (length(...elt(i)) <= 1)
+      stop("The length of each objective_weights* should be at least 2.")
+  }
+  # equal length
   if (length(session_weights) !=  ncol(data))
     stop(
-      "The length of session_weights is not equal to the number of columns in data"
+      "The length of `session_weights` is not equal to the number of columns in data."
     )
   if (length(session_weights) !=  (...length() + 1))
     stop(
-      "The length of session_weights is not equal to the number of objective_weights* arguments"
+      "The length of `session_weights` is not equal to the number of objective_weights* arguments."
     )
-  if (any(length(objective_weights1) != length(...)))
-    stop("The lengths of all objective_weights arguments are not identical")
+  for (i in 1:...length()) {
+    if (length(objective_weights1) != length(...elt(i)))
+      stop("Not all the lengths of objective_weights* are the same.")
+  }
+  # sum to 1
   if (abs(sum(session_weights) - 1) > 1e-8)
-    stop("The sum of session_weightss is not 1")
+    stop("The sum of `session_weights` is not 1")
   if (abs(sum(objective_weights1) - 1) > 1e-8)
-    stop("The sum of objective_weights1 is not 1")
+    stop("The sum of `objective_weights1` is not 1")
   if (any(abs(colSums(cbind(...)) - 1) > 1e-8))
-    stop("Not all the sum of objective_weights arguments are 1")
+    stop("Not all objective_weights sum to 1.")
+  # range
   if (any(c(session_weights, objective_weights1, ...) < 0))
     stop("Not all weights are equal to or larger than 0")
   if (any(c(session_weights, objective_weights1, ...) > 1))

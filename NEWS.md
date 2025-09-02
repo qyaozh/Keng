@@ -1,5 +1,9 @@
 # Keng 2025.9.1
 
+* The bug of length(...) has been fixed.
+
+# Keng 2025.9.1
+
 * The codes for pick_* tools have been refined.
 * `assess_coa()` has been added to assess course objective achievement in Outcome-Based Education.
 

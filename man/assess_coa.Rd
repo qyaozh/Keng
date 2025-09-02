@@ -34,11 +34,22 @@ session_weights, objective_weights_matrix, and weighted_objective_weights_matrix
 Assess course objective achievement
 }
 \examples{
-data <- data.frame(session1 = 60 + sample.int(40, 100, 1), session2 = 60 + sample.int(40, 100, 1))
-session_weights <- c(0.4, 0.6)
-objective_weights1 <- c(0.5, 0.3, 0.2)
-objective_weights2 <- c(0.1, 0.3, 0.6)
-coa <- assess_coa(data, session_weights, objective_weights1, objective_weights2)
+data <- data.frame(
+  session1 = 60 + sample.int(40, 100, 1),
+  session2 = 60 + sample.int(40, 100, 1),
+  session3 = 60 + sample.int(40, 100, 1)
+)
+session_weights    <- c(0.2, 0.3, 0.5)
+objective_weights1 <- c(0.1, 0.4, 0.5)
+objective_weights2 <- c(0.2, 0.2, 0.6)
+objective_weights2 <- c(0.3,   0, 0.7)
+coa <- assess_coa(
+  data,
+  session_weights,
+  objective_weights1,
+  objective_weights2,
+  objective_weights2
+)
 head(coa)
 attr(coa, "weights")
 colMeans(coa[row.names(attr(coa, "weights")[[2]])])
