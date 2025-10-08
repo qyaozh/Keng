@@ -29,7 +29,7 @@ balls <- list(c(front = rep(NA, 5),
                 back = rep(NA, 2))
 )
 luck <- list(c(front = c(10L, 13L, 14L, 19L, 27L),
-               back = c( 6L, 10L)))
+               back = c(6L, 10L)))
 # limit the max number of draws
 max <- 9999
 # try

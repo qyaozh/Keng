@@ -1,6 +1,6 @@
 Package: Keng
 Title: Knock Errors Off Nice Guesses
-Version: 2025.9.2
+Version: 2025.10.8
 Authors@R: 
     person(
     given = "Qingyao",
@@ -23,7 +23,7 @@ License: CC BY 4.0
 Language: en-US
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: 
     stats
 Suggests: 
