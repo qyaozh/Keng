@@ -56,9 +56,11 @@ size n.
 `test_r()` tests the significance and compute the post-hoc power of r
 with known sample size n.
 
+`powered_r()` conducts post-hoc power analysis with known sample size
+n. 
+
 `power_r()` conducts a priori power analysis and plan the sample size
-for r; post-hoc power analysis would also be conducted with known sample
-size n. 
+for r.
 
 ### The linear model
 
@@ -67,6 +69,8 @@ R<sup>2</sup>, f<sup>2</sup>, and post-hoc power.
 
 `calc_PRE()` calculates PRE from partial correlation, Cohen’s f, or
 f_squared.
+
+`power_lm()` conducts post-hoc power analysis with known sample size n.
 
 `power_lm()` conducts a priori power analysis and plans the sample size
 for one or a set of predictors in regression analysis; post-hoc power
