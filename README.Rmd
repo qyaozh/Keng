@@ -26,7 +26,12 @@ knitr::opts_chunk$set(
 You can install the development version of `Keng` from [GitHub](https://github.com/) with:
 
 ``` r
-install.packages("devtools")
+# install devtools if it is not installed
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+
+# install the developing version of Keng from GitHub
 devtools::install_github("qyaozh/Keng", dependencies = TRUE, build_vignettes = TRUE)
 ```
 
