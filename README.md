@@ -79,8 +79,7 @@ f_squared.
 n.
 
 `power_lm()` conducts a priori power analysis and plans the sample size
-for one or a set of predictors in regression analysis; post-hoc power
-analysis would also be conducted with known sample size n.
+for one or a set of predictors in regression analysis.
 
 ### The `Keng_power` class
 
