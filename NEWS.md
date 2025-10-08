@@ -1,6 +1,7 @@
 # Keng 2025.10.8
 
 * The bug of `length(...)` has been fixed.
+* `powered_r()` and `powered_lm()` are used to compute powers, and `power_r()` and `power_lm()` have been rewritten.
 
 # Keng 2025.9.1
 

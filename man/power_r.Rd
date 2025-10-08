@@ -4,14 +4,7 @@
 \alias{power_r}
 \title{Conduct post hoc and a priori power analysis, and plan the sample size for r.}
 \usage{
-power_r(
-  r = 0.2,
-  sig_level = 0.05,
-  power = 0.8,
-  power_ul = 1,
-  n_ul = 1.45e+09,
-  n = NULL
-)
+power_r(r = 0.2, sig_level = 0.05, power = 0.8, power_ul = 1, n_ul = 1.45e+09)
 }
 \arguments{
 \item{r}{Pearson's correlation. Cohen(1988) suggested >=0.1, >=0.3, and >=0.5 as cut-off values
@@ -26,9 +19,6 @@ of Pearson's correlation r for small, medium, and large effect sizes, respective
 \item{n_ul}{The upper limit of sample size below which the minimum required sample size is searched.
 Non-integer \code{n_ul} would be converted to be an integer using \code{as.integer()}.
 \code{n_ul} should be at least 3.}
-
-\item{n}{The current sample size. Non-integer \code{n} would be converted to be an integer using \code{as.integer()}.
-\code{n} should be at least 3.}
 }
 \value{
 A Keng_power class, also a list. If \code{n} is not given, the following results would be returned:

@@ -16,8 +16,6 @@
 #' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
 #' Non-integer `n_ul` would be converted to be an integer using `as.integer()`.
 #' `as.integer(n_ul)` should be at least `as.integer(PA) + 1`.
-#' @param n The current sample size. Non-integer `n` would be converted to be an integer using `as.integer()`.
-#' Non-NULL `as.integer(n)` should be at least `as.integer(PA) + 1`.
 #'
 #' @details `power_ul` and `n_ul` determine the total times of power_lm()'s attempts searching for the minimum required sample size,
 #' hence the number of rows of the returned power table `priori` and the right limit of the horizontal axis of the returned power plot.
@@ -46,15 +44,6 @@
 #' `power_i`(the actual power of `PRE` at the sample size `n_i`);
 #' `[[10]]` `priori`, a priori power table with increasing sample sizes (`n_i`) and power(`power_i`).
 #'
-#' If sample size `n` is given, the following results would also be returned:
-#' Integer `n`, the F_test of `PRE` at the sample size `n` with
-#' `df_A_C`,
-#' `df_A` (the df of the model A at the sample size `n`),
-#' `F` (the F-test of `PRE` at the sample size `n`),
-#' `p` (the p-value of F-test at the sample size `n`), and the post-hoc power analysis with
-#' `lambda_post` (the non-centrality parameter of `F` at the sample size `n`),
-#' and `power_post` (the post-hoc power at the sample size `n`).
-#'
 #' By default, `print()` prints the primary but not all contents of the `Keng_power` class.
 #' To inspect more contents, use `print.AsIs()` or list extracting.
 #'
@@ -71,18 +60,19 @@ power_lm <- function(PRE = 0.02,
                      sig_level = 0.05,
                      power = 0.8,
                      power_ul = 1,
-                     n_ul = 1.45e+09,
-                     n = NULL) {
-
+                     n_ul = 1.45e+09) {
   PC <- as.integer(PC)
   PA <- as.integer(PA)
   n_ul <- as.integer(n_ul)
-  n <- as.integer(n)
 
   stopifnot(
-    sum(sapply(list(PRE, PC, PA, sig_level, power, power_ul, n_ul), is.null)) == 0,
-    PRE > 0, # If PRE = 0, the computation would be endless.
-    PRE < 1, # PRE would be subjected to the F-test, hence should be smaller than 1.
+    sum(sapply(
+      list(PRE, PC, PA, sig_level, power, power_ul, n_ul), is.null
+    )) == 0,
+    PRE > 0,
+    # If PRE = 0, the computation would be endless.
+    PRE < 1,
+    # PRE would be subjected to the F-test, hence should be smaller than 1.
     PC >= 0,
     PC < PA,
     # power is only used to filter the minimum sample size, and it does not influence the loop.
@@ -92,53 +82,38 @@ power_lm <- function(PRE = 0.02,
     # If PRE is very very small, n_i will grow towards Inf. Limit the maximum n_i to be 100,000.
     power <= 1,
     power_ul >= power,
-    power_ul <= 1, # power_ul must <= 1, otherwise the loop will be endless because power_i cannot > 1.
-    sig_level > 0, # if sig_level = 0, the computation would be endless.
+    power_ul <= 1,
+    # power_ul must <= 1, otherwise the loop will be endless because power_i cannot > 1.
+    sig_level > 0,
+    # if sig_level = 0, the computation would be endless.
     sig_level <= 1,
-    identical(n, integer(0)) || n >= PA + 1, # Use ||, so if n is integer(0), (n > PA) would not be evaluated.
     n_ul >= PA + 1 # the loop begin from n_i = PA + 1
   )
 
   f_squared <- PRE / (1 - PRE)
   df_A_C <- PA - PC
 
-  # post-hoc power
-  if (!identical(n, integer(0))) {
-    df_A <- n - PA
-    F <- (PRE / df_A_C) / ((1 - PRE) / df_A)
-    p <- stats::pf(F, df_A_C , df_A, lower.tail = FALSE)
-    lambda_post <- f_squared * df_A
-    power_post <- stats::pf(stats::qf((1 - sig_level), df_A_C , df_A),
-                            df_A_C,
-                            df_A,
-                            lambda_post,
-                            lower.tail = FALSE)
-    F_test = c(n = n, df_A_C = df_A_C, df_A = df_A, F = F, p = p, lambda_post = lambda_post, power_post = power_post)
-  }
-
   # a priori power
-  n_i <- PA + 1
-  power_i <- 0
-  priori <- list()
   index <- 1
+  n_i <- PA + 1
+  priori <- list()
+  power_i <- 0
 
   # The maximum power_i is 1, and the maximum power_ul is 1.
   # Do not use "power_i <= power_ul" to keep the while alive,
   # when power_ul = 1, the loop will be endless.
 
   while ((power_i < power_ul) & (n_i <= n_ul)) {
-    df_A_i <- n_i - PA
-    F_i <- (PRE / df_A_C) / ((1 - PRE) / df_A_i)
-    p_i <- stats::pf(F_i, df_A_C , df_A_i, lower.tail = FALSE)
-    lambda_i <- f_squared * df_A_i
-    power_i <- stats::pf(stats::qf((1 - sig_level), df_A_C , df_A_i),
-                         df_A_C,
-                         df_A_i,
-                         lambda_i,
-                         lower.tail = FALSE)
-    priori[[index]] <- c(n_i, df_A_C, df_A_i, F_i, p_i, lambda_i, power_i)
-    n_i <- n_i + 1
+    priori[[index]]  <- lm_powered(
+      PRE = PRE,
+      PC = PC,
+      PA = PA,
+      n = n_i,
+      sig_level = sig_level
+    )
+    power_i <- priori[[index]]$power
     index <- index + 1
+    n_i <- n_i + 1
   }
 
   priori <- data.frame(matrix(unlist(priori), ncol = 7, byrow = TRUE))
@@ -148,42 +123,22 @@ power_lm <- function(PRE = 0.02,
 
   method <- "power_lm"
 
-  if (identical(n, integer(0))) {
-    out <- structure(
-      list(
-        PRE = PRE,
-        f_squared = f_squared,
-        PC = PC,
-        PA = PA,
-        sig_level = sig_level,
-        power = power,
-        power_ul = power_ul,
-        n_ul = n_ul,
-        minimum = minimum,
-        priori = priori,
-        method = method
-      ),
-      class = c("Keng_power", "list")
-    )
-  } else {
-    out <- structure(
-      list(
-        PRE = PRE,
-        f_squared = f_squared,
-        PC = PC,
-        PA = PA,
-        sig_level = sig_level,
-        n = n,
-        F_test = F_test,
-        power = power,
-        power_ul = power_ul,
-        n_ul = n_ul,
-        minimum = minimum,
-        priori = priori,
-        method = method
-      ),
-      class = c("Keng_power", "list")
-    )
-  }
+  out <- structure(
+    list(
+      PRE = PRE,
+      f_squared = f_squared,
+      PC = PC,
+      PA = PA,
+      sig_level = sig_level,
+      power = power,
+      power_ul = power_ul,
+      n_ul = n_ul,
+      minimum = minimum,
+      priori = priori,
+      method = method
+    ),
+    class = c("Keng_power", "list")
+  )
+
   out
 }

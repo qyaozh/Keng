@@ -11,8 +11,7 @@ power_lm(
   sig_level = 0.05,
   power = 0.8,
   power_ul = 1,
-  n_ul = 1.45e+09,
-  n = NULL
+  n_ul = 1.45e+09
 )
 }
 \arguments{
@@ -38,9 +37,6 @@ Non-integer \code{PA} would be converted to be an integer using \code{as.integer
 \item{n_ul}{The upper limit of sample size below which the minimum required sample size is searched.
 Non-integer \code{n_ul} would be converted to be an integer using \code{as.integer()}.
 \code{as.integer(n_ul)} should be at least \code{as.integer(PA) + 1}.}
-
-\item{n}{The current sample size. Non-integer \code{n} would be converted to be an integer using \code{as.integer()}.
-Non-NULL \code{as.integer(n)} should be at least \code{as.integer(PA) + 1}.}
 }
 \value{
 A Keng_power class, also a list. If sample size \code{n} is not given, the following results would be returned:
@@ -61,15 +57,6 @@ expected statistical power and significance level, and corresponding
 \code{lambda_i}(the non-centrality parameter of the F-distribution for the alternative hypothesis, given \code{PRE} and \code{n_i}),
 \code{power_i}(the actual power of \code{PRE} at the sample size \code{n_i});
 \verb{[[10]]} \code{priori}, a priori power table with increasing sample sizes (\code{n_i}) and power(\code{power_i}).
-
-If sample size \code{n} is given, the following results would also be returned:
-Integer \code{n}, the F_test of \code{PRE} at the sample size \code{n} with
-\code{df_A_C},
-\code{df_A} (the df of the model A at the sample size \code{n}),
-\code{F} (the F-test of \code{PRE} at the sample size \code{n}),
-\code{p} (the p-value of F-test at the sample size \code{n}), and the post-hoc power analysis with
-\code{lambda_post} (the non-centrality parameter of \code{F} at the sample size \code{n}),
-and \code{power_post} (the post-hoc power at the sample size \code{n}).
 
 By default, \code{print()} prints the primary but not all contents of the \code{Keng_power} class.
 To inspect more contents, use \code{print.AsIs()} or list extracting.

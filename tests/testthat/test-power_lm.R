@@ -1,6 +1,6 @@
 test_that("power_lm", {
   # test 1
-  out1 <- power_lm(PRE = calc_PRE(r_p = 0.2)$PRE, PC = 1, PA = 2, n = 193)$F_test
+  out1 <- unlist(powered_lm(PRE = calc_PRE(r_p = 0.2)$PRE, PC = 1, PA = 2, n = 193))
   out2 <- unlist(power_lm(PRE = calc_PRE(r_p = 0.2)$PRE, PC = 1, PA = 2)$minimum)
   expect_equal(out1, out2, ignore_attr = TRUE)
 
@@ -9,7 +9,7 @@ test_that("power_lm", {
   fit1 <- lm(dm1 ~ pm1, depress)
   fit2 <- lm(dm1 ~ pm1 + em1, depress)
   expect_equal(
-    power_lm(PRE = compare_lm(fit1, fit2)[8, 4], PC = 2, PA = 3, n = nrow(depress))$F_test["F"],
+    powered_lm(PRE = compare_lm(fit1, fit2)[8, 4], PC = 2, PA = 3, n = nrow(depress))$F,
     compare_lm(fit1, fit2)[9, 4],
     ignore_attr = TRUE)
 

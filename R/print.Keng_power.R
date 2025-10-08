@@ -21,10 +21,6 @@ print.Keng_power <- function(x, ...) {
                    "r = ", x$r, "\n",
                    "d = ", x$d, "\n",
                    "sig_level = ", x$sig_level, "\n",
-                   "-- Post-hoc power analysis --------", "\n",
-                   # $ allows partial matching. Use [[]] instead.
-                   "n = ", ifelse(is.null(x[["n"]]), "NULL", x[["n"]]), "\n",
-                   "power_post = ", ifelse(is.null(x[["n"]]), "NULL", format(x$t_test["power_post"])), "\n",
                    "-- Sample size planning -----------", "\n",
                    "power = ", x$power, "\n",
                    "Minimum sample size = ", x$minimum$n_i, "\n",
@@ -37,10 +33,6 @@ print.Keng_power <- function(x, ...) {
                    "PC = ", x$PC, "\n",
                    "PA = ", x$PA, "\n",
                    "sig_level = ", x$sig_level, "\n",
-                   "-- Post-hoc power analysis --------", "\n",
-                   # $ allows partial matching. Use [[]] instead.
-                   "n = ", ifelse(is.null(x[["n"]]), "NULL", x[["n"]]), "\n",
-                   "power_post = ", ifelse(is.null(x[["n"]]), "NULL", format(x$F_test["power_post"])), "\n",
                    "-- Sample size planning -----------", "\n",
                    "Expected power = ", x$power, "\n",
                    "Minimum sample size = ", x$minimum$n_i, "\n",

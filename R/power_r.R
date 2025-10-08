@@ -4,8 +4,6 @@
 #' of Pearson's correlation r for small, medium, and large effect sizes, respectively.
 #' @param sig_level Expected significance level.
 #' @param power Expected statistical power.
-#' @param n The current sample size. Non-integer `n` would be converted to be an integer using `as.integer()`.
-#' `n` should be at least 3.
 #' @param power_ul The upper limit of power. `power_ul` should be larger than `power`, and the maximum `power_ul` is 1.
 #' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
 #' Non-integer `n_ul` would be converted to be an integer using `as.integer()`.
@@ -59,58 +57,35 @@ power_r <- function(r = 0.2,
                     sig_level = 0.05,
                     power = 0.80,
                     power_ul = 1,
-                    n_ul = 1.45e+09,
-                    n = NULL) {
-  n <- as.integer(n)
+                    n_ul = 1.45e+09) {
   n_ul <- as.integer(n_ul)
 
-  stopifnot(r > -1,
-            r < 1,
-            r != 0,
-            power >= 0,
-            power <= 1,
-            power_ul >= power,
-            power_ul <= 1,
-            sig_level > 0,
-            sig_level <= 1,
-            identical(n, integer(0)) || n >= 3,
-            n_ul >= 3)
+  stopifnot(
+    r > -1,
+    r < 1,
+    r != 0,
+    power >= 0,
+    power <= 1,
+    power_ul >= power,
+    power_ul <= 1,
+    sig_level > 0,
+    sig_level <= 1,
+    n_ul >= 3
+  )
 
-  d <- 2 * r / sqrt(1 - r ^ 2) #approximate estimate of d
-
-  #post-hoc power
-  if (!identical(n, integer(0))) {
-    df <- n - 2
-    SE <- sqrt((1 - r ^ 2) / df)
-    t <- r / SE
-    p <- stats::pt(abs(t), df, lower.tail = FALSE) * 2
-    delta_post <- d * sqrt(df) / 2
-    power_post <- stats::pt(stats::qt(1 - sig_level / 2, df),
-                         df,
-                         abs(delta_post),
-                         lower.tail = FALSE)
-    t_test <- c(n = n, df = df, SE = SE, t = t, p = p, delta_post = delta_post, power_post = power_post)
-  }
+  d <- 2 * r / sqrt(1 - r^2) #approximate estimate of d
 
   # a priori power
-  n_i <- 3
+  index <- 1L
+  n_i <- 3L
+  priori <- list(NULL)
   power_i <- 0
-  priori <- list()
-  index <- 1
 
   while (power_i < power_ul & n_i <= n_ul) {
-    df_i <- n_i - 2
-    SE_i <- sqrt((1 - r ^ 2) / df_i)
-    t_i <- r / SE_i
-    p_i <- stats::pt(abs(t_i), df_i, lower.tail = FALSE) * 2
-    delta_i <- d * sqrt(df_i) / 2
-    power_i <- stats::pt(stats::qt(1 - sig_level / 2, n_i - 2),
-                         n_i - 2,
-                         abs(delta_i),
-                         lower.tail = FALSE)
-    priori[[index]] <- c(n_i, df_i, SE_i, t_i, p_i, delta_i, power_i)
-    n_i <- n_i + 1
-    index <- index + 1
+    priori[[index]] <- r_powered(r = r, n = n_i, sig_level = sig_level)
+    power_i <- priori[[index]]$power
+    index <- index + 1L
+    n_i <- n_i + 1L
   }
 
   priori <- data.frame(matrix(unlist(priori), ncol = 7, byrow = TRUE))
@@ -120,39 +95,20 @@ power_r <- function(r = 0.2,
 
   method <- "power_r"
 
-  if (identical(n, integer(0))) {
-    out <- structure(
-      list(
-        r = r,
-        d = d,
-        sig_level = sig_level,
-        power = power,
-        power_ul = power_ul,
-        n_ul = n_ul,
-        minimum = minimum,
-        priori = priori,
-        method = method
-      ),
-      class = c("Keng_power", "list")
-    )
-  } else {
-    out <- structure(
-      list(
-        r = r,
-        d = d,
-        sig_level = sig_level,
-        n = n,
-        t_test = t_test,
-        power = power,
-        power_ul = power_ul,
-        n_ul = n_ul,
-        minimum = minimum,
-        priori = priori,
-        method = method
-      ),
-      class = c("Keng_power", "list")
-    )
-  }
+  out <- structure(
+    list(
+      r = r,
+      d = d,
+      sig_level = sig_level,
+      power = power,
+      power_ul = power_ul,
+      n_ul = n_ul,
+      minimum = minimum,
+      priori = priori,
+      method = method
+    ),
+    class = c("Keng_power", "list")
+  )
+
   out
 }
-
