@@ -104,7 +104,7 @@ power_lm <- function(PRE = 0.02,
   # when power_ul = 1, the loop will be endless.
 
   while ((power_i < power_ul) & (n_i <= n_ul)) {
-    priori[[index]]  <- lm_powered(
+    priori[[index]]  <- powered_lm(
       PRE = PRE,
       PC = PC,
       PA = PA,

@@ -82,7 +82,7 @@ power_r <- function(r = 0.2,
   power_i <- 0
 
   while (power_i < power_ul & n_i <= n_ul) {
-    priori[[index]] <- r_powered(r = r, n = n_i, sig_level = sig_level)
+    priori[[index]] <- powered_r(r = r, n = n_i, sig_level = sig_level)
     power_i <- priori[[index]]$power
     index <- index + 1L
     n_i <- n_i + 1L
