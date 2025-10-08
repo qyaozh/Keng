@@ -66,7 +66,7 @@ Here is a list of the data and functions gathered in the `Keng` package. Their u
 
 `calc_PRE()` calculates PRE from partial correlation, Cohen's f, or f_squared.
 
-`power_lm()` conducts post-hoc power analysis with known sample size n.
+`powered_lm()` conducts post-hoc power analysis with known sample size n.
 
 `power_lm()` conducts a priori power analysis and plans the sample size for one or a set of predictors in regression analysis; post-hoc power analysis would also be conducted with known sample size n.
 

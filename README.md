@@ -70,7 +70,8 @@ R<sup>2</sup>, f<sup>2</sup>, and post-hoc power.
 `calc_PRE()` calculates PRE from partial correlation, Cohen’s f, or
 f_squared.
 
-`power_lm()` conducts post-hoc power analysis with known sample size n.
+`powered_lm()` conducts post-hoc power analysis with known sample size
+n.
 
 `power_lm()` conducts a priori power analysis and plans the sample size
 for one or a set of predictors in regression analysis; post-hoc power
