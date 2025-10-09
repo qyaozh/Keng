@@ -1,4 +1,4 @@
-#' Conduct post hoc and a priori power analysis, and plan the sample size for regression analysis
+#' Conduct a priori power analysis, and plan the sample size for regression analysis
 #'
 #' @param PRE Proportional Reduction in Error.
 #' PRE = The square of partial correlation.

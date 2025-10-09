@@ -1,4 +1,4 @@
-#' Conduct post hoc and a priori power analysis, and plan the sample size for r.
+#' Conduct a priori power analysis, and plan the sample size for r.
 #'
 #' @param r Pearson's correlation. Cohen(1988) suggested >=0.1, >=0.3, and >=0.5 as cut-off values
 #' of Pearson's correlation r for small, medium, and large effect sizes, respectively.
