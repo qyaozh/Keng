@@ -9,7 +9,7 @@
 #'   \item{class}{Class}
 #'   \item{grade}{Grade}
 #'   \item{elite}{Elite classes}
-#'   \item{intervene}{0 = Control group, 1 = Intervention group}
+#'   \item{intervention}{0 = Control group, 1 = Intervention group}
 #'   \item{gender}{0 = girl, 1 = boy}
 #'   \item{age}{Age in year}
 #'   \item{cope1i1p}{Cope scale, Time1, Item1, Problem-focused coping, 1 = very seldom, 5 = very often}
