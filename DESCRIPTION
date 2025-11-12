@@ -1,6 +1,6 @@
 Package: Keng
 Title: Knock Errors Off Nice Guesses
-Version: 2025.11.11
+Version: 2025.11.12
 Authors@R: 
     person(
     given = "Qingyao",
