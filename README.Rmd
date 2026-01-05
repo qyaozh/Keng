@@ -55,6 +55,8 @@ Here is a list of the data and functions gathered in the `Keng` package. Their u
 
 `Scale()` could standardize the mean and standard deviation of `x` (including transforming it to its z-score). To change the origin of `x`, just change its mean.
 
+divide() could divide a vector into three groups, using the criterion of 1 SD, or proportions like 0.27.
+
 ### Pearson's r
 
 `cut_r()` gives you the cut-off values of Pearson's r at the significance levels of p = 0.1, 0.05, 0.01, and 0.001 with known sample size n.

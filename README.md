@@ -52,6 +52,9 @@ coping.
 (including transforming it to its z-score). To change the origin of `x`,
 just change its mean.
 
+divide() could divide a vector into three groups, using the criterion of
+1 SD, or proportions like 0.27.
+
 ### Pearson’s r
 
 `cut_r()` gives you the cut-off values of Pearson’s r at the

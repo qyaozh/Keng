@@ -1,6 +1,7 @@
 # Keng 2026.1.5
 
 * Scale() has been rewritten.
+* divide() has been added to divide a vector into three groups.
 
 # Keng 2025.10.8
 
