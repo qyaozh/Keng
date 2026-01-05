@@ -48,9 +48,9 @@ coping.
 
 ### Variable transformation
 
-`Scale()` could change the origin of a numeric vector `x` (including
-mean-centering it), or standardize the mean and standard deviation of
-`x` (including transforming it to its z-score).
+`Scale()` could standardize the mean and standard deviation of `x`
+(including transforming it to its z-score). To change the origin of `x`,
+just change its mean.
 
 ### Pearson’s r
 

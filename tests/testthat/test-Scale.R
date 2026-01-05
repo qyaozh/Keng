@@ -6,7 +6,7 @@ test_that("Scale", {
   expect_equal(Scale(x, sd = 1), as.vector(scale(x))) # z-score
   expect_equal(mean(Scale(x, m = 100, sd = 15)), 100) # M of standardized score
   expect_equal(sd(Scale(x, m = 100, sd = 15)), 15) # SD of standardized score
-  expect_equal(Scale(x, oadvances = 2), Scale(x, m = mean(x) - 2))
+  expect_equal(Scale(x), Scale(x, m = 0))
 
   # test NA
   expect_error(Scale(NA))

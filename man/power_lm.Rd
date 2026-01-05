@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_lm.R
 \name{power_lm}
 \alias{power_lm}
-\title{Conduct post hoc and a priori power analysis, and plan the sample size for regression analysis}
+\title{Conduct a priori power analysis, and plan the sample size for regression analysis}
 \usage{
 power_lm(
   PRE = 0.02,
@@ -62,7 +62,7 @@ By default, \code{print()} prints the primary but not all contents of the \code{
 To inspect more contents, use \code{print.AsIs()} or list extracting.
 }
 \description{
-Conduct post hoc and a priori power analysis, and plan the sample size for regression analysis
+Conduct a priori power analysis, and plan the sample size for regression analysis
 }
 \details{
 \code{power_ul} and \code{n_ul} determine the total times of power_lm()'s attempts searching for the minimum required sample size,

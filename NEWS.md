@@ -1,3 +1,7 @@
+# Keng 2026.1.5
+
+* Scale() has been rewritten.
+
 # Keng 2025.10.8
 
 * The bug of `length(...)` has been fixed.

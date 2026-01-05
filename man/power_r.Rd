@@ -2,7 +2,7 @@
 % Please edit documentation in R/power_r.R
 \name{power_r}
 \alias{power_r}
-\title{Conduct post hoc and a priori power analysis, and plan the sample size for r.}
+\title{Conduct a priori power analysis, and plan the sample size for r.}
 \usage{
 power_r(r = 0.2, sig_level = 0.05, power = 0.8, power_ul = 1, n_ul = 1.45e+09)
 }
@@ -49,7 +49,7 @@ By default, \code{print()} prints the primary but not all contents of the \code{
 To inspect more contents, use \code{print.AsIs()} or list extracting.
 }
 \description{
-Conduct post hoc and a priori power analysis, and plan the sample size for r.
+Conduct a priori power analysis, and plan the sample size for r.
 }
 \details{
 \code{Power_r()} follows Aberson (2019) approach to conduct power analysis. \code{power_ul} and \code{n_ul} determine the total times of power_r()'s attempts searching for the minimum required sample size,
