@@ -16,12 +16,12 @@
 divide <- function(x, criterion = "1sd") {
   stopifnot(is.numeric(x))
   if (criterion == "1sd") {
-    ll <- mean(x, na.rm = TRUE) - sd(x, na.rm = TRUE)
-    ul <- mean(x, na.rm = TRUE) + sd(x, na.rm = TRUE)
+    ll <- mean(x, na.rm = TRUE) - stats::sd(x, na.rm = TRUE)
+    ul <- mean(x, na.rm = TRUE) + stats::sd(x, na.rm = TRUE)
   }
   else if (criterion > 0 && criterion < 0.5) {
-    ll <- quantile(x, criterion)
-    ul <- quantile(x, 1 - criterion)
+    ll <- stats::quantile(x, criterion)
+    ul <- stats::quantile(x, 1 - criterion)
   }
   c <- as.character(x)
   c[x <= ll] <- "Low"
