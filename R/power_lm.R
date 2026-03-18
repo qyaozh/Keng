@@ -11,16 +11,15 @@
 #' `as.integer(PA)` should be larger than `as.integer(PC)`.
 #' @param sig_level Expected significance level for effects of focal predictors.
 #' @param power Expected statistical power for effects of focal predictors.
-#' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
+#' @param n_ul The upper limit of the sample size below which the minimum required sample size is searched for.
 #' Non-integer `n_ul` would be converted to be an integer using `as.integer()`.
 #' `as.integer(n_ul)` should be at least `as.integer(PA) + 1`.
 #'
-#' @details `n_ul` determine the total times of power_lm()'s attempts searching for the minimum required sample size,
+#' @details `n_ul` determines the upper limit of the interval below which power_lm() searches for the minimum required sample size,
 #' hence the number of rows of the returned power table `priori` and the right limit of the horizontal axis of the returned power plot.
-#' `power_lm()` will keep searching for the minimum required sample size that pushes the power level to `power`.
 #' When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
 #' a huge increase in sample size only brings about a trivial increase in power, which is cost-ineffective.
-#' To make `power_lm()` omit unnecessary attempts, you could set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
+#' To make `power_lm()` omit unnecessary searching, you could set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
 #'
 #' @return A Keng_power class, also a list. If sample size `n` is not given, the following results would be returned:
 #' `[[1]]` `PRE`;
@@ -30,15 +29,16 @@
 #' `[[5]]` `sig_level`, expected significance level for effects of focal predictors;
 #' `[[6]]` `power`, expected statistical power for effects of focal predictors;
 #' `[[7]]` `n_ul`, the upper limit of sample size;
-#' `[[8]]` `minimum`, the minimum sample size `n_i` required for focal predictors to reach the
-#' expected statistical power and significance level, and corresponding
+#' `[[8]]` `root`, the exact decimal `n` found by internal `uniroot()` to reach the expected power;
+#' `[[9]]` `minimum`, the minimum sample size required for focal predictors to reach the
+#' expected statistical power and significance level;
+#' `[[10]]` `priori`, a priori power table with increasing sample sizes (`n_i`), and corresponding
 #' `df_A_C`(the df of the numerator of the F-test, i.e., the difference of the dfs between model C and model A),
 #' `df_A_i`(the df of the denominator of the F-test, i.e., the df of the model A at the sample size `n_i`),
 #' `F_i`(the *F*-test of `PRE` at the sample size `n_i`),
 #' `p_i`(the p-value of `F_i`),
 #' `lambda_i`(the non-centrality parameter of the F-distribution for the alternative hypothesis, given `PRE` and `n_i`),
-#' `power_i`(the actual power of `PRE` at the sample size `n_i`);
-#' `[[9]]` `priori`, a priori power table with increasing sample sizes (`n_i`) and power(`power_i`).
+#' `power_i`(the actual power of `PRE` at the sample size `n_i`).
 #'
 #' By default, `print()` prints the primary but not all contents of the `Keng_power` class.
 #' To inspect more contents, use `print.AsIs()` or list extracting.

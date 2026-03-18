@@ -4,18 +4,17 @@
 #' of Pearson's correlation r for small, medium, and large effect sizes, respectively.
 #' @param sig_level Expected significance level.
 #' @param power Expected statistical power.
-#' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
+#' @param n_ul The upper limit of the sample size below which the minimum required sample size is searched for.
 #' Non-integer `n_ul` would be converted to be an integer using `as.integer()`.
-#' `n_ul` should be at least 3.
+#' `n_ul` should be at least `3L`.
 #'
 #' @details `Power_r()` follows Aberson (2019) approach to conduct power analysis.
-#' `n_ul` determine the maximum sample size below which power_r() attempts searching
+#' `n_ul` determines the upper limit of the interval below which `power_r()` searches
 #' for the minimum required sample size, hence the number of rows of the returned
 #' power table `priori` and the right limit of the horizontal axis of the returned power plot.
-#' `power_r()` will keep searching for the sample size that pushes the power level to `power`.
-#' When `r` is very small and power is larger than 0.8, a huge increase of
+#' When `r` is very small and `power` is larger than 0.8, a huge increase of
 #' sample size only brings about a trivial increase in power,
-#' which is cost-ineffective. To make `power_r()` omit unnecessary attempts,
+#' which is cost-ineffective. To make `power_r()` omit unnecessary searching,
 #' you could set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
 #'
 #' @return A Keng_power class, also a list. If `n` is not given, the following results would be returned:
@@ -25,15 +24,15 @@
 #' `[[3]]` `sig_level`, the expected significance level;
 #' `[[4]]` `power`, the expected power;
 #' `[[5]]` `n_ul`, the upper limit of sample size;
-#' `[[6]]` `minimum`, the minimum planned sample size `n_i` and corresponding
+#' `[[6]]` `root`, the exact decimal `n` found by internal `uniroot()` to reach the expected power;
+#' `[[7]]` `minimum`, the minimum required sample size.
+#' `[[8]]` `priori`, a priori power table with increasing sample sizes (`n_i`),  and corresponding
 #' `df_i` (the `df` of t-test at the sample size `n_i`, `df_i` = `n_i` - 2),
 #' `SE_i` (the SE of `r` at the sample size `n_i`),
 #' `t_i` (the t-test of `r`),
 #' `p_i` (the p-value of `t_i`),
 #' `delta_i` (the non-centrality parameter of the t-distribution for the alternative hypothesis, given `r` and `n_i`),
-#' `power_i` (the actual power of `r` at the sample size `n_i`);
-#' `[[7]]` `priori`, a priori power table with increasing sample sizes (`n_i`) and power(`power_i`).
-#' `[[8]]`  A plot of power against sample size n.
+#' `power_i` (the actual power of `r` at the sample size `n_i`);.
 #'
 #' If sample size `n` is given, the following results would also be returned:
 #' Integer `n`, the t_test of `r` at the sample size `n` with
@@ -113,6 +112,7 @@ power_r <- function(r = 0.2,
       sig_level = sig_level,
       power = power,
       n_ul = n_ul,
+      root = root,
       minimum = minimum,
       priori = priori,
       method = method
