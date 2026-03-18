@@ -88,7 +88,7 @@ power_lm <- function(PRE = 0.02,
   # a priori power
   root <- tryCatch({
     # code may return error
-    uniroot(
+    stats::uniroot(
       function(n) powered_lm(PRE = PRE, PC = PC, PA = PA, n = n, sig_level = sig_level)$power - power,
       interval = c(PA + 1L, n_ul),
       tol = .Machine$double.eps

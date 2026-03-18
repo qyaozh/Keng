@@ -1,7 +1,11 @@
+# Keng 2026.3.18
+
+* `power_r`, `power_lm()`, `print.Keng_power()`, and `plot.Keng_power()` have been rewritten using `uniroot()`.
+
 # Keng 2026.1.5
 
-* Scale() has been rewritten.
-* divide() has been added to divide a vector into three groups.
+* `Scale()` has been rewritten.
+* `divide()` has been added to divide a vector into three groups.
 
 # Keng 2025.10.8
 

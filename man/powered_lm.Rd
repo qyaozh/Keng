@@ -19,8 +19,7 @@ Non-integer \code{PC} would be converted to be an integer using \code{as.integer
 Non-integer \code{PA} would be converted to be an integer using \code{as.integer()}.
 \code{as.integer(PA)} should be larger than \code{as.integer(PC)}.}
 
-\item{n}{The current sample size. Non-integer \code{n} would be converted to be an integer using \code{as.integer()}.
-Non-NULL \code{as.integer(n)} should be at least \code{as.integer(PA) + 1}.}
+\item{n}{The current sample size. Integer \code{n} should be at least \code{PA + 1L}.}
 
 \item{sig_level}{Expected significance level for effects of focal predictors.}
 }

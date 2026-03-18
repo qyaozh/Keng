@@ -76,7 +76,7 @@ power_r <- function(r = 0.2,
   # a priori power
   root <- tryCatch({
     # code may return error
-    uniroot(
+    stats::uniroot(
       function(n) powered_r(r = r, n = n, sig_level = sig_level)$power - power,
       interval = c(3, n_ul),
       tol = .Machine$double.eps
