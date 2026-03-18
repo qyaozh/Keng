@@ -19,13 +19,13 @@ You can install the development version of `Keng` from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install devtools if it is not installed
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  install.packages("devtools")
+# install pak if it is not installed
+if (!requireNamespace("pak", quietly = TRUE)) {
+  install.packages("pak")
 }
 
 # install the developing version of Keng from GitHub
-devtools::install_github("qyaozh/Keng", dependencies = TRUE, build_vignettes = TRUE)
+pak::pak("qyaozh/Keng")
 ```
 
 ## Load
