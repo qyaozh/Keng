@@ -21,8 +21,10 @@
 powered_r <- function(r = 0.2,
                       n = 200L,
                       sig_level = 0.05) {
-  # coerce n to be a integer
-  n <- as.integer(n)
+
+  # theoretically n should be a integer
+  # to work with uniroot, n could be decimal here
+  # n <- as.integer(n)
 
   # check arguments
   stopifnot(r > -1,
@@ -30,7 +32,7 @@ powered_r <- function(r = 0.2,
             r != 0,
             sig_level > 0,
             sig_level <= 1,
-            identical(n, integer(0)) || n >= 3)
+            n >= 3L)
 
   # computation
   df <- n - 2L

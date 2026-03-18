@@ -9,8 +9,7 @@
 #' @param PA Number of parameters of model A (augmented model) with focal predictors of interest.
 #' Non-integer `PA` would be converted to be an integer using `as.integer()`.
 #' `as.integer(PA)` should be larger than `as.integer(PC)`.
-#' @param n The current sample size. Non-integer `n` would be converted to be an integer using `as.integer()`.
-#' Non-NULL `as.integer(n)` should be at least `as.integer(PA) + 1`.
+#' @param n The current sample size. Integer `n` should be at least `PA + 1L`.
 #' @param sig_level Expected significance level for effects of focal predictors.
 #'
 #' @returns Integer `n`, the F_test of `PRE` at the sample size `n` with
@@ -32,7 +31,10 @@ powered_lm <- function(PRE = 0.04,
 
   PC <- as.integer(PC)
   PA <- as.integer(PA)
-  n <- as.integer(n)
+
+  # theoretically n should be a integer
+  # to work with uniroot, n could be decimal here
+  # n <- as.integer(n)
 
   stopifnot(
     sum(sapply(list(
@@ -49,8 +51,8 @@ powered_lm <- function(PRE = 0.04,
     sig_level > 0,
     # if sig_level = 0, the computation would be endless.
     sig_level <= 1,
-    # Use ||, so if n is integer(0), (n > PA) would not be evaluated.
-    identical(n, integer(0)) || n >= PA + 1
+    # `n` should be at least `PA + 1L`
+    n >= PA + 1L
   )
 
   f_squared <- PRE / (1 - PRE)

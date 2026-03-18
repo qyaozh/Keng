@@ -23,10 +23,7 @@ print.Keng_power <- function(x, ...) {
                    "sig_level = ", x$sig_level, "\n",
                    "-- Sample size planning -----------", "\n",
                    "power = ", x$power, "\n",
-                   "Minimum sample size = ", x$minimum$n_i, "\n",
-                   if (is.na(x$minimum$n_i))
-                     paste0("Note. Sample size has reached ", x$n_ul, ", but power failed to reach ",  x$power, "."),
-                   sep = ""),
+                   "Minimum sample size = ", x$minimum, "\n"),
     power_lm = cat("-- Given ---------------------------", "\n",
                    "PRE = ", x$PRE, "\n",
                    "f_squared = ", x$f_squared, "\n",
@@ -35,9 +32,6 @@ print.Keng_power <- function(x, ...) {
                    "sig_level = ", x$sig_level, "\n",
                    "-- Sample size planning -----------", "\n",
                    "Expected power = ", x$power, "\n",
-                   "Minimum sample size = ", x$minimum$n_i, "\n",
-                   if (is.na(x$minimum$n_i))
-                       paste0("Note. Sample size has reached ", x$n_ul, ", but power failed to reach ",  x$power, "."),
-                   sep = "")
+                   "Minimum sample size = ", x$minimum, "\n")
   )
 }

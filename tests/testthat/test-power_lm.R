@@ -1,7 +1,8 @@
 test_that("power_lm", {
   # test 1
   out1 <- unlist(powered_lm(PRE = calc_PRE(r_p = 0.2)$PRE, PC = 1, PA = 2, n = 193))
-  out2 <- unlist(power_lm(PRE = calc_PRE(r_p = 0.2)$PRE, PC = 1, PA = 2)$minimum)
+  out2 <- power_lm(PRE = calc_PRE(r_p = 0.2)$PRE, PC = 1, PA = 2)
+  out2 <- unlist(out2$priori[nrow(out2$priori),])
   expect_equal(out1, out2, ignore_attr = TRUE)
 
   # test 2, power_lm, compare_lm

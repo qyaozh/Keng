@@ -21,12 +21,12 @@ plot.Keng_power <- function(x, ...) {
                    power_r = paste0("Note. ",
                                     "r = ", x$r, ", ",
                                     "sig_level = ", x$sig_level, ", ",
-                                    "planned sample size = ", x$minimum$n_i, "."),
+                                    "planned sample size = ", x$minimum, "."),
                    power_lm = paste0("Note. ",
                                      "PRE = ", x$PRE, ", ",
                                      "PC = ", x$PC, ", ", "PA = ", x$PA, ", ",
                                      "sig_level = ", x$sig_level, ", ",
-                                     "planned sample size = ", x$minimum$n_i, "."))
+                                     "planned sample size = ", x$minimum, "."))
   plot_power_n <-
     graphics::plot(
       formula = power_i ~ n_i,
@@ -38,14 +38,14 @@ plot.Keng_power <- function(x, ...) {
       ylab = "Power") +
     graphics::abline(
     h = x$power,
-    v = x$minimum$n_i,
+    v = x$minimum,
     lwd = 2,
     lty = 3,
     col = "#FCC307") +
     graphics::text(
-      x = x$minimum$n_i,
+      x = x$minimum,
       y = 0.05,
-      labels = x$minimum$n_i,
+      labels = x$minimum,
       col = "#FCC307") +
     graphics::title(
       main = "Power ~ Sample Size",

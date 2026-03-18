@@ -11,19 +11,16 @@
 #' `as.integer(PA)` should be larger than `as.integer(PC)`.
 #' @param sig_level Expected significance level for effects of focal predictors.
 #' @param power Expected statistical power for effects of focal predictors.
-#' @param power_ul The upper limit of power below which the minimum sample size is searched.
-#' `power_ul` should be larger than `power`, and the maximum `power_ul` is 1.
 #' @param n_ul The upper limit of sample size below which the minimum required sample size is searched.
 #' Non-integer `n_ul` would be converted to be an integer using `as.integer()`.
 #' `as.integer(n_ul)` should be at least `as.integer(PA) + 1`.
 #'
-#' @details `power_ul` and `n_ul` determine the total times of power_lm()'s attempts searching for the minimum required sample size,
+#' @details `n_ul` determine the total times of power_lm()'s attempts searching for the minimum required sample size,
 #' hence the number of rows of the returned power table `priori` and the right limit of the horizontal axis of the returned power plot.
-#' `power_lm()` will keep running and gradually raise the sample size to `n_ul` until the sample size pushes the power level to `power_ul`.
+#' `power_lm()` will keep searching for the minimum required sample size that pushes the power level to `power`.
 #' When PRE is very small (e.g., less than 0.001) and power is larger than 0.8,
 #' a huge increase in sample size only brings about a trivial increase in power, which is cost-ineffective.
-#' To make `power_lm()` omit unnecessary attempts, you could set `power_ul` to be a value less than 1 (e.g., 0.90),
-#' and/or set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
+#' To make `power_lm()` omit unnecessary attempts, you could set `n_ul` to be a value less than 1.45e+09 (e.g., 10000).
 #'
 #' @return A Keng_power class, also a list. If sample size `n` is not given, the following results would be returned:
 #' `[[1]]` `PRE`;
@@ -32,9 +29,8 @@
 #' `[[4]]` `PA`;
 #' `[[5]]` `sig_level`, expected significance level for effects of focal predictors;
 #' `[[6]]` `power`, expected statistical power for effects of focal predictors;
-#' `[[7]]` `power_ul`, the upper limit of power;
-#' `[[8]]` `n_ul`, the upper limit of sample size;
-#' `[[9]]` `minimum`, the minimum sample size `n_i` required for focal predictors to reach the
+#' `[[7]]` `n_ul`, the upper limit of sample size;
+#' `[[8]]` `minimum`, the minimum sample size `n_i` required for focal predictors to reach the
 #' expected statistical power and significance level, and corresponding
 #' `df_A_C`(the df of the numerator of the F-test, i.e., the difference of the dfs between model C and model A),
 #' `df_A_i`(the df of the denominator of the F-test, i.e., the df of the model A at the sample size `n_i`),
@@ -42,7 +38,7 @@
 #' `p_i`(the p-value of `F_i`),
 #' `lambda_i`(the non-centrality parameter of the F-distribution for the alternative hypothesis, given `PRE` and `n_i`),
 #' `power_i`(the actual power of `PRE` at the sample size `n_i`);
-#' `[[10]]` `priori`, a priori power table with increasing sample sizes (`n_i`) and power(`power_i`).
+#' `[[9]]` `priori`, a priori power table with increasing sample sizes (`n_i`) and power(`power_i`).
 #'
 #' By default, `print()` prints the primary but not all contents of the `Keng_power` class.
 #' To inspect more contents, use `print.AsIs()` or list extracting.
@@ -55,19 +51,18 @@
 #' print(power_lm())
 #' plot(power_lm())
 power_lm <- function(PRE = 0.02,
-                     PC = 1,
-                     PA = 2,
+                     PC = 1L,
+                     PA = 2L,
                      sig_level = 0.05,
                      power = 0.8,
-                     power_ul = 1,
-                     n_ul = 1.45e+09) {
+                     n_ul = 1.45e+09L) {
   PC <- as.integer(PC)
   PA <- as.integer(PA)
   n_ul <- as.integer(n_ul)
 
   stopifnot(
     sum(sapply(
-      list(PRE, PC, PA, sig_level, power, power_ul, n_ul), is.null
+      list(PRE, PC, PA, sig_level, power, n_ul), is.null
     )) == 0,
     PRE > 0,
     # If PRE = 0, the computation would be endless.
@@ -81,45 +76,43 @@ power_lm <- function(PRE = 0.02,
     # power could be 1.
     # If PRE is very very small, n_i will grow towards Inf. Limit the maximum n_i to be 100,000.
     power <= 1,
-    power_ul >= power,
-    power_ul <= 1,
-    # power_ul must <= 1, otherwise the loop will be endless because power_i cannot > 1.
     sig_level > 0,
     # if sig_level = 0, the computation would be endless.
     sig_level <= 1,
-    n_ul >= PA + 1 # the loop begin from n_i = PA + 1
+    n_ul >= PA + 1 # uniroot search begin from n_i = PA + 1
   )
 
   f_squared <- PRE / (1 - PRE)
   df_A_C <- PA - PC
 
   # a priori power
-  index <- 1
-  n_i <- PA + 1
-  priori <- list()
-  power_i <- 0
+  root <- tryCatch({
+    # code may return error
+    uniroot(
+      function(n) powered_lm(PRE = PRE, PC = PC, PA = PA, n = n, sig_level = sig_level)$power - power,
+      interval = c(PA + 1L, n_ul),
+      tol = .Machine$double.eps
+    )$root
+  }, error = function(e) {
+    # deal with error
+    message(
+      paste0("The minimum required sample size does not exist within the range of 3-",n_ul,"."))
+    # minimum <- NA
+    return(NA)
+  })
 
-  # The maximum power_i is 1, and the maximum power_ul is 1.
-  # Do not use "power_i <= power_ul" to keep the while alive,
-  # when power_ul = 1, the loop will be endless.
+  # minimum sample size
+  minimum <- ceiling(root)
 
-  while ((power_i < power_ul) & (n_i <= n_ul)) {
-    priori[[index]]  <- powered_lm(
-      PRE = PRE,
-      PC = PC,
-      PA = PA,
-      n = n_i,
-      sig_level = sig_level
-    )
-    power_i <- priori[[index]]$power
-    index <- index + 1
-    n_i <- n_i + 1
+  # power plot data
+  if (is.na(root)) {
+    n_i <- seq(PA + 1L, n_ul)
+  } else {
+    n_i <- seq(PA + 1L, minimum)
   }
-
-  priori <- data.frame(matrix(unlist(priori), ncol = 7, byrow = TRUE))
+  priori <- powered_lm(PRE = PRE, PC = PC, PA = PA, n = n_i, sig_level = sig_level)
+  priori <- data.frame(priori)
   names(priori) <- c("n_i", "df_A_C", "df_A_i", "F_i", "p_i", "lambda_i", "power_i")
-
-  minimum <- priori[priori$power_i >= power, ][1, ]
 
   method <- "power_lm"
 
@@ -131,8 +124,8 @@ power_lm <- function(PRE = 0.02,
       PA = PA,
       sig_level = sig_level,
       power = power,
-      power_ul = power_ul,
       n_ul = n_ul,
+      root = root,
       minimum = minimum,
       priori = priori,
       method = method

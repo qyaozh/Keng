@@ -3,7 +3,7 @@ test_that("power_r", {
   ## Powers of power_lm() and power_r() change at different pace against discrete sample size,
   ## which lead to different minimum n in power_lm() and power_r(). Hence fixed r is used here.
   r <- 0.2
-  expect_equal(power_lm(r^2, 1, 2)$minimum$n_i, power_r(r)$minimum$n_i)
+  expect_equal(power_lm(r^2, 1, 2)$minimum, power_r(r)$minimum)
 
   # test 2, error, r
   expect_error(power_r(r = -2))
