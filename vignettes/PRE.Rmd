@@ -28,10 +28,10 @@ PRE is called partial R-squared in regression, and partial Eta-squared in ANOVA.
 ```{r}
 # factor gender and class
 depress_factor <- depress
-depress_factor$class <- factor(depress_factor$class, labels = c(3,5,9,12))
-depress_factor$gender <- factor(depress_factor$gender, labels = c(0,1))
+depress_factor$class100 <- factor(depress_factor$class100, labels = c(3,5,9,12))
+depress_factor$gender100 <- factor(depress_factor$gender100, labels = c(0,1))
 
-anova.fit <- lm(dm1 ~ gender + class, depress_factor)
+anova.fit <- lm(depr1 ~ gender100 + class100, depress_factor)
 Anova(anova.fit, type = 3)
 cat("\n\n")
 print(eta_squared(Anova(anova.fit, type = 3), partial = TRUE), digits = 6)
@@ -41,18 +41,18 @@ Then we conduct regression analysis and compute *PRE*. For `class` with four lev
 
 ```{r}
 # class3 indicates whether the class is class3 
-depress$class3 <- ifelse(depress$class == 3, 1, 0)
+depress$class3 <- ifelse(depress$class100 == 1, 1, 0)
 # class5 indicates whether the class is class5 
-depress$class5 <- ifelse(depress$class == 5, 1, 0)
+depress$class5 <- ifelse(depress$class100 == 2, 1, 0)
 # class9 indicates whether the class is class9 
-depress$class9 <- ifelse(depress$class == 9, 1, 0)
+depress$class9 <- ifelse(depress$class100 == 3, 1, 0)
 ```
 
 We compute the *PRE* of `gender` though comparing Model A with `gender` against Model C without `gender`.
 
 ```{r}
-fitC <- lm(dm1 ~ class3 + class5 + class9, depress)
-fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
+fitC <- lm(depr1 ~ class3 + class5 + class9, depress)
+fitA <- lm(depr1 ~ class3 + class5 + class9 + gender100, depress)
 print(compare_lm(fitC, fitA), digits = 3)
 ```
 
@@ -61,8 +61,8 @@ Compare gender's *PRE* and partial Eta-squared. They should be equal.
 We compute the *PRE* of `class`. Note that in regression, the *PRE* of `class` is the *PRE* of all `class`'s dummy codes: `class3`, `class5`, and `class9`.
 
 ```{r}
-fitC <- lm(dm1 ~ gender, depress)
-fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
+fitC <- lm(depr1 ~ gender100, depress)
+fitA <- lm(depr1 ~ class3 + class5 + class9 + gender100, depress)
 print(compare_lm(fitC, fitA), digits = 3)
 ```
 Compare class's *PRE* and partial Eta-squared. They should be equal.
@@ -70,8 +70,8 @@ Compare class's *PRE* and partial Eta-squared. They should be equal.
 We compute the *PRE* of the full model(Model A). The *PRE* (partial R-squared or partial Eta-squared) of the full model is commonly known as the R-squared or Eta-squared of the full model.
 
 ```{r}
-fitC <- lm(dm1 ~ 1, depress)
-fitA <- lm(dm1 ~ class3 + class5 + class9 + gender, depress)
+fitC <- lm(depr1 ~ 1, depress)
+fitA <- lm(depr1 ~ class3 + class5 + class9 + gender100, depress)
 print(compare_lm(fitC, fitA), digits = 3)
 ```
 As shown, the *PRE* of Model A against Model C is equal to Model A's R_squared. Taken the loss of precision into consideration, Model C's R_squared is zero.

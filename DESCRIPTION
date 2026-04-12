@@ -9,7 +9,7 @@ Authors@R:
     role = c("aut", "cre"),
     comment = c(ORCID = "0000-0002-6891-5982"))
 Description: Miscellaneous functions and data used in psychological research and teaching. Keng 
-    currently has a built-in dataset depress, and could (1) scale a vector; 
+    currently has four built-in datasets, and could (1) scale a vector; 
     (2) divide a vector into three groups, 
     (3) compute the cut-off values of Pearson's r with known sample size; 
     (4) test the significance and compute the post-hoc power for Pearson's r with known sample size; 

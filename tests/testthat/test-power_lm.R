@@ -7,8 +7,9 @@ test_that("power_lm", {
 
   # test 2, power_lm, compare_lm
   data(depress)
-  fit1 <- lm(dm1 ~ pm1, depress)
-  fit2 <- lm(dm1 ~ pm1 + em1, depress)
+  depress <- depress[!(is.na(depress$cope_task1)|(is.na(depress$cope_emo1))),]
+  fit1 <- lm(depr1 ~ cope_task1, depress)
+  fit2 <- lm(depr1 ~ cope_task1 + cope_emo1, depress)
   expect_equal(
     powered_lm(PRE = compare_lm(fit1, fit2)[8, 4], PC = 2, PA = 3, n = nrow(depress))$F,
     compare_lm(fit1, fit2)[9, 4],
