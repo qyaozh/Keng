@@ -3,7 +3,7 @@
 \docType{data}
 \name{depress1}
 \alias{depress1}
-\title{Data sets from the D research}
+\title{The 1st wave data from the D research}
 \format{
 \subsection{\code{depress1}}{
 

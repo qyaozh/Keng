@@ -1,4 +1,4 @@
-#' Data sets from the D research
+#' The 2nd wave data from the D research
 #'
 #' D refers to Depression. D research is a three-wave longitudinal survey research.
 #' Here are four data sets, `depress1` only includes data collected at wave 1,

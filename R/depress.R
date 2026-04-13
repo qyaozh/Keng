@@ -1,4 +1,4 @@
-#' Data sets from the D research
+#' Three-wave data from the D research
 #'
 #' D refers to Depression. D research is a three-wave longitudinal survey research.
 #' Here are four data sets, `depress1` only includes data collected at wave 1,
@@ -13,15 +13,15 @@
 #' \describe{
 #'   \item{date100}{Date of the response. The 1 in the hundreds place indicates the 1st-wave survey. The rest variables also follow this naming rule.}
 #'   \item{id}{Participant id}
-#'   \item{gender100}{Gender. 1 = boy, 2 = girl.}
-#'   \item{age100}{Age in year.}
-#'   \item{grade100}{Grade.}
-#'   \item{class100}{Class.}
-#'   \item{boarder100}{Boarder. 1 = this student lived at school during term time, 2 = this student did not live at school during term time.}
-#'   \item{cost100}{Cost in yuan per month.}
-#'   \item{fedu100}{Father education level. 0 = no formal school education, 1 = primary school, 2 = middle school, 3 = high school or equivalent, 4 = college or equivalent, 5 = master's degree, 6 = doctor's degree.}
-#'   \item{medu100}{Mother education level. The coding scheme is identical to that of `fedu`.}
-#'   \item{intervene100}{Intervene. 0 = control group, 1 = intervention group.}
+#'   \item{gender}{Gender. 1 = boy, 2 = girl.}
+#'   \item{age}{Age in year.}
+#'   \item{grade}{Grade.}
+#'   \item{class}{Class.}
+#'   \item{boarder}{Boarder. 1 = this student lived at school during term time, 2 = this student did not live at school during term time.}
+#'   \item{cost}{Cost in yuan per month.}
+#'   \item{fedu}{Father education level. 0 = no formal school education, 1 = primary school, 2 = middle school, 3 = high school or equivalent, 4 = college or equivalent, 5 = master's degree, 6 = doctor's degree.}
+#'   \item{medu}{Mother education level. The coding scheme is identical to that of `fedu`.}
+#'   \item{intervene}{Intervene. 0 = control group, 1 = intervention group.}
 #'   \item{attr112}{Attributional style questionnaire (Peterson, 1982). All items in this questionnaire were rated on a 7-point bipolar scale. The 1 in the tens place indicates the 1st situation, positive achievement situation. The 2 in the last place indicates the 2nd item, internal attribution. High scores indicate more internal attribution.}
 #'   \item{attr113}{Attributional style questionnaire. The 3 in the last place indicates the 3rd item, stable attribution. High scores indicate more stable attribution.}
 #'   \item{attr114}{Attributional style questionnaire. The 4 in the last place indicates the 4th item, global attribution. High scores indicate more global attribution.}
