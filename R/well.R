@@ -48,6 +48,25 @@
 #'   SPNE measures positive (item 01, 03, 05, 07, 10, 12) and negative (item 02, 04, 06, 08, 9, 11)
 #'   emotions on a 5-point scale (1 = very rarely or never, 5 = very often or always).
 #'   High positive emotion and low negative emotion indicate high hedonic well-being.}
+#'   \item{flourish1}{Flourish, wave 1. All scale scores and dimension scores in this data are computed by averaging corresponding items.}
+#'   \item{posEmo1}{Positive Emotions, wave 1.}
+#'   \item{negEmo1}{Negative Emotions, wave 1.}
+#'   \item{grit1}{Grit, wave 1.}
+#'   \item{perseverance1}{Perseverance, wave 1.}
+#'   \item{passion1}{Passion, wave 1.}
+#'   \item{hedonic1}{Hedonic well-being motivation, wave 1.}
+#'   \item{eudaimonic1}{Eudaimonic well-being motivation, wave 1.}
+#'   \item{extrinsic1}{Extrinsic well-being motivation, wave 1.}
+#'   \item{csspm1}{Career Social Support, Parents, Material, wave 1.}
+#'   \item{csspa1}{Career Social Support, Parents, Advice, wave 1.}
+#'   \item{csspe1}{Career Social Support, Parents, Emotional, wave 1.}
+#'   \item{csspi1}{Career Social Support, Parents, Information, wave 1.}
+#'   \item{csssm1}{Career Social Support, Siblings, Material, wave 1.}
+#'   \item{csstm1}{Career Social Support, Teachers, Material, wave 1.}
+#'   \item{cssfm1}{Career Social Support, Friends, Material, wave 1.}
+#'   \item{cssrm1}{Career Social Support, Relatives, Material, wave 1.}
+#'   \item{cssp1}{Career Social Support, Parents, wave 1.}
+#'   \item{cssm1}{Career Social Support, Material, wave 1.}
 #' }
 #' @source Keng package.
 #' @references Lefebvre, A., & Huta, V. (2021). Age and gender differences in eudaimonic, hedonic, and extrinsic motivations.
