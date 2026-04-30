@@ -15,9 +15,10 @@ The 1st digit indicates the wave number, and the last two digits indicate the it
 The rest variables also follow this naming rule.}
 \item{age100}{Age in years, wave 1.}
 \item{grade100}{Grade, wave 1.}
-\item{income100}{Monthly income of the family, wave1.}
-\item{loan300}{Received national student loan in the past year. Reported at wave 3.}
-\item{cost100}{Monthly cost of the participant, wave1.}
+\item{income100}{Monthly income (￥) of the family, wave1.}
+\item{loan300}{National student loan in the past year. Reported at wave 3. 0 = Not received, 1 = Received.}
+\item{cost100}{Monthly cost of the participant, wave1. "1" = "＜500￥", "2" = "500-1000￥",
+"3" = "1000-1500￥","4" = "1500-2000￥","5" = "2000-2500￥", "6" = ">2500￥".}
 \item{SSES100}{Subjective Socioeconomic Status, wave1.
 SSES was measured through the 10-step social ladder,
 with high scores indicating high status.}
@@ -25,7 +26,7 @@ with high scores indicating high status.}
 and Extrinsic Motivations for Activities (Lefebvre & Huta, 2021).
 HEEMA was rated on a 7-point scale (1 = not at all, 7 = very much).
 HEEMA measures three kind of motivations: Hedonic (item 01, 04, 06, 07, 09, 16),
-eudaimonic (02, 03, 05, 08, 10), and Extrinsic (item 11, 12, 13, 14, 15).}
+eudaimonic (item 02, 03, 05, 08, 10), and Extrinsic (item 11, 12, 13, 14, 15).}
 \item{cssp101}{Career Social Support from Parents, wave 1, item 01.
 CSS investigates four kind of support using a 5-point scale (1 = almost none, 5 = very much; Hou et al, 2010):
 material (item 01, 02, 03), advice (item 04, 05, 06, 07, 08, 09),
@@ -34,14 +35,14 @@ emotional (item 10, 11, 12, 13), and information (14, 15, 16, 17, 18, 19, 20).}
 \item{csst101}{Career Social Support from Teachers, wave 1, item 01.}
 \item{cssf101}{Career Social Support from Friends, wave 1, item 01.}
 \item{cssr101}{Career Social Support from Relatives, wave 1, item 01.}
-\item{grit101}{Grit scale, wave 1, item 01. Grit (Wei & Hu, 2017) is rated on a 5-point scale
+\item{grit101}{Grit scale (Wei & Hu, 2017), wave 1, item 01. Grit is rated on a 5-point scale
 (1 = not at all like me, 5 = very much like me). Item 1, 3, 5, and 6 should be reverse-scored.
 Grit has two dimensions: perseverance (item 02, 04,  07, 08) and passion (item 01, 03, 05, 06).
 After reverse scoring, high scores indicate high perseverance and passion.}
 \item{CET4100}{CET4 score, wave 1. CET4 = College English Test Band 4.
-CET4 = 0 indicates paticipants had not taken CET4 test.}
+0 = participants had not taken CET4 test.}
 \item{flourish101}{Flourish scale, wave 1, item 01. Flourish scale (Tong & Wang, 2017) was rated on a 5-point scale
-(1 = very disagree, 5 = very agree), with high scores indicating high eudaimonic well-being.}
+(1 = very disagree, 7 = very agree), with high scores indicating high eudaimonic well-being.}
 \item{spne101}{SPNE scale, wave 1, item 01. SPNE = Scale of Positive and Negative Experience (Tong & Wang, 2017).
 SPNE measures positive (item 01, 03, 05, 07, 10, 12) and negative (item 02, 04, 06, 08, 9, 11)
 emotions on a 5-point scale (1 = very rarely or never, 5 = very often or always).
