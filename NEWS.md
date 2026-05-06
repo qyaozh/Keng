@@ -1,5 +1,7 @@
 # Keng (development version)
 
+* New data has been added.
+
 # Keng 2026.3.19
 
 * `power_r`, `power_lm()`, `print.Keng_power()`, and `plot.Keng_power()` have been rewritten using `uniroot()`.
