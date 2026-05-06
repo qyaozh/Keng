@@ -43,8 +43,11 @@ Their usages are detailed in the documentation.
 
 ### Data
 
-`depress` is a subset of data from a research about depression and
-coping.
+Four data sets (i.e., `depress`, `depress1`, `depress2`, `depress3`)
+from the D (depression) research.
+
+Four data sets (i.e., `well`, `well1`, `well2`, `well3`) from the W
+(well-being) research.
 
 ### Variable transformation
 
