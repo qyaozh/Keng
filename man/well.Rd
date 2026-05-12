@@ -15,10 +15,10 @@ The 1st digit indicates the wave number, and the last two digits indicate the it
 The rest variables also follow this naming rule.}
 \item{age100}{Age in years, wave 1.}
 \item{grade100}{Grade, wave 1.}
-\item{income100}{Monthly income (￥) of the family, wave1.}
+\item{income100}{Monthly income (RMB) of the family, wave1.}
 \item{loan300}{National student loan in the past year. Reported at wave 3. 0 = Not received, 1 = Received.}
-\item{cost100}{Monthly cost of the participant, wave1. "1" = "＜500￥", "2" = "500-1000￥",
-"3" = "1000-1500￥","4" = "1500-2000￥","5" = "2000-2500￥", "6" = ">2500￥".}
+\item{cost100}{Monthly cost of the participant, wave1. "1" = "<500RMB", "2" = "500-1000RMB",
+"3" = "1000-1500RMB","4" = "1500-2000RMB","5" = "2000-2500RMB", "6" = ">2500RMB".}
 \item{SSES100}{Subjective Socioeconomic Status, wave1.
 SSES was measured through the 10-step social ladder,
 with high scores indicating high status.}
@@ -86,7 +86,7 @@ has computed variable scores like \code{flourish1}, which indicates the flourish
 }
 \references{
 Lefebvre, A., & Huta, V. (2021). Age and gender differences in eudaimonic, hedonic, and extrinsic motivations.
-Journal of Happiness Studies, 22, 2299-2321.
+\emph{Journal of Happiness Studies}, 22, 2299-2321.
 
 Hou, Z., Bai, R., & Yao, Y. (2010). Development of career social support inventory for Chinese college students.
 Chinese Journal of Clinical Psychology, 18(4), 439-442.
@@ -94,6 +94,6 @@ Chinese Journal of Clinical Psychology, 18(4), 439-442.
 Wei, Y., & Hu, J. (2017). Grit: Concept, structure, influencing factors, and consequences.
 Psychology: Techniques and Applications, 5(1), 52-61.
 
-Tong, K. K. & Wang, Y. Y. (2017). Validation of the Flourishing Scale and Scale of Positive and Negative Experience in a Chinese Community Sample. PlosOne 12(8): e0181616. https://doi.org/10.1371/journal.pone.0181616
+Tong, K. K. & Wang, Y. Y. (2017). Validation of the Flourishing Scale and Scale of Positive and Negative Experience in a Chinese Community Sample. PLUS ONE, 12(8), e0181616.
 }
 \keyword{datasets}

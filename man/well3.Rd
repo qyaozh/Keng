@@ -61,6 +61,6 @@ Chinese Journal of Clinical Psychology, 18(4), 439-442.
 Wei, Y., & Hu, J. (2017). Grit: Concept, structure, influencing factors, and consequences.
 Psychology: Techniques and Applications, 5(1), 52-61.
 
-Tong, K. K. & Wang, Y. Y. (2017). Validation of the Flourishing Scale and Scale of Positive and Negative Experience in a Chinese Community Sample. PlosOne 12(8): e0181616. https://doi.org/10.1371/journal.pone.0181616
+Tong, K. K. & Wang, Y. Y. (2017). Validation of the Flourishing Scale and Scale of Positive and Negative Experience in a Chinese Community Sample. PLUS ONE, 12(8), e0181616.
 }
 \keyword{datasets}
