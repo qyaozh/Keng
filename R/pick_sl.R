@@ -50,9 +50,9 @@ pick_sl <- function(size = 1L, verbose = TRUE) {
     if (verbose)
       cat(
         paste(balls[[i]][1:5], collapse = ", "),
-        "&\033[32m",
+        "&",
         paste(balls[[i]][6:7], collapse = ", "),
-        "\033[0m\n"
+        "\n"
       )
   }
   invisible(balls)

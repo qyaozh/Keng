@@ -22,11 +22,10 @@ pick_dcb <- function(size = 1L, verbose = TRUE) {
                     blue = sort(sample.int(16, 1)))
     if (verbose)
       cat(
-        "\033[31m",
         paste(balls[[i]][1:6], collapse = ", "),
-        "\033[0m&\033[34m",
+        "&",
         balls[[i]][7],
-        "\033[0m\n"
+        "\n"
       )
   }
   invisible(balls)
