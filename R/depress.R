@@ -36,11 +36,11 @@
 #'   \item{cope101}{Coping inventory (Endler & Parker, 1994). All items in this inventory were rated on a 5-point Likert scale with 1 = rarely, 2 = seldom, 3 = moderately, 4 = often, 5 = very often. The "01" in the last two places indicates item 01. Item 01, as well as item 02, 06, 10, 16, 22, 25, 27, 28, 37, 40, 42, 43, 44, 47, and 48, measured task-oriented coping.}
 #'   \item{cope105}{Coping inventory. The "05" in the last two places indicates item 05. Item 05, as well as item 07, 08, 14, 15, 17, 18, 20, 23, 26, 29, 31, 34, 35, 39, and 46, measured emotion-oriented coping.}
 #'   \item{cope103}{Coping inventory. The "03" in the last two places indicates item 03. Item 03, as well as item 04, 09, 11, 12, 19, 21, 24, 30, 32, 33, 36, 38, 41, 45, and 49, measured avoidance-oriented coping.}
-#'   \item{113}{Drinking. A coping strategy added by the D research to coping inventory.}
-#'   \item{150}{Smoking. A coping strategy added by the D research to coping inventory.}
+#'   \item{cope113}{Drinking. A coping strategy added by the D research to coping inventory.}
+#'   \item{cope150}{Smoking. A coping strategy added by the D research to coping inventory.}
 #'   \item{cope201}{Coping inventory, Wave 2, item 01.}
 #'   \item{cope302}{Coping inventory, Wave 3, item 02.}
-#'   \item{depr101}{Depression scale (Zung, et al., 1965). All items in this scale were rated on a 4-point Likert scale with 1 = rarely, 2 = seldom, 3 = often, 5 = always.}
+#'   \item{depr101}{Depression scale (Zung, et al., 1965). All items in this scale were rated on a 4-point Likert scale with 1 = rarely, 2 = seldom, 3 = often, 4 = always.}
 #'   \item{depr102}{Depression scale. Item 02, 05, 06, 11, 12, 14, 16, 17, 18, and 20 has been reverse-coded. High scores indicate severe depression.}
 #'   \item{ecr101}{Experience in close relationships scale (Fraley, et al., 2011). All items in this scale were rated on a 7-point Likert scale with 1 = strongly disagree, 2 = disagree, 3 = somewhat disagree, 4 = Neutral, 5 = somewhat agree, 6 = agree, 7 = strongly agree. Item 01, 03, 04, 06, 08, and 09 measured attachment avoidance.}
 #'   \item{ecr102}{Experience in close relationships scale. Item 02. Item 02, 05, and 07 measured attachment anxiety.}

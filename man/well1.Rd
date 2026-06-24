@@ -63,14 +63,14 @@ has computed variable scores like \code{flourish1}, which indicates the flourish
 }
 \references{
 Lefebvre, A., & Huta, V. (2021). Age and gender differences in eudaimonic, hedonic, and extrinsic motivations.
-Journal of Happiness Studies, 22, 2299-2321.
+\emph{Journal of Happiness Studies}, \emph{22}, 2299-2321.
 
 Hou, Z., Bai, R., & Yao, Y. (2010). Development of career social support inventory for Chinese college students.
-Chinese Journal of Clinical Psychology, 18(4), 439-442.
+\emph{Chinese Journal of Clinical Psychology}, \emph{18}(4), 439-442.
 
 Wei, Y., & Hu, J. (2017). Grit: Concept, structure, influencing factors, and consequences.
-Psychology: Techniques and Applications, 5(1), 52-61.
+\emph{Psychology: Techniques and Applications}, \emph{5}(1), 52-61.
 
-Tong, K. K. & Wang, Y. Y. (2017). Validation of the Flourishing Scale and Scale of Positive and Negative Experience in a Chinese Community Sample. PLUS ONE, 12(8), e0181616.
+Tong, K. K. & Wang, Y. Y. (2017). Validation of the Flourishing Scale and Scale of Positive and Negative Experience in a Chinese Community Sample. \emph{PLUS ONE}, \emph{12}(8), e0181616.
 }
 \keyword{datasets}
