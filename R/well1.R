@@ -1,6 +1,6 @@
 #' The 1st wave data from the W research
 #'
-#' W refers to well-being. W research is a three-wave longitudinal survey research.
+#' @description W refers to well-being. W research is a three-wave longitudinal survey research.
 #' Here are four data sets, `well1` only includes data collected at wave 1,
 #' `well2` at wave 2, and `well3` at wave 3. `well` was created by joining `well1`,
 #' `well2`, and `well3` together. `well` has done reverse-coding and
@@ -12,7 +12,7 @@
 #' The 1st wave data frame with 200 rows and 152 columns:
 #' \describe{
 #'   \item{id}{Participant id}
-#'   \item{gender}{Gender. 0 = boy, 1 = girl.
+#'   \item{gender}{Gender. 0 = boy, 1 = girl.}
 #'   \item{age}{Age in years.}
 #'   \item{grade}{Grade.}
 #'   \item{income}{Monthly income of the family.}

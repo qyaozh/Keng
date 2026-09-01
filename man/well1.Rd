@@ -10,7 +10,7 @@
 The 1st wave data frame with 200 rows and 152 columns:
 \describe{
 \item{id}{Participant id}
-\item{gender}{Gender. 0 = boy, 1 = girl.
+\item{gender}{Gender. 0 = boy, 1 = girl.}
 \item{age}{Age in years.}
 \item{grade}{Grade.}
 \item{income}{Monthly income of the family.}
