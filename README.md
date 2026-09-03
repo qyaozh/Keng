@@ -6,7 +6,8 @@
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/Keng)](https://CRAN.R-project.org/package=Keng)
+status](https://www.r-pkg.org/badges/version-last-release/Keng)![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/Keng)](https://CRAN.R-project.org/package=Keng)
 <!-- badges: end -->
 
 `Keng` is the abbreviation of “Knock Errors off Nice Guesses.” Hope the
