@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![GitHub
+status](https://img.shields.io/github/r-package/v/qyaozh/Keng)](https://github.com/qyaozh/Keng)
 [![CRAN status](https://www.r-pkg.org/badges/version/Keng)![CRAN
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/Keng)](https://CRAN.R-project.org/package=Keng)
 <!-- badges: end -->
