@@ -11,7 +11,8 @@ status](https://img.shields.io/github/r-package/v/qyaozh/Keng)](https://github.c
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/Keng)](https://CRAN.R-project.org/package=Keng)
 <!-- badges: end -->
 
-`Keng` is the abbreviation of “Knock Errors off Nice Guesses.” Hope the
+`Keng` is the Wade-Giles romanization of the Chinese character “庚”, and
+is also the abbreviation of “Knock Errors off Nice Guesses.” Hope the
 functions and data gathered in the `Keng` package help to ease your
 life.
 
